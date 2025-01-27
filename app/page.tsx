@@ -3,7 +3,6 @@ import React from 'react';
 // import Link from 'next/link';
 import LoginButton from './_components/login-button';
 import Image from 'next/image';
-import { Button } from '@/components/ui';
 
 const Graph = () => {
   return (

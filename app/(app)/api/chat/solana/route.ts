@@ -6,12 +6,13 @@ import { openai } from '@ai-sdk/openai';
 import { anthropic } from '@ai-sdk/anthropic';
 import { xai } from '@ai-sdk/xai';
 import { google } from '@ai-sdk/google';
+import { deepseek } from '@ai-sdk/deepseek';
 
 import { Models } from '@/types/models';
 import { chooseAgent } from './utils';
 import { agents } from '@/ai/agents';
 
-const system = `You a network of blockchain agents called Comet (or Hive for short). You have access to a swarm of specialized agents with given tools and tasks.
+const system = `You a network of blockchain agents called The Hive (or Hive for short). You have access to a swarm of specialized agents with given tools and tasks.
 
 Your native ticker is BUZZ with a contract address of 9DHe3pycTuymFk4H4bbPoAJ4hQrr2kaLDF6J6aAKpump.
 
@@ -45,6 +46,11 @@ export const POST = async (req: NextRequest) => {
   if (modelName === Models.Gemini) {
     model = google('gemini-2.0-flash-exp');
     MAX_TOKENS = 1048576;
+  }
+
+  if (modelName === Models.Deepseek) {
+    model = deepseek('deepseek-chat') as LanguageModelV1;
+    MAX_TOKENS = 64000;
   }
 
   if (!model || !MAX_TOKENS) {

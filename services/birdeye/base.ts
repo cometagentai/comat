@@ -5,7 +5,6 @@ export const queryBirdeye = async <T>(
   params?: Record<string, string | number>
 ): Promise<T> => {
   const url = new URL(`https://public-api.birdeye.so/${endpoint}`);
-  console.log(url);
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
       url.searchParams.append(key, String(value));
@@ -20,7 +19,6 @@ export const queryBirdeye = async <T>(
     },
   });
 
-  console.log(response);
   if (!response.ok) {
     throw new Error(`Birdeye API error: ${response.status}`);
   }

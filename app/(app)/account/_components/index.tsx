@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import React from 'react'
+import React from 'react';
 
 import { usePrivy } from '@privy-io/react-auth';
 
@@ -12,19 +12,18 @@ import AccountHeading from './heading';
 import ConnectedAccounts from './connected-accounts';
 
 const Account: React.FC = () => {
+  const { user, ready } = usePrivy();
 
-    const { user, ready } = usePrivy();
+  if (!ready) return <Skeleton className='h-full w-full' />;
 
-    if(!ready) return <Skeleton className="h-full w-full" />;
+  if (!user) return <NotLoggedIn />;
 
-    if(!user) return <NotLoggedIn />;
+  return (
+    <div className='flex flex-col max-w-2xl mx-auto gap-4'>
+      <AccountHeading user={user} />
+      {/* <ConnectedAccounts user={user} /> */}
+    </div>
+  );
+};
 
-    return (
-        <div className="flex flex-col max-w-2xl mx-auto gap-4">
-            <AccountHeading user={user} />
-            <ConnectedAccounts user={user} />
-        </div>
-    )
-}
-
-export default Account
+export default Account;
