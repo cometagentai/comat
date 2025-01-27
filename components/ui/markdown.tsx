@@ -92,9 +92,11 @@ export const Markdown: React.FC<Props> = ({
           },
           p({ children, node }) {
             const hasBlockElements = node?.children?.some(
-              (child: { type: string; tagName: string }) =>
+              (child: any) =>
                 child.type === 'element' &&
-                ['div', 'p', 'blockquote', 'form'].includes(child.tagName)
+                ['div', 'p', 'blockquote', 'form'].includes(
+                  (child as any).tagName
+                )
             );
 
             if (hasBlockElements) {

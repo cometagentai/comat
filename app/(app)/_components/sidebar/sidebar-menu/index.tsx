@@ -8,7 +8,7 @@ import ChatsGroup from './chats-group';
 import AccountButton from './account-button';
 import PortfolioButton from './portfolio-button';
 import HomeButton from './home-button';
-import TransactionButton from './transaction';
+// import TransactionButton from './transaction';
 
 const SidebarMenu: React.FC = () => {
   return (

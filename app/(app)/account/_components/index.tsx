@@ -9,7 +9,7 @@ import { Skeleton } from '@/components/ui';
 import NotLoggedIn from './not-logged-in';
 
 import AccountHeading from './heading';
-import ConnectedAccounts from './connected-accounts';
+// import ConnectedAccounts from './connected-accounts';
 
 const Account: React.FC = () => {
   const { user, ready } = usePrivy();
