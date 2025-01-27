@@ -73,9 +73,9 @@ const Message: React.FC<Props> = ({ message, className, previousMessage, nextMes
                 </div>
                 <p className={cn(
                     "text-sm font-semibold md:hidden",
-                    isUser ? "text-neutral-900 dark:text-neutral-100" : "text-sidebar-active dark:text-sidebar-active"
+                    isUser ? "text-neutral-900 dark:text-neutral-100" : "text-brand-600 dark:text-brand-600"
                 )}>
-                    {message.role === 'user' ? 'You' : 'Comat'}
+                    {message.role === 'user' ? 'You' : 'Comet'}
                 </p>
             </div>
             <div className="pt-2 w-full max-w-full md:flex-1 md:w-0 overflow-hidden flex flex-col gap-2">

@@ -49,7 +49,7 @@ const ToolCard = <ActionResultBodyType, ActionArgsType>({ tool, loadingText, res
                 {
                     tool.state === "result"
                         ? (tool.result.body 
-                            ? <Icon name={agentIcon} className="w-4 h-4 text-sidebar-active dark:text-sidebar-active" />
+                            ? <Icon name={agentIcon} className="w-4 h-4 text-brand-600 dark:text-brand-600" />
                             : <Icon name="X" className="w-4 h-4 text-red-500 dark:text-red-400" />)
                         : <Icon name={agentIcon} className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
                 }

@@ -13,7 +13,9 @@ import {
     SOLANA_TRADE_NAME,
     SOLANA_STAKE_NAME,
     SOLANA_UNSTAKE_NAME,
-    SOLANA_TRANSFER_NAME
+    SOLANA_TRANSFER_NAME,
+    SOLANA_DEPOSIT_LIQUIDITY_NAME,
+    SOLANA_WITHDRAW_LIQUIDITY_NAME
 } from '@/ai/action-names';
 
 export enum ColorMode {
@@ -22,9 +24,9 @@ export enum ColorMode {
 }
 
 // Define a type for tool results
-type ToolResult = {
+type ToolResult<T> = {
     message: string;
-    body?: Record<string, unknown>;
+    body?: T;
 }
 
 interface ChatContextType {
@@ -34,7 +36,7 @@ interface ChatContextType {
     onSubmit: () => Promise<void>;
     isLoading: boolean;
     sendMessage: (message: string) => void;
-    addToolResult: (toolCallId: string, result: ToolResult) => void;
+    addToolResult: <T>(toolCallId: string, result: ToolResult<T>) => void;
     isResponseLoading: boolean;
     model: Models;
     setModel: (model: Models) => void;
@@ -93,7 +95,7 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
         setMessages([]);
     }
 
-    const { messages, input, setInput, append, isLoading, addToolResult, setMessages } = useAiChat({
+    const { messages, input, setInput, append, isLoading, addToolResult: addToolResultBase, setMessages } = useAiChat({
         maxSteps: 20,
         onResponse: () => {
             setIsResponseLoading(false);
@@ -106,6 +108,13 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
             chatId,
         },
     });
+    
+    const addToolResult = <T,>(toolCallId: string, result: ToolResult<T>) => {
+        addToolResultBase({
+            toolCallId,
+            result,
+        })
+    }
 
     useEffect(() => {
         const updateChat = async () => {
@@ -153,7 +162,6 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
         let message = lastMessage.toolInvocations?.map(toolInvocation => {
             if(toolInvocation.state === "result") return '';
             const toolName = toolInvocation.toolName.slice(toolInvocation.toolName.indexOf('-') + 1);
-            console.log(toolName);
             switch(toolName) {
                 case SOLANA_TRADE_NAME:
                     return `Complete or cancel your trade`;
@@ -163,6 +171,10 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
                     return `Complete or cancel your stake`;
                 case SOLANA_UNSTAKE_NAME:
                     return `Complete or cancel your unstake`;
+                case SOLANA_DEPOSIT_LIQUIDITY_NAME:
+                    return `Complete or cancel your deposit`;
+                case SOLANA_WITHDRAW_LIQUIDITY_NAME:
+                    return `Complete or cancel your withdraw`;
                 case SOLANA_GET_WALLET_ADDRESS_NAME:
                     return `Connect your wallet`;
                 default:
@@ -184,10 +196,7 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
             isLoading,
             sendMessage,
             isResponseLoading,
-            addToolResult: (toolCallId: string, result: ToolResult) => addToolResult({
-                toolCallId,
-                result,
-            }),
+            addToolResult,
             model,
             setModel,
             setChat,

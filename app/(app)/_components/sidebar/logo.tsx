@@ -14,7 +14,7 @@ const Logo: React.FC = () => {
         <Link href="/">
             <LogoBase
                 showText={open}
-                className="w-8 h-8"
+                className="w-[150px]"
             />
         </Link>
     )

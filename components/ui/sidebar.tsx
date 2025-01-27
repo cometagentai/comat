@@ -244,7 +244,7 @@ const Sidebar = React.forwardRef<
         />
         <div
           className={cn(
-            "duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex",
+            "duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex bg-[#e4e4e4] dark:bg-[#292828]",
             side === "left"
               ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
               : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
@@ -258,7 +258,7 @@ const Sidebar = React.forwardRef<
         >
           <div
             data-sidebar="sidebar"
-            className="flex h-full w-full flex-col gap-2 bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
+            className="flex h-full w-full flex-col gap-2 bg-[#e4e4e4] dark:bg-[#292828] group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
           >
             {children}
           </div>
@@ -332,8 +332,8 @@ const SidebarInset = React.forwardRef<
     <main
       ref={ref}
       className={cn(
-        "relative flex min-h-[calc(100svh-theme(spacing.4))] max-h-[calc(100svh-theme(spacing.4))] overflow-hidden flex-1 flex-col bg-white dark:bg-[#010539]",
-        "peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-md md:peer-data-[variant=inset]:shadow",
+        "relative flex min-h-[calc(100svh-theme(spacing.4))] max-h-[calc(100svh-theme(spacing.4))] overflow-hidden flex-1 flex-col bg-white dark:bg-sidebar",
+        "peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-0",
         className
       )}
       {...props}
@@ -398,7 +398,7 @@ const SidebarSeparator = React.forwardRef<
     <Separator
       ref={ref}
       data-sidebar="separator"
-      className={cn("w-auto bg-[#ffffff2b]", className)}
+      className={cn("w-auto bg-[#4f4f55] dark:bg-[#36363c]", className)}
       {...props}
     />
   )
@@ -558,7 +558,7 @@ const sidebarMenuButtonVariants = cva(
         brand:
           "bg-brand-600 text-white hover:bg-brand-700 hover:text-white",
         brandOutline:
-          "border border-sidebar-active text-sidebar-active hover:bg-[#7a85e91f]",
+          "border border-[#2c99f4] text-[#2c99f4] hover:bg-[#1e8ae4]",
       },
       size: {
         default: "h-8 text-sm",

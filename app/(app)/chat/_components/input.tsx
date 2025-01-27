@@ -37,9 +37,9 @@ const ChatInput: React.FC = () => {
                 // Base styles
                 "w-full rounded-md flex flex-col overflow-hidden transition-colors duration-200 ease-in-out border border-transparent shadow-none",
                 // Light mode styles
-                "bg-neutral-100 focus-within:border-sidebar-active",
+                "bg-[#e4e4e4] focus-within:border-[#2c99f4]",
                 // Dark mode styles
-                "dark:bg-[#98a1ff24] dark:focus-within:border-sidebar-active",
+                "dark:bg-[#292828] dark:focus-within:border-[#2c99f4]",
                 isLoading && "opacity-50 cursor-not-allowed"
             )}
         >
@@ -48,7 +48,7 @@ const ChatInput: React.FC = () => {
                     ref={inputRef}
                     tabIndex={0}
                     onKeyDown={onKeyDown}
-                    placeholder="Ask Comat anything..."
+                    placeholder="Ask Comet anything..."
                     className={cn(
                         "w-full max-h-60 resize-none bg-transparent px-3 py-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-600 dark:placeholder:text-neutral-400 disabled:cursor-not-allowed disabled:opacity-50",
                         "focus-visible:outline-none",

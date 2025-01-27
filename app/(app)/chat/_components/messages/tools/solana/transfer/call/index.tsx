@@ -29,7 +29,7 @@ const TransferCall: React.FC<Props> = ({ args, toolCallId }) => {
 
     const { addToolResult } = useChat();
 
-    const { wallets, sendTransaction } = useSendTransaction();
+    const { wallet, sendTransaction } = useSendTransaction();
 
     const [amount, setAmount] = useState<string>(args.amount.toString());
     const [token, setToken] = useState<Token | null>(null);
@@ -38,7 +38,7 @@ const TransferCall: React.FC<Props> = ({ args, toolCallId }) => {
 
     const { data: inputTokenData, isLoading: inputTokenLoading } = useTokenDataByAddress(args.mint || "So11111111111111111111111111111111111111112");
 
-    const { balance, isLoading: balanceLoading } = useTokenBalance(args.mint || "So11111111111111111111111111111111111111112", wallets?.[0]?.address || "");
+    const { balance, isLoading: balanceLoading } = useTokenBalance(args.mint || "So11111111111111111111111111111111111111112", wallet?.address || "");
     
     useEffect(() => {
         if(inputTokenData && !token) {
@@ -47,9 +47,9 @@ const TransferCall: React.FC<Props> = ({ args, toolCallId }) => {
     }, [inputTokenData]);
 
     const onTransfer = async () => {
-        if(!wallets[0] || !wallets[0].address || !amount || !toAddress || !token) return;
+        if(!wallet || !amount || !toAddress || !token) return;
         setIsTransferring(true);
-        const transaction = await buildTransferTx(wallets[0].address, toAddress, Number(amount), token.id);
+        const transaction = await buildTransferTx(wallet.address, toAddress, Number(amount), token.id);
         try {
             
             const tx = await sendTransaction(transaction);
@@ -86,7 +86,7 @@ const TransferCall: React.FC<Props> = ({ args, toolCallId }) => {
                     onChangeToken={(token) => {
                         setToken(token);
                     }}
-                    address={wallets?.[0]?.address}
+                    address={wallet?.address}
                 />
                 <ChevronDown className="w-4 h-4" />
                 <Input
@@ -100,9 +100,7 @@ const TransferCall: React.FC<Props> = ({ args, toolCallId }) => {
             <Separator />
             <div className="flex flex-col gap-2">
                 {
-                    wallets.length === 0 ? (
-                        <LogInButton />
-                    ) : (
+                    wallet ? (
                         <Button
                             variant="brand"
                             onClick={onTransfer}
@@ -118,6 +116,8 @@ const TransferCall: React.FC<Props> = ({ args, toolCallId }) => {
                                             : "Transfer"
                             }
                         </Button>
+                    ) : (
+                        <LogInButton />
                     )
                 }
                 <Button

@@ -2,18 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-roboto), sans-serif;
-}
-
 p, a, input, textarea, button, body {
-  font-family: var(--font-open-sans), monospace;
+  font-family: var(--font-barlow), monospace;
 }
-
+.font-arimo {
+  font-family: var(--font-arimo), monospace;
+}
+.font-carlito {
+  font-family: var(--font-carlito), monospace;
+}
 @layer base {
   :root {
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 96%;
+    --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
@@ -21,22 +22,22 @@ p, a, input, textarea, button, body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 0, 0%, 90%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    --sidebar-active: 234, 71%, 68.3%;
+    --sidebar-active: 207, 90%, 56%;
   }
 
   body {
     @apply text-black dark:text-white bg-white dark:bg-neutral-900;
   }
   .dark {
-    --sidebar-background: 235 81.44% 22.1%;
+    --sidebar-background: 0 0% 9.02%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 235, 96.55%, 11.37%;
+    --sidebar-accent: 0, 0%, 25%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 0, 0%, 25%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    --sidebar-active: 234, 71%, 68.3%;
+    --sidebar-active: 207, 90%, 56;
   }
 }
 

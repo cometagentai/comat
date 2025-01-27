@@ -10,9 +10,10 @@ interface Props {
     tokenAddress: string
     tokenSymbol: string,
     setAmount?: (amount: string) => void,
+    digits?: number
 }
 
-const TokenBalance: React.FC<Props> = ({ address, tokenAddress, tokenSymbol, setAmount }) => {
+const TokenBalance: React.FC<Props> = ({ address, tokenAddress, tokenSymbol, setAmount, digits = 2 }) => {
 
     const { balance, isLoading } = useTokenBalance(tokenAddress, address);
 
@@ -22,7 +23,7 @@ const TokenBalance: React.FC<Props> = ({ address, tokenAddress, tokenSymbol, set
         <div className="flex items-center gap-2 text-neutral-500 dark:text-neutral-400">
             <Wallet className="w-3 h-3" />
             <p className="text-xs">
-                {balance.toLocaleString(undefined, { maximumFractionDigits: 2 })} {tokenSymbol}
+                {balance.toLocaleString(undefined, { maximumFractionDigits: digits })} {tokenSymbol}
             </p>
             {
                 setAmount && (

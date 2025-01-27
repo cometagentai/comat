@@ -32,13 +32,13 @@ const StarterButton: React.FC<Props> = ({ icon, title, description, prompt, clas
             onClick={() => sendMessage(prompt)}
         >
             <div className="flex flex-col">
-                <div className="flex items-center gap-2">
-                    <Icon name={icon} className="w-4 h-4 text-sidebar-active" />
-                    <p className="text-md font-bold text-sidebar-active">
+                <div className="flex items-center gap-2 text-[#292828] dark:text-[#ededed]">
+                    <Icon name={icon} className="w-4 h-4" />
+                    <p className="text-md font-bold font-arimo">
                         {title}
                     </p>
                 </div>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 hidden md:block">
+                <p className="text-xs text-[#7b7070] dark:text-[#ada4a4] hidden md:block font-carlito">
                     {description}
                 </p>
             </div>

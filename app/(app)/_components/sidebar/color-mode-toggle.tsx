@@ -22,7 +22,7 @@ const ColorModeToggle = () => {
             onClick={() => setMode(mode === ColorMode.DARK ? ColorMode.LIGHT : ColorMode.DARK)}
             size='icon'
             variant='ghost'
-			className='shrink-0 h-6 w-6 hover:bg-neutral-200 dark:hover:bg-sidebar-accent'
+			className='shrink-0 h-6 w-6 hover:bg-neutral-200 dark:hover:bg-neutral-700'
         >
             {mode === ColorMode.DARK ? <Sun className='w-4 h-4' /> : <Moon className='w-4 h-4' />}
         </Button>

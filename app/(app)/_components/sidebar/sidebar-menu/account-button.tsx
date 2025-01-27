@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import { User } from 'lucide-react';
+import { CircleUser } from 'lucide-react';
 
 import Link from 'next/link';
 
@@ -20,8 +20,8 @@ const AccountButton: React.FC = () => {
                 <SidebarMenuButton 
                     isActive={pathname?.includes('/account') ?? false}
                 >
-                    <h1 className="flex items-center gap-2 font-semibold">
-                        <User className="h-4 w-4" />
+                    <h1 className="flex items-center gap-2 font-normal font-carlito">
+                        <CircleUser className="h-4 w-4" />
                         Account
                     </h1>
                 </SidebarMenuButton>

@@ -23,8 +23,8 @@ const LoginButton: React.FC = () => {
 
     if (authenticated) return (
         <Link href="/chat">
-            <Button variant={'brand'}>
-                Get Started
+            <Button variant={'default'}>
+                Get Start
             </Button>
         </Link>
     );

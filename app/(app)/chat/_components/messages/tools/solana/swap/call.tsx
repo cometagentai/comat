@@ -10,7 +10,7 @@ import { useTokenDataByAddress } from '@/hooks';
 
 import { useChat } from '@/app/(app)/chat/_contexts/chat';
 
-import type { SolanaTradeArgumentsType } from '@/ai';
+import type { SolanaTradeArgumentsType, SolanaTradeResultBodyType } from '@/ai';
 
 interface Props {
     toolCallId: string,
@@ -39,10 +39,13 @@ const SwapCallBody: React.FC<Props> = ({ toolCallId, args }) => {
                         swapText="Swap"
                         swappingText="Swapping..."
                         onSuccess={(tx) => {
-                            addToolResult(toolCallId, {
+                            addToolResult<SolanaTradeResultBodyType>(toolCallId, {
                                 message: `Swap successful!`,
                                 body: {
-                                    tx
+                                    transaction: tx,
+                                    inputAmount: args.inputAmount || 0,
+                                    inputToken: inputTokenData?.symbol || "",
+                                    outputToken: outputTokenData?.symbol || "",
                                 }
                             });
                         }}

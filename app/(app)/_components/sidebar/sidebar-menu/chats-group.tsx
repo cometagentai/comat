@@ -54,7 +54,7 @@ const ChatsGroup: React.FC = () => {
                         <div className="flex items-center justify-between w-full">
                             <div className="flex items-center gap-2">
                                 <MessageSquare className="h-4 w-4" />
-                                <h1 className="text-sm font-semibold">Chats</h1>
+                                <h1 className="text-sm font-normal font-carlito">Chats</h1>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Link href='/chat'>
@@ -78,7 +78,7 @@ const ChatsGroup: React.FC = () => {
                     </SidebarMenuButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                    <SidebarMenuSub className="flex-1 overflow-hidden relative flex flex-col">
+                    <SidebarMenuSub className="flex-1 overflow-hidden relative flex flex-col font-carlito">
                         {
                             isLoading || !ready ? (
                                 <Skeleton className="h-10 w-full" />
@@ -103,11 +103,11 @@ const ChatsGroup: React.FC = () => {
                                     ))
                                 ) : (
                                     user ? (
-                                        <p className='text-sm text-neutral-500 dark:text-neutral-400 pl-2'>
+                                        <p className='text-sm text-neutral-500 dark:text-neutral-400 pl-2 font-carlito'>
                                             No chats found
                                         </p>
                                     ) : (
-                                        <p className='text-sm text-neutral-500 dark:text-neutral-400 pl-2'>
+                                        <p className='text-sm text-neutral-500 dark:text-neutral-400 pl-2 font-carlito'>
                                             Sign in to view your chats
                                         </p>
                                     )

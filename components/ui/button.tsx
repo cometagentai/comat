@@ -9,8 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-neutral-100 text-black hover:bg-neutral-200 dark:bg-neutral-800 dark:text-white dark:hover:bg-sidebar-accent",
-        brand: "bg-sidebar-active dark:bg-sidebar-active text-neutral-50 hover:bg-sidebar-accent dark:hover:bg-sidebar-accent",
+        default: "bg-[#2c99f4] text-black hover:bg-[#1e8ae4] dark:bg-[#2c99f4] dark:text-white dark:hover:bg-[#1e8ae4]",
+        brand: "bg-brand-600 dark:bg-brand-600 text-neutral-50 hover:bg-brand-600/90 dark:hover:bg-brand-600/90",
         destructive:
           "bg-red-500 text-neutral-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-neutral-50 dark:hover:bg-red-900/90",
         destructiveOutline:
@@ -24,7 +24,7 @@ const buttonVariants = cva(
         warningGhost:
           "hover:bg-yellow-500/10 text-yellow-500 dark:hover:bg-yellow-900/50",
         outline:
-          "border border-neutral-200 hover:bg-neutral-200/50 hover:text-neutral-900 dark:border-neutral-700 dark:hover:bg-sidebar-accent/50 dark:hover:text-neutral-50",
+          "border border-neutral-200 hover:bg-neutral-200/50 hover:text-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-700/50 dark:hover:text-neutral-50",
         secondary:
           "bg-neutral-100 text-neutral-900 hover:bg-neutral-100/80 dark:bg-neutral-800 dark:text-neutral-50 dark:hover:bg-neutral-800/80",
         ghost: "hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-50 text-black dark:text-white",
@@ -33,7 +33,7 @@ const buttonVariants = cva(
         brandOutline: "border border-brand-500 hover:bg-brand-500/10 text-brand-500 dark:border-brand-900 dark:hover:bg-brand-900/50"
       },
       size: {
-        default: "h-9 px-4 py-2",
+        default: "h-9 px-4 py-2 text-[16px]",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",

@@ -12,7 +12,7 @@ const OpenSidebarTrigger: React.FC = () => {
 
     return (
         <SidebarTrigger 
-            className="hover:bg-neutral-200 dark:hover:bg-sidebar-accent h-6 w-6"
+            className="hover:bg-neutral-200 dark:hover:bg-neutral-700 h-6 w-6"
         />
     )
 }

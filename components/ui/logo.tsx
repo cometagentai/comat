@@ -12,7 +12,7 @@ interface Props {
 export const Logo: React.FC<Props> = ({ className, showText = false, textClassName }) => {
     return (
         <div className="flex items-center gap-2">
-            <Image 
+            {/* <Image 
                 src="/logo.png" 
                 alt="Logo" 
                 width={100} 
@@ -20,16 +20,28 @@ export const Logo: React.FC<Props> = ({ className, showText = false, textClassNa
                 className={cn("w-10 h-10 hidden dark:block", className)} 
             />
             <Image 
-                src="/logo-light-v.png" 
+                src="/logo.png" 
                 alt="Logo" 
                 width={100} 
                 height={100} 
                 className={cn("w-10 h-10 block dark:hidden", className)} 
+            /> */}
+            <Image 
+                src="/logo.png" 
+                alt="Logo" 
+                width={357} 
+                height={124} 
+                className={cn(" hidden dark:block", className)} 
+            />
+            <Image 
+                src="/logo-light-v.png" 
+                alt="Logo" 
+                width={357} 
+                height={124} 
+                className={cn(" block dark:hidden", className)} 
             />
             {showText && (
-                <h3 className={cn("text-lg font-bold", textClassName)}>
-                    Comat
-                </h3>
+                <div className={cn("text-lg font-bold", textClassName)}></div>
             )}
         </div>
     )

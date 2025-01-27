@@ -7,13 +7,14 @@ import { cn } from '@/lib/utils'
 import TokenBalance from './token-balance'
 import { usePrice } from '@/hooks/queries/price'
 import { Skeleton } from '@/components/ui'
+import TokenDisplay from '@/app/_components/token-display'
 
 interface Props {
     label: string,
     amount: string,
     onChange?: (amount: string) => void,
     token: Token | null,
-    onChangeToken: (token: Token | null) => void,
+    onChangeToken?: (token: Token | null) => void,
     address?: string,
 }
 
@@ -64,10 +65,18 @@ const TokenInput: React.FC<Props> = ({ label, amount, onChange, token, onChangeT
                         )
                     }
                 </div>
-                <TokenSelect
-                    value={token}
-                    onChange={onChangeToken}
-                />
+                {
+                    onChangeToken ? (
+                        <TokenSelect
+                            value={token}
+                            onChange={onChangeToken}
+                        />
+                    ) : (
+                        token && (
+                            <TokenDisplay token={token} />
+                        )
+                    )
+                }
             </div>
         </div>
     )
@@ -76,7 +85,7 @@ const TokenInput: React.FC<Props> = ({ label, amount, onChange, token, onChangeT
 export const TokenInputValue = ({ amount, token }: { amount: string, token: Token }) => {
     const { data: price, isLoading: isPriceLoading } = usePrice(token.id);
     
-    if(isPriceLoading) return <Skeleton className="w-full h-4" />
+    if(isPriceLoading) return <Skeleton className="w-16 h-4" />
 
     if(!price) return null;
 

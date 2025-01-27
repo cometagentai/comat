@@ -34,7 +34,7 @@ const WalletAddress: React.FC<Props> = ({ address, className }) => {
             <Tooltip delayDuration={0}>
                 <TooltipTrigger asChild>
                     <p 
-                        className={cn("text-sm text-muted-foreground cursor-pointer hover:bg-neutral-200 dark:hover:bg-sidebar-accent rounded-md w-fit px-1", className)}
+                        className={cn("text-sm text-muted-foreground cursor-pointer hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded-md w-fit px-1", className)}
                     >
                         {`${address.slice(0, 4)}...${address.slice(-4)}`}
                     </p>

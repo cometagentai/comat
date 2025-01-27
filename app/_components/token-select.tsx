@@ -34,7 +34,7 @@ const TokenSelect: React.FC<Props> = ({ value, onChange }) => {
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 <div
-                    className="w-fit shrink-0 flex items-center bg-[#ffffff2b] hover:bg-neutral-300 dark:hover:bg-neutral-600 rounded-md px-2 py-1 gap-2 cursor-pointer transition-colors duration-200"
+                    className="w-fit shrink-0 flex items-center bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 rounded-md px-2 py-1 gap-2 cursor-pointer transition-colors duration-200"
                 >
                     {
                         value ? (
@@ -66,7 +66,7 @@ const TokenSelect: React.FC<Props> = ({ value, onChange }) => {
                     loading ? (
                         <Skeleton className="h-48 w-full" />
                     ) : (
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 max-h-[300px] overflow-y-scroll">
                             {
                                 input ? (
                                     results.length === 0 ? (

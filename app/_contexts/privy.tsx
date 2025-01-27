@@ -8,7 +8,7 @@ interface Props {
 }
 
 const solanaConnectors = toSolanaWalletConnectors({
-    shouldAutoConnect: false,
+    shouldAutoConnect: true,
 });
 
 export const PrivyProvider: React.FC<Props> = ({ children }) => {

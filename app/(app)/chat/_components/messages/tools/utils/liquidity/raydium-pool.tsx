@@ -17,7 +17,7 @@ const RaydiumPool: React.FC<Props> = ({ pair, pool }) => {
     return (
         <PoolStats pair={pair}>
             <div className="flex flex-col gap-2">
-                <h2 className="text-lg font-semibold">Raydium Pool</h2>
+                <h2 className="text-lg font-semibold">Raydium Pool ({pool.type})</h2>
                 <h3 className="text-md font-semibold">APR</h3>
                 <div className="flex gap-2 w-full justify-between">
                     {timeframes.map((timeframe) => (
