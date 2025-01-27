@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import React from 'react'
+import React from 'react';
 
 import { SidebarMenu as SidebarMenuUI } from '@/components/ui';
 
@@ -11,15 +11,15 @@ import HomeButton from './home-button';
 import TransactionButton from './transaction';
 
 const SidebarMenu: React.FC = () => {
-    return (
-        <SidebarMenuUI>
-            <HomeButton />
-            <ChatsGroup />
-            <AccountButton />
-            <PortfolioButton />
-            <TransactionButton />
-        </SidebarMenuUI>
-    )
-}
+  return (
+    <SidebarMenuUI>
+      <HomeButton />
+      <ChatsGroup />
+      <AccountButton />
+      <PortfolioButton />
+      {/* <TransactionButton /> */}
+    </SidebarMenuUI>
+  );
+};
 
 export default SidebarMenu;
