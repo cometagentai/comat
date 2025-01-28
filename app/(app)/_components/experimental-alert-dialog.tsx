@@ -36,7 +36,7 @@ const ExperimentalAlertDialog: React.FC = () => {
           Please confirm you understand and want to continue.
         </p>
         <Button
-          variant='brand'
+          variant='default'
           onClick={() => {
             confirm();
           }}

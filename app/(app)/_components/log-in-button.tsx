@@ -21,7 +21,7 @@ const LogInButton: React.FC<Props> = ({ onComplete }) => {
 
     return (
         <Button 
-            variant="brand"
+            variant="default"
             onClick={() => { if(user) { connectWallet() } else { login() } }}
             className="w-full"
         >

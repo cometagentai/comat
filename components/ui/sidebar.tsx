@@ -531,7 +531,7 @@ const sidebarMenuButtonVariants = cva(
     'transition-all duration-300 ease-in-out',
 
     // Interactive states
-    'hover:bg-sidebar-accent hover:text-sidebar-active',
+    'hover:bg-sidebar-accent hover:text-white',
     'focus-visible:ring-2',
     'active:text-sidebar-foreground-accent',
 

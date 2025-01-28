@@ -5,12 +5,11 @@ import React from 'react';
 import {
   Markdown,
   Icon,
-  Logo,
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from '@/components/ui';
-
+import Image from 'next/image';
 import ToolInvocation from './tools';
 
 import { cn } from '@/lib/utils';
@@ -79,7 +78,7 @@ const Message: React.FC<Props> = ({
               {user && <AvatarImage src={pfpURL(user, false)} />}
             </Avatar>
           ) : (
-            <Logo className='h-10 w-10' />
+            <Image src='/cometlogo.png' alt='' height={20} width={20} />
           )}
         </div>
         <p

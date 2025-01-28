@@ -4,8 +4,7 @@ import React from 'react'
 
 import { AnimatedShinyText } from '@/components/ui';
 
-import Logo from '@/components/ui/logo';
-
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 const LoadingMessage: React.FC = () => {
@@ -20,11 +19,7 @@ const LoadingMessage: React.FC = () => {
             "md:flex-row md:gap-4 md:px-4",
         )}>
             <div className="flex items-center md:items-start gap-2">
-                <Logo 
-                    className={cn(
-                        "w-6 h-6 md:w-10 md:h-10",
-                    )}
-                />
+                <Image src='/cometlogo.png' alt='' height={20} width={20} />
             </div>
             <div className="md:pt-2 w-full max-w-full md:flex-1 md:w-0 overflow-hidden flex flex-col gap-2 items-start">
                 <AnimatedShinyText

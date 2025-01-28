@@ -140,7 +140,7 @@ const Swap: React.FC<Props> = ({
                 {
                     wallet ? (
                         <Button 
-                            variant="brand" 
+                            variant="default" 
                             className="w-full"
                             onClick={onSwap}
                             disabled={isSwapping || isQuoteLoading || !quoteResponse || !inputToken || !outputToken || !inputAmount || !outputAmount || !inputBalance || inputBalanceLoading || Number(inputAmount) > Number(inputBalance)}

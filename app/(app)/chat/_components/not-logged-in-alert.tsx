@@ -29,7 +29,7 @@ const NotLoggedInAlert: React.FC = () => {
                 <AlertDialogDescription>Please login to continue</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogContent className='flex flex-col items-center justify-center'>
-                <Logo className='w-16 h-16'/>
+                <Logo className='w-[100px]'/>
                 <h1 className='text-2xl font-bold'>You are not logged in</h1>
                 <p className='text-sm text-gray-500'>Please login to continue</p>
                 <LoginButton />

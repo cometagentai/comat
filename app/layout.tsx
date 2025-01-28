@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang='en' className='dark'>
       <body
-        className={`${barlow.variable} ${arimo.variable} ${carlito.variable} antialiased bg-white dark:bg-[#000]`}
+        className={`${barlow.variable} ${arimo.variable} ${carlito.variable} antialiased bg-[#000] dark:bg-[#000]`}
       >
         <Providers>{children}</Providers>
       </body>

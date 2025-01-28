@@ -17,7 +17,7 @@ const Graph = () => {
           <a
             href='#'
             target='_blank'
-            className='text-[18px] font-barlow font-semibold ml-3'
+            className='text-[18px] font-barlow font-semibold ml-3 text-white'
           >
             Docs
           </a>
@@ -40,7 +40,7 @@ const Graph = () => {
           <a
             href='#'
             target='_blank'
-            className='text-[18px] font-semibold ml-3'
+            className='text-[18px] font-semibold ml-3 text-white'
           >
             CA
           </a>
@@ -57,18 +57,18 @@ const Graph = () => {
                 <Image
                   src='/logo.png'
                   alt=''
-                  className='mr-1 hidden dark:block'
+                  className='mr-1'
                   height={124}
                   width={357}
                 />
-                <Image
+                {/* <Image
                   src='/logo-light-v.png'
                   alt=''
                   className='mr-1 light-logo'
                   height={124}
                   width={357}
-                />
-                <p className='text-[20px] font-medium my-[8px] font-arimo'>
+                /> */}
+                <p className='text-[20px] font-medium my-[8px] font-arimo text-white'>
                   Your AI Agent Partner for Seamless DeFi
                 </p>
                 <LoginButton />

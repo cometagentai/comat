@@ -56,7 +56,7 @@ const AuthButton: React.FC = () => {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
-                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground relative md:fixed right-0 md:right-[15px] top-0 md:top-[15px] w-full md:w-[200px] z-[100]"
                             variant="brandOutline"
                         >
                             <Wallet className="size-8" />
