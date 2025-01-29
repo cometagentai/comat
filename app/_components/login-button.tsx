@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useLogin, usePrivy } from '@privy-io/react-auth';
 import { Button } from '@/components/ui';
@@ -11,6 +11,12 @@ const LoginButton: React.FC = () => {
   const router = useRouter();
 
   const { authenticated } = usePrivy();
+
+  useEffect(() => {
+    if (!authenticated) {
+      login();
+    }
+  }, [authenticated]);
 
   const { login } = useLogin({
     onComplete: (_, __, wasAlreadyAuthenticated) => {
@@ -28,14 +34,23 @@ const LoginButton: React.FC = () => {
     );
 
   return (
-    <Button
-      className='sm:absolute relative sm:right-[15px] right-[0px] sm:top-[11px] top-[0px]'
-      variant={'default'}
-      onClick={() => login()}
-      disabled={authenticated}
-    >
-      Connect
-    </Button>
+    <>
+      <Button
+        variant={'default'}
+        onClick={() => login()}
+        disabled={authenticated}
+      >
+        Get Start
+      </Button>
+      <Button
+        className='sm:absolute relative sm:right-[15px] right-[0px] sm:top-[11px] top-[0px]'
+        variant={'default'}
+        onClick={() => login()}
+        disabled={authenticated}
+      >
+        Connect
+      </Button>
+    </>
   );
 };
 
