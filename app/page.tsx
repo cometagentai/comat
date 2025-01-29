@@ -50,7 +50,7 @@ const Graph = () => {
                 </Button> */}
       </header>
       <div>
-        <div className='flex flex-col items-center justify-center h-[calc(100vh-60px)] pt-16 pb-4 px-[15px]'>
+        <div className='flex flex-col items-center justify-center h-screen pt-16 pb-4 px-[15px]'>
           <div className='w-full h-full flex flex-col items-center justify-center gap-4'>
             <div className='max-w-[910px] mx-auto w-full flex items-center justify-center md:justify-between flex-col md:flex-row'>
               <div className='flex flex-col items-center justify-center gap-2 text-center'>

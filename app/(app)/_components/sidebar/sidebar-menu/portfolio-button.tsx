@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Information } from 'iconsax-react';
+import { Bank } from 'iconsax-react';
 import { ColorMode, useColorMode } from '@/app/_contexts';
 import Link from 'next/link';
 
@@ -23,7 +23,7 @@ const PortfolioButton: React.FC = () => {
       <SidebarMenuItem>
         <SidebarMenuButton isActive={pathname?.includes('/portfolio') ?? false}>
           <h1 className='flex items-center gap-2'>
-            <Information
+            <Bank
               size='24'
               color={mode === ColorMode.DARK ? '#FFFFFF' : '#1E1E1E'}
               variant='Outline'

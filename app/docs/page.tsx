@@ -95,6 +95,7 @@ const Docs = () => {
                   you easily and clearly in the rapidly developing world of
                   technology.
                 </p>
+
                 <p className='text-[20px] font-medium font-arimo text-white mt-[30px] mb-[30px]'>
                   Whether you’re a crypto enthusiast or just getting started,
                   Comet empowers you to take control of your digital finances.
