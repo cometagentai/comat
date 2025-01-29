@@ -11,7 +11,7 @@ const HomeButton: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <Link href='/'>
+    <Link href='/chat'>
       <SidebarMenuItem>
         <SidebarMenuButton isActive={pathname?.includes('/home') ?? false}>
           <h1 className='flex items-center font-semibold gap-2 font-carlito'>
