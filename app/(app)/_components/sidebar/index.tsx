@@ -37,7 +37,6 @@ const Sidebar: React.FC<Props> = ({ children }) => {
           <div className='flex items-center justify-between'>
             <Logo />
             <div className='flex items-center gap-2 mt-[25px]'>
-              
               <OpenSidebarTrigger />
             </div>
           </div>
@@ -49,11 +48,14 @@ const Sidebar: React.FC<Props> = ({ children }) => {
         {/* <SidebarSeparator /> */}
         <SidebarFooter>
           <SidebarMenuUI>
-            
             <SidebarMenuItem>
-              <SidebarMenuButton asChild variant="outline" className='max-w-[135px] justify-center rounded-[35px] h-[48px] border-[#11457033] border-[1px]'>
+              <SidebarMenuButton
+                asChild
+                variant='outline'
+                className='max-w-[135px] justify-center rounded-[35px] h-[48px] border-[#11457033] border-[1px]'
+              >
                 <Link
-                  href={'https://x.com/askthehive_ai'}
+                  href={'https://x.com/cometsol_ai'}
                   target={'_blank'}
                   className='font-bold font-carlito'
                 >
@@ -80,7 +82,7 @@ const Sidebar: React.FC<Props> = ({ children }) => {
       </SidebarUI>
       <SidebarInset>
         <div className='p-2 pt-0 md:p-4 flex-1 h-0 overflow-y-hidden relative flex flex-col'>
-          <div className="fixed top-[15px] right-[15px] md:top-[40px] md:right-[40px] z-[100] flex items-center gap-3">
+          <div className='fixed top-[15px] right-[15px] md:top-[40px] md:right-[40px] z-[100] flex items-center gap-3'>
             <ColorModeToggle />
             <AuthButton />
           </div>
