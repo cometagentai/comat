@@ -9,7 +9,6 @@ import {
   Beef,
   Brain,
   ChartCandlestick,
-  Coins,
   Droplet,
   HandCoins,
   Wallet,

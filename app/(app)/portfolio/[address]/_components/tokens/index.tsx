@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Coins, HandCoins } from 'lucide-react';
+import { HandCoins } from 'lucide-react';
 
 import Decimal from 'decimal.js';
 

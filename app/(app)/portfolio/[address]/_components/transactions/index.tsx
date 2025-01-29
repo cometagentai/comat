@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { ArrowLeftRight, Banknote } from 'lucide-react';
+import { Banknote } from 'lucide-react';
 
 import {
   Card,
