@@ -8,7 +8,13 @@ import StarterButtons from './starter-buttons';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
-const EmptyChat: React.FC = () => {
+interface Props {
+  className?: string;
+  showText?: boolean;
+  textClassName?: string;
+}
+
+const EmptyChat: React.FC<Props> = ({ className }) => {
   return (
     <div
       className={cn(
@@ -16,20 +22,30 @@ const EmptyChat: React.FC = () => {
         'flex flex-col items-center justify-center w-full h-full px-4'
       )}
     >
-      <div className='flex flex-col items-center justify-center w-full max-w-2xl gap-4 md:gap-8'>
+      <div className='flex flex-col items-center justify-center w-full max-w-full gap-4 md:gap-8'>
         <div className='flex flex-col gap-4 items-center justify-center'>
-          <Image src='/cometlogo.png' alt='' height={130} width={130} />
+          <Image
+            src='/logo.png'
+            alt='Logo'
+            width={274}
+            height={95}
+            className={cn(' hidden dark:block', className)}
+          />
+          <Image
+            src='/logo-light-v.png'
+            alt='Logo'
+            width={274}
+            height={95}
+            className={cn(' block dark:hidden', className)}
+          />
           <div className='flex flex-col gap-1'>
-            <h1 className='font-semibold text-center text-3xl text-[#171717] dark:text-white'>
-              May I help you?
-            </h1>
-            <p className='text-center text-md font-semibold text-[#171717] dark:text-white mt-2'>
-              Coordinate a collective of DeFi Agent to operate on Crypto
+            <p className='text-center text-[18px] font-normal text-[#171717] dark:text-white mt-0 mb-3'>
+              Organize a network of DeFi agents to operate in the crypto space.
             </p>
           </div>
         </div>
-        <ChatInput />
         <StarterButtons />
+        <ChatInput />
       </div>
     </div>
   );

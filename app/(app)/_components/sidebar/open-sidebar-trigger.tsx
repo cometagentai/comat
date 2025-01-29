@@ -11,9 +11,7 @@ const OpenSidebarTrigger: React.FC = () => {
     if (isMobile || !open) return null;
 
     return (
-        <SidebarTrigger 
-            className="hover:bg-neutral-200 dark:hover:bg-neutral-700 h-6 w-6"
-        />
+        <SidebarTrigger />
     )
 }
 

@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import React from 'react'
+import React from 'react';
 
-import { ChartPie } from 'lucide-react';
-
+import { Information } from 'iconsax-react';
+import { ColorMode, useColorMode } from '@/app/_contexts';
 import Link from 'next/link';
 
 import { usePathname } from 'next/navigation';
@@ -12,27 +12,29 @@ import { SidebarMenuItem, SidebarMenuButton } from '@/components/ui';
 import { usePrivy } from '@privy-io/react-auth';
 
 const PortfolioButton: React.FC = () => {
+  const pathname = usePathname();
 
-    const pathname = usePathname();
+  const { user } = usePrivy();
+  const { mode } = useColorMode();
+  if (!user?.wallet?.address) return null;
 
-    const { user } = usePrivy();
-
-    if(!user?.wallet?.address) return null;
-
-    return (
-        <Link href={`/portfolio/${user.wallet.address}`}>
-            <SidebarMenuItem>
-                <SidebarMenuButton 
-                    isActive={pathname?.includes('/portfolio') ?? false}
-                >
-                    <h1 className="flex items-center gap-2 font-semibold">
-                        <ChartPie className="h-4 w-4" />
-                        Portfolio
-                    </h1>
-                </SidebarMenuButton>
-            </SidebarMenuItem>
-        </Link>
-    )
-}
+  return (
+    <Link href={`/portfolio/${user.wallet.address}`}>
+      <SidebarMenuItem>
+        <SidebarMenuButton isActive={pathname?.includes('/portfolio') ?? false}>
+          <h1 className='flex items-center gap-2'>
+            <Information
+              size='24'
+              color={mode === ColorMode.DARK ? '#FFFFFF' : '#1E1E1E'}
+              variant='Outline'
+              className='mr-[3px]'
+            />
+            Portfolio
+          </h1>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    </Link>
+  );
+};
 
 export default PortfolioButton;

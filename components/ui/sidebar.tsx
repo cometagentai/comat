@@ -6,8 +6,8 @@ import { Slot } from '@radix-ui/react-slot';
 import * as SheetPrimitive from '@radix-ui/react-dialog';
 
 import { VariantProps, cva } from 'class-variance-authority';
-
-import { PanelLeft } from 'lucide-react';
+import { SidebarLeft } from 'iconsax-react';
+import { ColorMode, useColorMode } from '@/app/_contexts';
 
 import {
   Button,
@@ -28,7 +28,7 @@ import { cn } from '@/lib/utils';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar:state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-const SIDEBAR_WIDTH = '16rem';
+const SIDEBAR_WIDTH = '16.5rem';
 const SIDEBAR_WIDTH_MOBILE = '18rem';
 const SIDEBAR_WIDTH_ICON = '3rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
@@ -148,7 +148,7 @@ const SidebarProvider = React.forwardRef<
               } as React.CSSProperties
             }
             className={cn(
-              'group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar',
+              'group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar dark:bg-[#292828]',
               className
             )}
             ref={ref}
@@ -216,7 +216,9 @@ const Sidebar = React.forwardRef<
             <SheetPrimitive.Title className='sr-only'>
               Sidebar Navigation
             </SheetPrimitive.Title>
-            <div className='flex h-full w-full flex-col'>{children}</div>
+            <div className='flex h-full w-full flex-col p-[15px] sm:p-0'>
+              {children}
+            </div>
           </SheetContent>
         </Sheet>
       );
@@ -244,13 +246,13 @@ const Sidebar = React.forwardRef<
         />
         <div
           className={cn(
-            'duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex bg-[#e4e4e4] dark:bg-[#292828]',
+            'duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex bg-[#F6F8FA] dark:bg-[#292828]',
             side === 'left'
               ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
               : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
             // Adjust the padding for floating and inset variants.
             variant === 'floating' || variant === 'inset'
-              ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]'
+              ? 'p-2 pl-[24px] group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]'
               : 'group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l border-neutral-200 dark:border-neutral-700',
             className
           )}
@@ -258,7 +260,7 @@ const Sidebar = React.forwardRef<
         >
           <div
             data-sidebar='sidebar'
-            className='flex h-full w-full flex-col gap-2 bg-[#e4e4e4] dark:bg-[#292828] group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow'
+            className='flex h-full w-full flex-col gap-2 bg-[#F6F8FA] dark:bg-[#292828] group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow'
           >
             {children}
           </div>
@@ -274,21 +276,25 @@ const SidebarTrigger = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, onClick, ...props }, ref) => {
   const { toggleSidebar } = useSidebar();
-
+  const { mode } = useColorMode();
   return (
     <Button
       ref={ref}
       data-sidebar='trigger'
-      variant='ghost'
+      variant='brand'
       size='icon'
-      className={cn('h-7 w-7', className)}
+      className={cn('w-auto', className)}
       onClick={(event) => {
         onClick?.(event);
         toggleSidebar();
       }}
       {...props}
     >
-      <PanelLeft className='w-4 h-4 text-neutral-700 dark:text-neutral-300' />
+      <SidebarLeft
+        variant='Outline'
+        size={25}
+        color={mode === ColorMode.DARK ? '#FFFFFF' : '#000'}
+      />
       <span className='sr-only'>Toggle Sidebar</span>
     </Button>
   );
@@ -332,8 +338,9 @@ const SidebarInset = React.forwardRef<
     <main
       ref={ref}
       className={cn(
-        'relative flex min-h-[calc(100svh-theme(spacing.4))] max-h-[calc(100svh-theme(spacing.4))] overflow-hidden flex-1 flex-col bg-white dark:bg-sidebar',
-        'peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-0',
+        // min-h-[calc(100svh-theme(spacing.9))] max-h-[calc(100svh-theme(spacing.9))]
+        'relative flex overflow-hidden flex-1 flex-col bg-white dark:bg-sidebar rounded-[0px] md:rounded-[20px] border-[2px] border-[#11457033]',
+        'peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.9))] md:peer-data-[variant=inset]:m-5 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-1',
         className
       )}
       {...props}
@@ -368,7 +375,7 @@ const SidebarHeader = React.forwardRef<
     <div
       ref={ref}
       data-sidebar='header'
-      className={cn('flex flex-col gap-4 p-2', className)}
+      className={cn('flex flex-col gap-4 py-2', className)}
       {...props}
     />
   );
@@ -383,7 +390,7 @@ const SidebarFooter = React.forwardRef<
     <div
       ref={ref}
       data-sidebar='footer'
-      className={cn('flex flex-col gap-2 p-2', className)}
+      className={cn('flex flex-col gap-2', className)}
       {...props}
     />
   );
@@ -398,7 +405,7 @@ const SidebarSeparator = React.forwardRef<
     <Separator
       ref={ref}
       data-sidebar='separator'
-      className={cn('w-auto bg-[#4f4f55] dark:bg-[#36363c]', className)}
+      className={cn('w-auto bg-[#1145704d] dark:bg-[#36363c]', className)}
       {...props}
     />
   );
@@ -414,7 +421,7 @@ const SidebarContent = React.forwardRef<
       ref={ref}
       data-sidebar='content'
       className={cn(
-        'flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden no-scrollbar pl-2',
+        'flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden no-scrollbar pl-0',
         className
       )}
       {...props}
@@ -502,7 +509,7 @@ const SidebarMenu = React.forwardRef<
   <ul
     ref={ref}
     data-sidebar='menu'
-    className={cn('flex w-full min-w-0 flex-col gap-2', className)}
+    className={cn('flex w-full min-w-0 flex-col gap-1', className)}
     {...props}
   />
 ));
@@ -525,9 +532,9 @@ const sidebarMenuButtonVariants = cva(
   cn(
     // Base styles
     'peer/menu-button',
-    'flex w-full items-center gap-2',
-    'overflow-hidden rounded-md p-2',
-    'text-left text-sm outline-none',
+    'flex w-full items-center gap-2 px-3',
+    'overflow-hidden rounded-md',
+    'text-left text-[16px] outline-none',
     'transition-all duration-300 ease-in-out',
 
     // Interactive states
@@ -541,26 +548,27 @@ const sidebarMenuButtonVariants = cva(
 
     // Group and data states
     'group-has-[[data-sidebar=menu-action]]/menu-item:pr-8',
-    'data-[active=true]:font-medium data-[active=true]:text-sidebar-active',
-    'data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-active',
+    'data-[active=true]:font-semibold data-[active=true]:text-[#1E1E1E] data-[active=true]:border-[#11457033] data-[active=true]:border-[1px] data-[active=true]:bg-white dark:data-[active=true]:bg-sidebar-accent',
+    'data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-[#1E1E1E]',
 
     // Collapsible and child element styles
-    'group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2',
+    'group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 group-data-[collapsible=icon]:!pl-[3px]',
     '[&>span:last-child]:truncate',
     '[&>svg]:size-4 [&>svg]:shrink-0'
   ),
   {
     variants: {
       variant: {
-        default: 'hover:bg-sidebar-accent hover:text-sidebar-active',
+        default:
+          'hover:bg-white dark:hover:bg-sidebar-accent text-[#1E1E1E] hover:text-[#1E1E1E] dark:text-white font-semibold border-[1px] border-transparent hover:border-[#11457033]',
         outline:
-          'bg-white shadow-[0_0_0_1px_hsl(var(--sidebar-border))] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))] dark:bg-neutral-950',
+          'bg-white dark:bg-sidebar-accent hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))] dark:bg-neutral-950 group-data-[collapsible=icon]:!pl-[14px]',
         brand: 'bg-brand-600 text-white hover:bg-brand-700 hover:text-white',
         brandOutline:
-          'border border-[#2c99f4] text-[#2c99f4] hover:bg-[#1e8ae4]',
+          'text-[#1E1E1E] hover:text-[#1E1E1E] text-[16px] dark:text-white h-[40px] w-[40px] bg-[#F6F8FA] dark:bg-[#292828] hover:bg-[#dfe4e9] dark:hover:bg-neutral-700 rounded-[35px] border-[1px] border-[#1145704d] px-4',
       },
       size: {
-        default: 'h-8 text-sm',
+        default: 'h-[54px] text-[16px]',
         sm: 'h-7 text-xs',
         lg: 'h-12 text-sm group-data-[collapsible=icon]:!p-0',
       },

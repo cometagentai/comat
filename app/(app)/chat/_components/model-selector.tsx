@@ -35,7 +35,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({
       onValueChange={(value) => onModelChange(value as Models)}
       disabled={disabled}
     >
-      <SelectTrigger className='w-fit h-8 text-xs border-0 bg-transparent hover:bg-neutral-200/50 dark:hover:bg-neutral-700/50 shadow-none gap-2'>
+      <SelectTrigger className='w-fit h-8 text-[16px] border-0 bg-none hover:bg-none dark:hover:bg-none shadow-none gap-2 min-w-[150px] rounded-[0px] border-r-[0px] sm:border-r-[2px] border-[#1145704d]'>
         <SelectValue placeholder='Select a model' />
       </SelectTrigger>
       <SelectContent>

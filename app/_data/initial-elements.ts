@@ -3,136 +3,131 @@ import { Edge, Node } from '@xyflow/react';
 import styles from '../styles.module.css';
 
 export const initialNodes: Node[] = [
-  
   // social sentiment analyzer
   {
     id: '2',
     position: { x: 0, y: 200 },
-    data: { 
-        icon: 'BotMessageSquare',
-        name: 'Sentiment Analyzer'
-     },
+    data: {
+      icon: 'MessageSquare', // Updated from BotMessageSquare
+      name: 'Sentiment Analyzer',
+    },
     className: styles.node,
     type: 'agent',
   },
   {
     id: '2.1',
     position: { x: 200, y: 500 },
-    data: { 
-        icon: 'Twitter',
-        name: 'Twitter Scraper'
-     },
+    data: {
+      icon: 'Activity', // Updated from Twitter (closest match for social activity)
+      name: 'Twitter Scraper',
+    },
     className: styles.node,
     type: 'agent',
   },
   {
     id: '2.2',
     position: { x: -200, y: 500 },
-    data: { 
-        icon: 'MessagesSquare',
-        name: 'Telegram Bot'
-     },
+    data: {
+      icon: 'MessageSquare', // Updated from MessagesSquare
+      name: 'Telegram Bot',
+    },
     className: styles.node,
     type: 'agent',
   },
-  // financial sentiment analyzer
   {
     id: '3',
     position: { x: -300, y: 0 },
-    data: { 
-        icon: 'ChartCandlestick',
-        name: 'Trader'
-     },
+    data: {
+      icon: 'ArrangeVertical', // Updated from ChartCandlestick
+      name: 'Trader',
+    },
     className: styles.node,
     type: 'agent',
   },
   {
     id: '3.1',
     position: { x: -500, y: 200 },
-    data: { 
-        icon: 'Landmark',
-        name: 'DEX Aggretator'
-     },
+    data: {
+      icon: 'ArrowSwapHorizontal', // Updated from Landmark
+      name: 'DEX Aggretator',
+    },
     className: styles.node,
     type: 'agent',
   },
   {
     id: '3.2',
     position: { x: -500, y: -200 },
-    data: { 
-        icon: 'Droplet',
-        name: 'Liquidity Manager'
-     },
+    data: {
+      icon: 'Aave', // Updated from Droplet (using Aave as it's related to liquidity)
+      name: 'Liquidity Manager',
+    },
     className: styles.node,
     type: 'agent',
   },
-  // news sentiment analyzer
   {
     id: '4',
     position: { x: 300, y: 0 },
-    data: { 
-        icon: 'Tractor',
-        name: 'Yield Farmer'
-     },
+    data: {
+      icon: 'Archive', // Updated from Tractor
+      name: 'Yield Farmer',
+    },
     className: styles.node,
     type: 'agent',
   },
-  // news sentiment analyzer
   {
     id: '4.1',
     position: { x: 500, y: 200 },
-    data: { 
-        icon: 'Beef',
-        name: 'Staking Agent'
-     },
+    data: {
+      icon: 'ArchiveBox', // Updated from Beef
+      name: 'Staking Agent',
+    },
     className: styles.node,
     type: 'agent',
   },
   {
     id: '4.2',
     position: { x: 500, y: -200 },
-    data: { 
-        icon: 'Coins',
-        name: 'Borrow/Lend Agent'
-     },
+    data: {
+      icon: 'ArrowSwapVertical', // Updated from Coins
+      name: 'Borrow/Lend Agent',
+    },
     className: styles.node,
     type: 'agent',
   },
-  // news sentiment analyzer
   {
     id: '5',
     position: { x: 0, y: -300 },
-    data: { 
-        icon: 'Vault',
-        name: 'Portfolio Manager'
-     },
+    data: {
+      icon: 'ArchiveBook', // Updated from Vault
+      name: 'Portfolio Manager',
+    },
     className: styles.node,
     type: 'agent',
   },
   {
     id: '5.1',
     position: { x: -200, y: -500 },
-    data: { 
-        icon: 'ShieldAlert',
-        name: 'Risk Analyzer'
-     },
+    data: {
+      icon: 'AlarmCircle', // Updated from ShieldAlert
+      name: 'Risk Analyzer',
+    },
     className: styles.node,
     type: 'agent',
   },
   {
     id: '5.2',
     position: { x: 200, y: -500 },
-    data: { 
-        icon: 'ChartLine',
-        name: 'Performance Reporter'
-     },
+    data: {
+      icon: 'ArrangeHorizontal', // Updated from ChartLine
+      name: 'Performance Reporter',
+    },
     className: styles.node,
     type: 'agent',
   },
   {
     id: '1',
     position: { x: 0, y: 0 },
-    data: { },
+    data: {},
     className: styles.node,
     type: 'central',
   },

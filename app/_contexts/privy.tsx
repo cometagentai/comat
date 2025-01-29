@@ -18,8 +18,8 @@ export const PrivyProvider: React.FC<Props> = ({ children }) => {
       config={{
         appearance: {
           theme: 'dark',
-          accentColor: '#d19900',
-          logo: 'https://comat-alpha.vercel.app/_next/image?url=%2Fmainworld.gif&w=640&q=75',
+          accentColor: '#2c99f4',
+          logo: '/logo.png',
           walletChainType: 'solana-only',
         },
         externalWallets: {

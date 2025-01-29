@@ -19,17 +19,17 @@ import {
   SidebarMenuSubButton,
   useSidebar,
 } from '@/components/ui';
-
+import { ColorMode, useColorMode } from '@/app/_contexts';
 import { useUserChats } from '@/hooks';
-
+import { Messages } from 'iconsax-react';
 import { useChat } from '../../../chat/_contexts/chat';
-import { ChevronDown, MessageSquare } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 const ChatsGroup: React.FC = () => {
   const pathname = usePathname();
-
+  const { mode } = useColorMode();
   const { isMobile, setOpenMobile } = useSidebar();
 
   const { ready, user } = usePrivy();
@@ -54,8 +54,13 @@ const ChatsGroup: React.FC = () => {
           >
             <div className='flex items-center justify-between w-full'>
               <div className='flex items-center gap-2'>
-                <MessageSquare className='h-4 w-4' />
-                <h1 className='text-sm font-normal font-carlito'>Chats</h1>
+                <Messages
+                  size='24'
+                  color={mode === ColorMode.DARK ? '#FFFFFF' : '#1E1E1E'}
+                  variant='Outline'
+                  className='mr-[3px]'
+                />
+                <h1 className='font-carlito'>Chats</h1>
               </div>
               <div className='flex items-center gap-2'>
                 <Link href='/chat'>

@@ -5,6 +5,7 @@ export * from "./markdown";
 export * from "./animated-shiny-text";
 export * from "./card";
 export * from "./icon";
+export * from "./iconsax";
 export * from "./collapsible";
 export * from "./progress";
 export * from "./chart";

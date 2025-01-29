@@ -33,16 +33,16 @@ export const Logo: React.FC<Props> = ({
       <Image
         src='/logo.png'
         alt='Logo'
-        width={357}
-        height={124}
-        className={cn(' hidden dark:block', className)}
+        width={120}
+        height={44}
+        className={cn(' hidden dark:block max-w-[100%] h-auto', className)}
       />
       <Image
         src='/logo-light-v.png'
         alt='Logo'
-        width={357}
-        height={124}
-        className={cn(' block dark:hidden', className)}
+        width={120}
+        height={44}
+        className={cn(' block dark:hidden max-w-[100%] h-auto', className)}
       />
       {showText && (
         <div className={cn('text-lg font-bold', textClassName)}></div>

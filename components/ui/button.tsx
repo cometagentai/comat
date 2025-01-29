@@ -5,14 +5,14 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:focus-visible:ring-neutral-300',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-5 [&_svg]:shrink-0 dark:focus-visible:ring-neutral-300',
   {
     variants: {
       variant: {
         default:
           'bg-[#2c99f4] text-black hover:bg-[#1e8ae4] dark:bg-[#2c99f4] dark:text-white dark:hover:bg-[#1e8ae4]',
         brand:
-          'bg-brand-600 dark:bg-brand-600 text-neutral-50 hover:bg-brand-600/90 dark:hover:bg-brand-600/90',
+          'bg-transparent text-black hover:bg-transparent dark:hover:bg-transparent',
         destructive:
           'bg-red-500 text-neutral-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-neutral-50 dark:hover:bg-red-900/90',
         destructiveOutline:
@@ -30,7 +30,7 @@ const buttonVariants = cva(
         secondary:
           'bg-neutral-100 text-neutral-900 hover:bg-neutral-100/80 dark:bg-neutral-800 dark:text-neutral-50 dark:hover:bg-neutral-800/80',
         ghost:
-          'hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-50 text-black dark:text-white',
+          'min-h-[40px] min-w-[40px] bg-[#F6F8FA] dark:bg-[#292828] hover:bg-[#dfe4e9] dark:hover:bg-[#404040] rounded-[35px] border-[1px] border-[#1145704d] hover:text-neutral-900 dark:hover:text-neutral-50 text-black dark:text-white',
         brandGhost:
           'hover:bg-brand-500/10 text-brand-500 dark:hover:bg-brand-900/50 text-brand-500',
         link: 'text-neutral-900 underline-offset-4 hover:underline dark:text-neutral-50',

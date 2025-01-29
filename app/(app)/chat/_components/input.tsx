@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 
-import { CornerDownRight } from 'lucide-react';
+import { CornerDownLeft } from 'lucide-react';
 
 import Textarea from 'react-textarea-autosize';
 
@@ -48,39 +48,40 @@ const ChatInput: React.FC = () => {
       }}
       className={cn(
         // Base styles
-        'w-full rounded-md flex flex-col overflow-hidden transition-colors duration-200 ease-in-out border border-transparent shadow-none',
+        'w-full rounded-[48px] flex flex-col overflow-hidden transition-colors duration-200 ease-in-out border-1 border-[#1145704d] shadow-none',
         // Light mode styles
-        'bg-[#e4e4e4] focus-within:border-[#2c99f4]',
+        'bg-[#F6F8FA] focus-within:border-[#2c99f4]',
         // Dark mode styles
         'dark:bg-[#292828] dark:focus-within:border-[#2c99f4]',
         isLoading && 'opacity-50 cursor-not-allowed'
       )}
     >
-      <OptionalTooltip text={inputDisabledMessage}>
-        <Textarea
-          ref={inputRef}
-          tabIndex={0}
-          onKeyDown={onKeyDown}
-          placeholder='Ask Comet anything...'
-          className={cn(
-            'w-full max-h-60 resize-none bg-transparent px-3 py-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-600 dark:placeholder:text-neutral-400 disabled:cursor-not-allowed disabled:opacity-50',
-            'focus-visible:outline-none',
-            'dark:placeholder:text-neutral-400'
-          )}
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-          disabled={isLoading || !user || inputDisabledMessage !== ''}
-          autoFocus
-        />
-      </OptionalTooltip>
-      <div className='flex items-center justify-between px-2 pb-2'>
+
+      <div className='flex items-center justify-between px-2 py-4 flex-col sm:flex-row'>
         <ModelSelector
           model={model}
           onModelChange={setModel}
           disabled={isLoading}
         />
+        <OptionalTooltip text={inputDisabledMessage}>
+          <Textarea
+            ref={inputRef}
+            tabIndex={0}
+            onKeyDown={onKeyDown}
+            placeholder='Ask Comet anything...'
+            className={cn(
+              'w-full max-h-60 resize-none bg-transparent px-3 py-3 text-[16px] file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-600 dark:placeholder:text-neutral-400 disabled:cursor-not-allowed disabled:opacity-50 text-center sm:text-left',
+              'focus-visible:outline-none',
+              'dark:placeholder:text-neutral-400'
+            )}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+            disabled={isLoading || !user || inputDisabledMessage !== ''}
+            autoFocus
+          />
+        </OptionalTooltip>
         <TooltipProvider>
           <Tooltip delayDuration={0}>
             <TooltipTrigger asChild>
@@ -88,10 +89,10 @@ const ChatInput: React.FC = () => {
                 type='submit'
                 size='icon'
                 disabled={input.trim() === '' || isLoading || !user}
-                variant='ghost'
-                className='h-8 w-8'
+                variant='brand'
+                className='h-8 w-8 mr-3'
               >
-                <CornerDownRight className='w-4 h-4 text-neutral-600 dark:text-neutral-400' />
+                <CornerDownLeft className='w-4 h-4 text-neutral-600 dark:text-neutral-400' />
                 <span className='sr-only'>Send message</span>
               </Button>
             </TooltipTrigger>
