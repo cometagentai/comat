@@ -48,7 +48,7 @@ const ChatInput: React.FC = () => {
       }}
       className={cn(
         // Base styles
-        'w-full rounded-[48px] flex flex-col overflow-hidden transition-colors duration-200 ease-in-out border-1 border-[#1145704d] shadow-none',
+        'w-full rounded-[48px] flex flex-col overflow-hidden transition-colors duration-200 ease-in-out border-[1px] border-[#1145704d] dark:border-[#ffffff24] shadow-none max-w-[1100px]',
         // Light mode styles
         'bg-[#F6F8FA] focus-within:border-[#2c99f4]',
         // Dark mode styles
