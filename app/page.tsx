@@ -20,7 +20,7 @@ const Graph = () => {
           >
             Docs
           </a>
-          <a href='#' target='_blank' className='ml-3'>
+          <a href='https://x.com/cometsol_ai' target='_blank' className='ml-3'>
             {/* <Image
               src='/x-logo.png'
               alt=''
