@@ -17,7 +17,7 @@ const AccountButton: React.FC = () => {
     <Link href='/account'>
       <SidebarMenuItem>
         <SidebarMenuButton isActive={pathname?.includes('/account') ?? false}>
-          <h1 className='flex items-center gap-2 font-carlito'>
+          <h1 className='flex items-center gap-2 font-semibold font-carlito'>
             <UserSquare
               size='24'
               color={mode === ColorMode.DARK ? '#FFFFFF' : '#1E1E1E'}

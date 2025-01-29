@@ -60,7 +60,7 @@ const ChatsGroup: React.FC = () => {
                   variant='Outline'
                   className='mr-[3px]'
                 />
-                <h1 className='font-carlito'>Chats</h1>
+                <h1 className='font-semibold font-carlito'>Chats</h1>
               </div>
               <div className='flex items-center gap-2'>
                 <Link href='/chat'>

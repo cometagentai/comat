@@ -22,7 +22,7 @@ const PortfolioButton: React.FC = () => {
     <Link href={`/portfolio/${user.wallet.address}`}>
       <SidebarMenuItem>
         <SidebarMenuButton isActive={pathname?.includes('/portfolio') ?? false}>
-          <h1 className='flex items-center gap-2'>
+          <h1 className='flex font-semibold items-center gap-2'>
             <Bank
               size='24'
               color={mode === ColorMode.DARK ? '#FFFFFF' : '#1E1E1E'}

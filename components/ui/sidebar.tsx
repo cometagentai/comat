@@ -339,8 +339,11 @@ const SidebarInset = React.forwardRef<
       ref={ref}
       className={cn(
         // min-h-[calc(100svh-theme(spacing.9))] max-h-[calc(100svh-theme(spacing.9))]
-        'relative flex overflow-hidden flex-1 flex-col bg-white dark:bg-sidebar rounded-[0px] md:rounded-[20px] border-[2px] border-[#11457033]',
-        'peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing1.2))] md:peer-data-[variant=inset]:m-5 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-1',
+        // "relative flex min-h-[calc(100svh-theme(spacing.4))] max-h-[calc(100svh-theme(spacing.4))] overflow-hidden flex-1 flex-col bg-white dark:bg-sidebar",
+        // "peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-0",
+
+        'relative min-h-[calc(100svh-2.5rem)] max-h-[calc(100svh-2.5rem)] flex overflow-hidden flex-1 flex-col bg-white dark:bg-sidebar rounded-[0px] md:rounded-[20px] border-[2px] border-[#11457033]',
+        'peer-data-[variant=inset]:min-h-[calc(100svh-2.5rem)] md:peer-data-[variant=inset]:m-5 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-0',
         className
       )}
       {...props}
@@ -737,7 +740,7 @@ const SidebarMenuSub = React.forwardRef<
     ref={ref}
     data-sidebar='menu-sub'
     className={cn(
-      'ml-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border pl-2.5 py-0.5',
+      'flex min-w-0 translate-x-px flex-col gap-1 px-2.5 py-3 bg-white dark:bg-[#1f1f1f] mt-[5px] rounded-[15px]',
       'group-data-[collapsible=icon]:hidden',
       className
     )}
