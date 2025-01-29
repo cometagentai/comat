@@ -6,10 +6,8 @@ import LiquidityPools from './_components/liquidity-pools';
 import Transactions from './_components/transactions';
 
 import { SwapModalProvider } from './_contexts/use-swap-modal';
-import { useColorMode } from '@/app/_contexts';
 
 const Portfolio = ({ params }: { params: Promise<{ address: string }> }) => {
-  const { mode } = useColorMode();
   const [address, setAddress] = React.useState<string | null>(null);
 
   React.useEffect(() => {
@@ -27,7 +25,7 @@ const Portfolio = ({ params }: { params: Promise<{ address: string }> }) => {
   return (
     <SwapModalProvider>
       <div className='max-w-4xl mx-auto w-full flex flex-col gap-8 md:pt-4 h-full overflow-y-scroll no-scrollbar'>
-        <Header address={address} mode={mode} />
+        <Header address={address} />
         <Tokens address={address} />
         <LiquidityPools address={address} />
         <Transactions address={address} />
