@@ -3,9 +3,9 @@ import { NextRequest } from 'next/server';
 import { CoreTool, LanguageModelV1, streamText, StreamTextResult } from 'ai';
 
 import { openai } from '@ai-sdk/openai';
-import { anthropic } from '@ai-sdk/anthropic';
-import { xai } from '@ai-sdk/xai';
-import { google } from '@ai-sdk/google';
+// import { anthropic } from '@ai-sdk/anthropic';
+// import { xai } from '@ai-sdk/xai';
+// import { google } from '@ai-sdk/google';
 import { deepseek } from '@ai-sdk/deepseek';
 
 import { Models } from '@/types/models';
@@ -33,20 +33,20 @@ export const POST = async (req: NextRequest) => {
     MAX_TOKENS = 128000;
   }
 
-  if (modelName === Models.Anthropic) {
-    model = anthropic('claude-3-5-sonnet-latest');
-    MAX_TOKENS = 190000;
-  }
+  // if (modelName === Models.Anthropic) {
+  //   model = anthropic('claude-3-5-sonnet-latest');
+  //   MAX_TOKENS = 190000;
+  // }
 
-  if (modelName === Models.XAI) {
-    model = xai('grok-beta');
-    MAX_TOKENS = 131072;
-  }
+  // if (modelName === Models.XAI) {
+  //   model = xai('grok-beta');
+  //   MAX_TOKENS = 131072;
+  // }
 
-  if (modelName === Models.Gemini) {
-    model = google('gemini-2.0-flash-exp');
-    MAX_TOKENS = 1048576;
-  }
+  // if (modelName === Models.Gemini) {
+  //   model = google('gemini-2.0-flash-exp');
+  //   MAX_TOKENS = 1048576;
+  // }
 
   if (modelName === Models.Deepseek) {
     model = deepseek('deepseek-chat') as LanguageModelV1;
