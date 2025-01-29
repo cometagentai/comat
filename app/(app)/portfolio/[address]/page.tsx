@@ -7,20 +7,12 @@ import Transactions from './_components/transactions';
 
 import { SwapModalProvider } from './_contexts/use-swap-modal';
 
-const Portfolio = ({ params }: { params: Promise<{ address: string }> }) => {
-  const [address, setAddress] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    const fetchAddress = async () => {
-      const { address } = await params;
-      setAddress(address);
-    };
-    fetchAddress();
-  }, [params]);
-
-  if (!address) {
-    return <div>Loading...</div>;
-  }
+const Portfolio = async ({
+  params,
+}: {
+  params: Promise<{ address: string }>;
+}) => {
+  const { address } = await params;
 
   return (
     <SwapModalProvider>
