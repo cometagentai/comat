@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import dynamic from 'next/dynamic';
 
@@ -126,9 +126,36 @@ const Bridge: React.FC<Props> = ({
     }
   }, [inputToken, outputToken, inputAmount]);
 
-  const WormholeConnect = dynamic(
-    () => import('@wormhole-foundation/wormhole-connect'),
-    { ssr: false }
+  const BridgeComponent = () => {
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+      if (typeof window !== 'undefined' && containerRef.current) {
+        import('@wormhole-foundation/wormhole-connect').then(
+          ({ wormholeConnectHosted }) => {
+            if (containerRef.current) {
+              wormholeConnectHosted(containerRef.current as HTMLElement);
+            }
+          }
+        );
+      }
+    }, []);
+
+    return (
+      <div
+        ref={containerRef}
+        id='bridge-container'
+        style={{ width: '100%', height: '500px' }}
+      />
+    );
+  };
+
+  // Dynamically import the BridgeComponent without SSR
+  const DynamicBridgeComponent = dynamic(
+    () => Promise.resolve(BridgeComponent),
+    {
+      ssr: false,
+    }
   );
 
   return (
@@ -195,7 +222,7 @@ const Bridge: React.FC<Props> = ({
           </Button>
         )}
       </div> */}
-      <WormholeConnect />
+      <DynamicBridgeComponent />
     </div>
   );
 };
