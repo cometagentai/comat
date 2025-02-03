@@ -1,16 +1,35 @@
-import { SolanaTradeAction } from "./trade";
-import { SolanaGetTrendingTokensAction } from "./market";
-import { SolanaBalanceAction, SolanaTransferAction, SolanaGetWalletAddressAction, SolanaAllBalancesAction } from "./wallet";
-import { SolanaStakeAction, SolanaUnstakeAction, SolanaLiquidStakingYieldsAction } from "./staking";
-import { SolanaGetTokenDataAction, SolanaGetTokenAddressAction, SolanaTopHoldersAction, SolanaTokenHoldersAction } from "./token";
+import { SolanaTradeAction } from './trade';
+import { SolanaGetTrendingTokensAction } from './market';
+import {
+  SolanaBalanceAction,
+  SolanaTransferAction,
+  SolanaGetWalletAddressAction,
+  SolanaAllBalancesAction,
+} from './wallet';
+import {
+  SolanaStakeAction,
+  SolanaUnstakeAction,
+  SolanaLiquidStakingYieldsAction,
+} from './staking';
+import {
+  SolanaGetTokenDataAction,
+  SolanaGetTokenAddressAction,
+  SolanaTopHoldersAction,
+  SolanaTokenHoldersAction,
+} from './token';
 
-import type { SolanaAction, SolanaActionSchemaAny } from "./solana-action";
+import type { SolanaAction, SolanaActionSchemaAny } from './solana-action';
+import { SolanaBridgeAction } from './bridge';
 
-export function getAllSolanaActions(): SolanaAction<SolanaActionSchemaAny, any>[] {
+export function getAllSolanaActions(): SolanaAction<
+  SolanaActionSchemaAny,
+  any
+>[] {
   return [
     new SolanaBalanceAction(),
     new SolanaTransferAction(),
     new SolanaTradeAction(),
+    new SolanaBridgeAction(),
     new SolanaGetWalletAddressAction(),
     new SolanaGetTrendingTokensAction(),
     new SolanaGetTokenDataAction(),
@@ -20,7 +39,7 @@ export function getAllSolanaActions(): SolanaAction<SolanaActionSchemaAny, any>[
     new SolanaLiquidStakingYieldsAction(),
     new SolanaGetTokenAddressAction(),
     new SolanaTopHoldersAction(),
-    new SolanaTokenHoldersAction()
+    new SolanaTokenHoldersAction(),
   ];
 }
 
@@ -28,8 +47,8 @@ export const SOLANA_ACTIONS = getAllSolanaActions();
 
 export * from './types';
 export * from './solana-action';
-
 export * from './trade';
+export * from './bridge';
 export * from './market';
 export * from './raydium';
 export * from './staking';

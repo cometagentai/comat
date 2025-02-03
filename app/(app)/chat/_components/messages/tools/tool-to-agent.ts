@@ -1,3 +1,4 @@
+import { BRIDGE_AGENT_NAME } from '@/ai/agents/bridge/name';
 import {
   KNOWLEDGE_AGENT_NAME,
   MARKET_AGENT_NAME,
@@ -18,6 +19,7 @@ export const toolToAgent = {
   market: MARKET_AGENT_NAME,
   knowledge: KNOWLEDGE_AGENT_NAME,
   trading: TRADING_AGENT_NAME,
+  bridge: BRIDGE_AGENT_NAME,
   social: SOCIAL_AGENT_NAME,
   tokenanalysis: TOKEN_ANALYSIS_AGENT_NAME,
   liquidity: LIQUIDITY_AGENT_NAME,
@@ -40,6 +42,8 @@ export const getAgentIcon = (agentName: string): IconSaxName => {
     case KNOWLEDGE_AGENT_NAME:
       return 'Activity';
     case TRADING_AGENT_NAME:
+      return 'ArrangeVertical';
+    case BRIDGE_AGENT_NAME:
       return 'ArrangeVertical';
     case SOCIAL_AGENT_NAME:
       return 'Activity';
