@@ -18,6 +18,7 @@ interface Props {
 }
 
 const BridgeCallBody: React.FC<Props> = ({ toolCallId, args }) => {
+  console.log(toolCallId, args);
   // const { addToolResult } = useChat();
 
   // const { data: inputTokenData, isLoading: inputTokenLoading } =
