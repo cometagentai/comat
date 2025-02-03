@@ -9,10 +9,12 @@ textarea,
 button,
 body {
   font-family: var(--font-barlow), monospace;
+  --privy-color-warn: rgb(44 153 244 / var(--tw-bg-opacity, 1));
 }
 .font-arimo {
   font-family: var(--font-arimo), monospace;
 }
+
 .font-carlito {
   font-family: var(--font-carlito), monospace;
 }
