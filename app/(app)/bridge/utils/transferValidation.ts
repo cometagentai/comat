@@ -1,18 +1,18 @@
 import { Dispatch, useEffect, useMemo } from 'react';
 import { AnyAction } from '@reduxjs/toolkit';
 
-import config from 'config';
-import { SANCTIONED_WALLETS } from 'consts/wallet';
-import { RootState } from 'store';
+import config from '../config';
+import { SANCTIONED_WALLETS } from '../consts/wallet';
+import { RootState } from '../store';
 import {
   TransferInputState,
   setValidations,
   ValidationErr,
   TransferValidations,
   accessBalance,
-} from 'store/transferInput';
-import { WalletData, WalletState } from 'store/wallet';
-import { RelayState } from 'store/relay';
+} from '../store/transferInput';
+import { WalletData, WalletState } from '../store/wallet';
+import { RelayState } from '../store/relay';
 import { walletAcceptedChains } from './wallet';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDebounce } from 'use-debounce';
@@ -27,7 +27,7 @@ export const validateFromChain = (chain: Chain | undefined): ValidationErr => {
 
 export const validateToChain = (
   chain: Chain | undefined,
-  fromChain: Chain | undefined,
+  fromChain: Chain | undefined
 ): ValidationErr => {
   if (!chain) return 'Select a destination chain';
   const chainConfig = config.chains[chain];
@@ -54,14 +54,14 @@ export const validateToChain = (
 
 export const validateAmount = (
   amount: sdkAmount.Amount | undefined,
-  balance: sdkAmount.Amount | null,
+  balance: sdkAmount.Amount | null
 ): ValidationErr => {
   if (!amount) return '';
 
   // If user has selected chain, token, and has a balance entry, we can compare
   // their amount input to their balance (using base units)
   const amountBaseUnits = sdkAmount.units(amount);
-  if (amountBaseUnits === 0n) {
+  if (amountBaseUnits === BigInt(0)) {
     return 'Amount must be greater than 0';
   }
 
@@ -79,7 +79,7 @@ export const checkAddressIsSanctioned = (address: string): boolean =>
 
 export const validateWallet = async (
   wallet: WalletData,
-  chain: Chain | undefined,
+  chain: Chain | undefined
 ): Promise<ValidationErr> => {
   if (!wallet.address) return 'Wallet not connected';
   try {
@@ -100,7 +100,7 @@ export const validateWallet = async (
 
 export const validateToNativeAmt = (
   amount: number,
-  max: number | undefined,
+  max: number | undefined
 ): ValidationErr => {
   if (amount < 0) return 'Amount must be equal to or greater than zero';
   if (max && amount > max) return 'Amount exceeds maximum amount';
@@ -117,7 +117,7 @@ export const getIsAutomatic = (route?: string): boolean => {
 export const validateAll = async (
   transferData: TransferInputState,
   relayData: RelayState,
-  walletData: WalletState,
+  walletData: WalletState
 ): Promise<TransferValidations> => {
   const { fromChain, toChain, amount, balances, route } = transferData;
 
@@ -177,7 +177,7 @@ export const validate = async (
     wallet: WalletState;
   },
   dispatch: Dispatch<AnyAction>,
-  isCanceled: () => boolean,
+  isCanceled: () => boolean
 ) => {
   const validations = await validateAll(transferInput, relay, wallet);
 
@@ -196,7 +196,7 @@ export const validate = async (
       setValidations({
         validations,
         showValidationState: !!showValidationState,
-      }),
+      })
     );
   }
 };
@@ -210,11 +210,11 @@ export const useValidate = () => {
   const wallet = useSelector((state: RootState) => state.wallet);
   const stateForValidation = useMemo(
     () => ({ transferInput, relay, wallet }),
-    [transferInput, relay, wallet],
+    [transferInput, relay, wallet]
   );
   const [debouncedStateForValidation] = useDebounce(
     stateForValidation,
-    VALIDATION_DELAY_MS,
+    VALIDATION_DELAY_MS
   );
   useEffect(() => {
     let canceled = false;
@@ -227,7 +227,7 @@ export const useValidate = () => {
 
 export const minutesAndSecondsWithPadding = (
   minutes: number,
-  seconds: number,
+  seconds: number
 ) => {
   const minsPadded = minutes.toString().padStart(2, '0');
   const secsPadded = seconds.toString().padStart(2, '0');

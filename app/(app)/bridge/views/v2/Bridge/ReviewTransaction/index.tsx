@@ -8,43 +8,49 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import IconButton from '@mui/material/IconButton';
-import { getTransferDetails } from 'telemetry';
-import { Context } from 'sdklegacy';
+import { getTransferDetails } from '../../../../telemetry';
+import { Context } from '../../../../sdklegacy';
 
-import Button from 'components/v2/Button';
-import config from 'config';
-import { addTxToLocalStorage } from 'utils/inProgressTxCache';
-import { RoutesConfig } from 'config/routes';
-import { RouteContext } from 'contexts/RouteContext';
-import { useGasSlider } from 'hooks/useGasSlider';
+import Button from '../../../../components/v2/Button';
+import config from '../../../../config';
+import { addTxToLocalStorage } from '../../../../utils/inProgressTxCache';
+import { RoutesConfig } from '../../../../config/routes';
+import { RouteContext } from '../../../../context/RouteContext';
+import { useGasSlider } from '../../../../hooks/useGasSlider';
 import {
   setTxDetails,
   setSendTx,
   setRoute as setRedeemRoute,
   setTimestamp,
-} from 'store/redeem';
-import { setRoute as setAppRoute } from 'store/router';
-import { setAmount, setIsTransactionInProgress } from 'store/transferInput';
-import { getWrappedToken } from 'utils';
-import { interpretTransferError } from 'utils/errors';
-import { validate, isTransferValid } from 'utils/transferValidation';
+} from '../../../../store/redeem';
+import { setRoute as setAppRoute } from '../../../../store/router';
+import {
+  setAmount,
+  setIsTransactionInProgress,
+} from '../../../../store/transferInput';
+import { getWrappedToken } from '../../../../utils';
+import { interpretTransferError } from '../../../../utils/errors';
+import {
+  validate,
+  isTransferValid,
+} from '../../../../utils/transferValidation';
 import {
   registerWalletSigner,
   switchChain,
   TransferWallet,
-} from 'utils/wallet';
-import GasSlider from 'views/v2/Bridge/ReviewTransaction/GasSlider';
-import SingleRoute from 'views/v2/Bridge/Routes/SingleRoute';
+} from '../../../../utils/wallet';
+import GasSlider from '../../../../views/v2/Bridge/ReviewTransaction/GasSlider';
+import SingleRoute from '../../../../views/v2/Bridge/Routes/SingleRoute';
 
-import type { RootState } from 'store';
-import { RelayerFee } from 'store/relay';
+import type { RootState } from '../../../../store';
+import { RelayerFee } from '../../../../store/relay';
 
 import { amount as sdkAmount } from '@wormhole-foundation/sdk';
-import { toDecimals } from 'utils/balance';
-import { useUSDamountGetter } from 'hooks/useUSDamountGetter';
+import { toDecimals } from '../../../../utils/balance';
+import { useUSDamountGetter } from '../../../../hooks/useUSDamountGetter';
 import SendError from './SendError';
-import { ERR_USER_REJECTED } from 'telemetry/types';
-import { useGetTokens } from 'hooks/useGetTokens';
+import { ERR_USER_REJECTED } from '../../../../telemetry/types';
+import { useGetTokens } from '../../../../hooks/useGetTokens';
 
 const useStyles = makeStyles()((theme) => ({
   container: {
@@ -76,7 +82,7 @@ const ReviewTransaction = (props: Props) => {
 
   const [sendError, setSendError] = useState<string | undefined>(undefined);
   const [sendErrorInternal, setSendErrorInternal] = useState<any | undefined>(
-    undefined,
+    undefined
   );
 
   const routeContext = useContext(RouteContext);
@@ -151,7 +157,7 @@ const ReviewTransaction = (props: Props) => {
       sourceChain,
       destChain,
       amount,
-      getUSDAmount,
+      getUSDAmount
     );
 
     // Handle custom transfer validation (if provided by integrator)
@@ -205,7 +211,7 @@ const ReviewTransaction = (props: Props) => {
           destChain,
           receivingWallet.address,
           destToken,
-          { nativeGas: toNativeToken },
+          { nativeGas: toNativeToken }
         );
 
       const txId =
@@ -226,7 +232,7 @@ const ReviewTransaction = (props: Props) => {
         const feeToken = config.tokens.get(token);
 
         const formattedFee = Number.parseFloat(
-          toDecimals(amount.amount, amount.decimals, 6),
+          toDecimals(amount.amount, amount.decimals, 6)
         );
 
         relayerFee = {
@@ -285,7 +291,7 @@ const ReviewTransaction = (props: Props) => {
     } catch (e: any) {
       const [uiError, transferError] = interpretTransferError(
         e,
-        transferDetails,
+        transferDetails
       );
 
       if (transferError.type === ERR_USER_REJECTED) {
@@ -312,7 +318,7 @@ const ReviewTransaction = (props: Props) => {
 
   const walletsConnected = useMemo(
     () => !!sendingWallet.address && !!receivingWallet.address,
-    [sendingWallet.address, receivingWallet.address],
+    [sendingWallet.address, receivingWallet.address]
   );
 
   // Review transaction button is shown only when everything is ready
@@ -331,16 +337,16 @@ const ReviewTransaction = (props: Props) => {
     return (
       <Button
         disabled={props.isFetchingQuotes || isTransactionInProgress}
-        variant="primary"
+        variant='primary'
         className={classes.confirmTransaction}
         onClick={() => send()}
       >
         {isTransactionInProgress ? (
           <Typography
-            display="flex"
-            alignItems="center"
+            display='flex'
+            alignItems='center'
             gap={1}
-            textTransform="none"
+            textTransform='none'
           >
             <CircularProgress
               size={16}
@@ -350,16 +356,16 @@ const ReviewTransaction = (props: Props) => {
           </Typography>
         ) : !isTransactionInProgress && props.isFetchingQuotes ? (
           <Typography
-            display="flex"
-            alignItems="center"
+            display='flex'
+            alignItems='center'
             gap={1}
-            textTransform="none"
+            textTransform='none'
           >
-            <CircularProgress color="secondary" size={16} />
+            <CircularProgress color='secondary' size={16} />
             {mobile ? 'Refreshing' : 'Refreshing quote'}
           </Typography>
         ) : (
-          <Typography textTransform="none">
+          <Typography textTransform='none'>
             {mobile ? 'Confirm' : 'Confirm transaction'}
           </Typography>
         )}
@@ -402,7 +408,7 @@ const ReviewTransaction = (props: Props) => {
         <Collapse in={showGasSlider}>
           <GasSlider
             destinationGasDrop={
-              receiveNativeAmount || sdkAmount.fromBaseUnits(0n, 8)
+              receiveNativeAmount || sdkAmount.fromBaseUnits(BigInt(0), 8)
             }
             disabled={isGasSliderDisabled}
           />

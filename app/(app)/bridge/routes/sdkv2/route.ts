@@ -134,7 +134,12 @@ export class SDKv2Route {
 
     const fromContext = await this.getV2ChainContext(fromChain);
     const toContext = await this.getV2ChainContext(toChain);
-
+    console.log(
+      sourceToken.tokenId,
+      fromContext,
+      toContext,
+      'fromContext, toContext'
+    );
     const destTokenIds = await this.rc.supportedDestinationTokens(
       sourceToken.tokenId,
       fromContext.context,

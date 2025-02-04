@@ -21,13 +21,13 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Chain, amount as sdkAmount } from '@wormhole-foundation/sdk';
 
-import AlertBannerV2 from 'components/v2/AlertBanner';
-import { setAmount } from 'store/transferInput';
-import { Token } from 'config/tokens';
-import type { RootState } from 'store';
-import { calculateUSDPrice } from 'utils';
-import { useGetTokens } from 'hooks/useGetTokens';
-import { useTokens } from 'contexts/TokensContext';
+import AlertBannerV2 from '../../../../components/v2/AlertBanner';
+import { setAmount } from '../../../../store/transferInput';
+import { Token } from '../../../../config/tokens';
+import type { RootState } from '../../../../store';
+import { calculateUSDPrice } from '../../../../utils';
+import { useGetTokens } from '../../../../hooks/useGetTokens';
+import { useTokens } from '../../../../context/TokensContext';
 
 const INPUT_DEBOUNCE = 500;
 
@@ -46,7 +46,7 @@ const DebouncedTextField = memo(
     const [isFocused, setIsFocused] = useState(false);
     const deferredOnChange = useDebouncedCallback(
       onDebouncedChange,
-      INPUT_DEBOUNCE,
+      INPUT_DEBOUNCE
     );
 
     const onInnerChange: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -65,7 +65,7 @@ const DebouncedTextField = memo(
         onChange(e.target.value); // callback with no delay
         deferredOnChange(e.target.value);
       },
-      [deferredOnChange, onChange],
+      [deferredOnChange, onChange]
     );
 
     // Propagate any outside changes to the inner TextField value
@@ -88,7 +88,7 @@ const DebouncedTextField = memo(
         onBlur={() => setIsFocused(false)}
       />
     );
-  },
+  }
 );
 
 const useStyles = makeStyles()((theme) => ({
@@ -144,15 +144,15 @@ const AmountInput = (props: Props) => {
   const theme = useTheme();
 
   const { sending: sendingWallet } = useSelector(
-    (state: RootState) => state.wallet,
+    (state: RootState) => state.wallet
   );
   const { amount } = useSelector((state: RootState) => state.transferInput);
 
   const [amountInput, setAmountInput] = useState(
-    amount ? sdkAmount.display(amount) : '',
+    amount ? sdkAmount.display(amount) : ''
   );
   const [debouncedAmountInput, setDebouncedAmountInput] = useState(
-    amount ? sdkAmount.display(amount) : '',
+    amount ? sdkAmount.display(amount) : ''
   );
 
   const { sourceToken } = useGetTokens();
@@ -172,7 +172,7 @@ const AmountInput = (props: Props) => {
 
   const isInputDisabled = useMemo(
     () => !props.sourceChain || !sourceToken,
-    [props.sourceChain, sourceToken],
+    [props.sourceChain, sourceToken]
   );
 
   const balance = useMemo(() => {
@@ -181,10 +181,10 @@ const AmountInput = (props: Props) => {
     }
 
     return (
-      <Stack direction="row" alignItems="center">
+      <Stack direction='row' alignItems='center'>
         <Typography
           className={classes.balance}
-          component="span"
+          component='span'
           sx={{ marginRight: '4px' }}
         >
           Balance:
@@ -194,7 +194,7 @@ const AmountInput = (props: Props) => {
         ) : (
           <Typography
             fontSize={14}
-            textAlign="right"
+            textAlign='right'
             className={classes.balance}
           >
             {props.tokenBalance
@@ -220,7 +220,7 @@ const AmountInput = (props: Props) => {
     const price = calculateUSDPrice(
       getTokenPrice,
       Number(amountInput === '.' ? '0.' : amountInput),
-      sourceToken,
+      sourceToken
     );
 
     if (!price) {
@@ -229,19 +229,19 @@ const AmountInput = (props: Props) => {
 
     return (
       <InputAdornment
-        position="end"
+        position='end'
         sx={{
           position: 'absolute',
           top: '38px',
           margin: 0,
         }}
       >
-        <Stack alignItems="start">
+        <Stack alignItems='start'>
           <Typography
             color={theme.palette.text.secondary}
-            component="span"
-            fontSize="14px"
-            lineHeight="14px"
+            component='span'
+            fontSize='14px'
+            lineHeight='14px'
           >
             {price}
           </Typography>
@@ -255,7 +255,7 @@ const AmountInput = (props: Props) => {
       dispatch(setAmount(newValue));
       setDebouncedAmountInput(newValue);
     },
-    [dispatch],
+    [dispatch]
   );
 
   const maxButton = useMemo(() => {
@@ -276,7 +276,7 @@ const AmountInput = (props: Props) => {
         <Typography
           fontSize={14}
           fontWeight={maxButtonDisabled ? 400 : 600}
-          textTransform="none"
+          textTransform='none'
         >
           Max
         </Typography>
@@ -293,9 +293,9 @@ const AmountInput = (props: Props) => {
   return (
     <div className={classes.amountContainer}>
       <div className={classes.amountTitle}>
-        <Typography variant="body2">Amount</Typography>
+        <Typography variant='body2'>Amount</Typography>
       </div>
-      <Card className={classes.amountCard} variant="elevation">
+      <Card className={classes.amountCard} variant='elevation'>
         <CardContent className={classes.amountCardContent}>
           <DebouncedTextField
             fullWidth
@@ -318,8 +318,8 @@ const AmountInput = (props: Props) => {
               },
               step: '0.1',
             }}
-            placeholder="0"
-            variant="standard"
+            placeholder='0'
+            variant='standard'
             value={debouncedAmountInput}
             onChange={handleChange}
             onDebouncedChange={handleDebouncedChange}
@@ -327,8 +327,8 @@ const AmountInput = (props: Props) => {
               disableUnderline: true,
               startAdornment: tokenPriceAdornment,
               endAdornment: (
-                <InputAdornment position="end">
-                  <Stack alignItems="end" justifyContent="space-between">
+                <InputAdornment position='end'>
+                  <Stack alignItems='end' justifyContent='space-between'>
                     {maxButton}
                     {balance}
                   </Stack>

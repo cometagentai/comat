@@ -48,6 +48,8 @@ const Bridge: React.FC<Props> = ({
   onError,
   onCancel,
 }) => {
+  console.log(initialInputToken);
+  console.log(initialOutputToken);
   const [inputAmount, setInputAmount] = useState<string>(
     initialInputAmount || ''
   );
@@ -126,41 +128,9 @@ const Bridge: React.FC<Props> = ({
     }
   }, [inputToken, outputToken, inputAmount]);
 
-  const BridgeComponent = () => {
-    const containerRef = useRef(null);
-
-    useEffect(() => {
-      if (typeof window !== 'undefined' && containerRef.current) {
-        import('@wormhole-foundation/wormhole-connect').then(
-          ({ wormholeConnectHosted }) => {
-            if (containerRef.current) {
-              wormholeConnectHosted(containerRef.current as HTMLElement);
-            }
-          }
-        );
-      }
-    }, []);
-
-    return (
-      <div
-        ref={containerRef}
-        id='bridge-container'
-        style={{ width: '100%', height: '500px' }}
-      />
-    );
-  };
-
-  // Dynamically import the BridgeComponent without SSR
-  const DynamicBridgeComponent = dynamic(
-    () => Promise.resolve(BridgeComponent),
-    {
-      ssr: false,
-    }
-  );
-
   return (
     <div className='flex flex-col gap-4 w-96 max-w-full'>
-      {/* <div className='flex flex-col gap-2 items-center w-full'>
+      <div className='flex flex-col gap-2 items-center w-full'>
         <TokenInput
           label={inputLabel}
           amount={inputAmount}
@@ -221,8 +191,7 @@ const Bridge: React.FC<Props> = ({
             Cancel
           </Button>
         )}
-      </div> */}
-      <DynamicBridgeComponent />
+      </div>
     </div>
   );
 };

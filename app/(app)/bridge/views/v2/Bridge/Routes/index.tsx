@@ -3,9 +3,9 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { makeStyles } from 'tss-react/mui';
 
-import config from 'config';
-import { RoutesConfig } from 'config/routes';
-import SingleRoute from 'views/v2/Bridge/Routes/SingleRoute';
+import config from '../../../../config';
+import { RoutesConfig } from '../../../../config/routes';
+import SingleRoute from '../../../../views/v2/Bridge/Routes/SingleRoute';
 
 import { routes } from '@wormhole-foundation/sdk';
 import { Box, CircularProgress, Skeleton } from '@mui/material';
@@ -68,7 +68,7 @@ const Routes = ({ ...props }: Props) => {
           return fastest;
         }
       },
-      { name: '', eta: Infinity },
+      { name: '', eta: Infinity }
     );
   }, [routes, props.quotes]);
 
@@ -86,7 +86,7 @@ const Routes = ({ ...props }: Props) => {
           return cheapest;
         }
       },
-      { name: '', amountOut: 0n },
+      { name: '', amountOut: BigInt(0) }
     );
   }, [routes, props.quotes]);
 
@@ -99,13 +99,13 @@ const Routes = ({ ...props }: Props) => {
       {props.isLoading || renderRoutes.length > 0 ? (
         <Box sx={{ display: 'flex', width: '100%' }}>
           <Typography
-            align="left"
+            align='left'
             fontSize={16}
             paddingBottom={0}
-            marginTop="8px"
+            marginTop='8px'
             marginBottom={0}
-            width="100%"
-            textAlign="left"
+            width='100%'
+            textAlign='left'
           >
             Routes
           </Typography>
@@ -116,7 +116,7 @@ const Routes = ({ ...props }: Props) => {
       ) : null}
 
       {props.isLoading && renderRoutes.length === 0 ? (
-        <Skeleton variant="rounded" height={153} width="100%" />
+        <Skeleton variant='rounded' height={153} width='100%' />
       ) : (
         renderRoutes.map((name, index) => {
           const routeConfig = RoutesConfig[name];

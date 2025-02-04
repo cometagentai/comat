@@ -1,5 +1,5 @@
-import { getWormholeContextV2 } from 'config';
-import { RelayerFee } from 'store/relay';
+import { getWormholeContextV2 } from '../config';
+import { RelayerFee } from '../store/relay';
 import {
   Chain,
   Wormhole,
@@ -14,13 +14,13 @@ import {
   CircleTransfer,
   circle,
 } from '@wormhole-foundation/sdk';
-import config from 'config';
+import config from '../config';
 import { NttRoute } from '@wormhole-foundation/sdk-route-ntt';
 import { Connection } from '@solana/web3.js';
 import { PublicKey } from '@solana/web3.js';
 import * as splToken from '@solana/spl-token';
-import { WORMSCAN } from 'config/constants';
-import { TokenTuple } from 'config/tokens';
+import { WORMSCAN } from '../config/constants';
+import { TokenTuple } from '../config/tokens';
 
 // Used to represent an initiated transfer. Primarily for the Redeem view.
 export interface TransferInfo {
@@ -62,7 +62,7 @@ export type ExplorerInfo = {
 // TODO SDKV2 add a way for the Route interface to offer this
 export function getExplorerInfo(
   route: string | routes.Route<Network>,
-  txHash: string,
+  txHash: string
 ): ExplorerInfo {
   const routeName =
     typeof route === 'string'
@@ -103,28 +103,28 @@ type ReceiptWithAttestation<AT> =
 // Connect should never have to look inside of an attestation - that's too low-level.
 export async function parseReceipt(
   route: string,
-  receipt: ReceiptWithAttestation<any>,
+  receipt: ReceiptWithAttestation<any>
 ): Promise<TransferInfo | null> {
   switch (route) {
     case 'ManualTokenBridge':
       return await parseTokenBridgeReceipt(
-        receipt as ReceiptWithAttestation<TokenBridge.TransferVAA>,
+        receipt as ReceiptWithAttestation<TokenBridge.TransferVAA>
       );
     case 'ManualCCTP':
       return await parseCCTPReceipt(
-        receipt as ReceiptWithAttestation<CircleTransfer.CircleAttestationReceipt>,
+        receipt as ReceiptWithAttestation<CircleTransfer.CircleAttestationReceipt>
       );
     case 'ManualNtt':
       return parseNttReceipt(
         receipt as ReceiptWithAttestation<NttRoute.ManualAttestationReceipt> & {
           params: NttRoute.ValidatedParams;
-        },
+        }
       );
     case 'AutomaticNtt':
       return parseNttReceipt(
         receipt as ReceiptWithAttestation<NttRoute.AutomaticAttestationReceipt> & {
           params: NttRoute.ValidatedParams;
-        },
+        }
       );
     default:
       throw new Error(`Unknown route type ${route}`);
@@ -132,7 +132,7 @@ export async function parseReceipt(
 }
 
 const parseTokenBridgeReceipt = async (
-  receipt: ReceiptWithAttestation<TokenBridge.TransferVAA>,
+  receipt: ReceiptWithAttestation<TokenBridge.TransferVAA>
 ): Promise<TransferInfo> => {
   const txData: Partial<TransferInfo> = {
     toChain: receipt.to,
@@ -174,7 +174,7 @@ const parseTokenBridgeReceipt = async (
     txData.amount = amount.fromBaseUnits(
       payload.token.amount,
       // VAAs are truncated to a max of 8 decimal places
-      Math.min(8, token.decimals),
+      Math.min(8, token.decimals)
     );
     txData.tokenAddress = tokenAddress;
     txData.token = token.tuple;
@@ -184,7 +184,7 @@ const parseTokenBridgeReceipt = async (
     if (payload.payload?.toNativeTokenAmount) {
       txData.receiveNativeAmount = amount.fromBaseUnits(
         payload.payload.toNativeTokenAmount,
-        Math.min(8, token.decimals),
+        Math.min(8, token.decimals)
       );
     }
     if (payload.payload?.targetRelayerFee) {
@@ -192,8 +192,8 @@ const parseTokenBridgeReceipt = async (
         fee: Number(
           amount.fmt(
             payload.payload.targetRelayerFee,
-            Math.min(8, token.decimals),
-          ),
+            Math.min(8, token.decimals)
+          )
         ),
         token: token.tuple,
       };
@@ -211,7 +211,7 @@ const parseTokenBridgeReceipt = async (
       try {
         const account = await splToken.getAccount(
           connection,
-          new PublicKey(ata),
+          new PublicKey(ata)
         );
         txData.recipient = account.owner.toBase58();
       } catch (e) {
@@ -227,7 +227,7 @@ const parseTokenBridgeReceipt = async (
 };
 
 const parseCCTPReceipt = async (
-  receipt: ReceiptWithAttestation<CircleTransfer.CircleAttestationReceipt>,
+  receipt: ReceiptWithAttestation<CircleTransfer.CircleAttestationReceipt>
 ): Promise<TransferInfo> => {
   const txData: Partial<TransferInfo> = {
     toChain: receipt.to,
@@ -252,7 +252,7 @@ const parseCCTPReceipt = async (
       ? // The `burnToken` from Sui is the keccak256 hash of the USDC token address,
         // so we need to override it with the actual USDC address
         circle.usdcContract.get(config.network, receipt.from)!
-      : payload.burnToken.toNative(receipt.from).toString(),
+      : payload.burnToken.toNative(receipt.from).toString()
   );
   const usdcLegacy = config.tokens.get(sourceTokenId);
 
@@ -290,14 +290,14 @@ const parseCCTPReceipt = async (
   if (txData.toChain) {
     const usdcContract = circle.usdcContract.get(
       config.network,
-      txData.toChain,
+      txData.toChain
     );
     if (!usdcContract) {
       throw new Error(`Couldn't find USDC for destination chain`);
     }
     const destinationUsdcLegacy = config.tokens.get(
       txData.toChain,
-      usdcContract,
+      usdcContract
     );
     if (!destinationUsdcLegacy) {
       throw new Error(`Couldn't find USDC for destination chain`);
@@ -314,7 +314,7 @@ const parseNttReceipt = (
     NttRoute.ManualAttestationReceipt | NttRoute.AutomaticAttestationReceipt
   > & {
     params: NttRoute.ValidatedParams;
-  },
+  }
 ): TransferInfo => {
   let sendTx = '';
   if ('originTxs' in receipt && receipt.originTxs.length > 0) {
@@ -325,7 +325,7 @@ const parseNttReceipt = (
 
   const srcTokenIdV2 = Wormhole.tokenId(
     receipt.from,
-    receipt.params.normalizedParams.sourceContracts.token,
+    receipt.params.normalizedParams.sourceContracts.token
   );
   const srcToken = config.tokens.get(srcTokenIdV2);
   if (!srcToken) {
@@ -335,7 +335,7 @@ const parseNttReceipt = (
 
   const dstTokenIdV2 = Wormhole.tokenId(
     receipt.to,
-    receipt.params.normalizedParams.destinationContracts.token,
+    receipt.params.normalizedParams.destinationContracts.token
   );
   const dstToken = config.tokens.get(dstTokenIdV2);
   if (!dstToken) {
@@ -351,7 +351,7 @@ const parseNttReceipt = (
   const { trimmedAmount } = payload.nttManagerPayload.payload;
   const amt = amount.fromBaseUnits(
     trimmedAmount.amount,
-    trimmedAmount.decimals,
+    trimmedAmount.decimals
   );
   return {
     toChain: receipt.to,
@@ -381,7 +381,7 @@ const isAmount = (amount: any): amount is amount.Amount => {
 
 // Warning: any changes to this function can make TS unhappy
 export const isMinAmountError = (
-  error?: Error,
+  error?: Error
 ): error is routes.MinAmountError => {
   const unsafeCastError = error as routes.MinAmountError;
   return isAmount(unsafeCastError?.min);

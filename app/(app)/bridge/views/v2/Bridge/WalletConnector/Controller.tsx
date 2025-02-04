@@ -13,14 +13,14 @@ import {
   bindPopover,
 } from 'material-ui-popup-state/hooks';
 
-import { RootState } from 'store';
-import { disconnectWallet as disconnectFromStore } from 'store/wallet';
-import { TransferWallet } from 'utils/wallet';
-import { copyTextToClipboard, displayWalletAddress } from 'utils';
+import { RootState } from '../../../../store';
+import { disconnectWallet as disconnectFromStore } from '../../../../store/wallet';
+import { TransferWallet } from '../../../../utils/wallet';
+import { copyTextToClipboard, displayWalletAddress } from '../../../../utils';
 
-import DownIcon from 'icons/Down';
-import WalletIcons from 'icons/WalletIcons';
-import config from 'config';
+import DownIcon from '../../../../icons/Down';
+import WalletIcons from '../../../../icons/WalletIcons';
+import config from '../../../../config';
 import ExplorerLink from './ExplorerLink';
 import WalletSidebar from './Sidebar';
 import { Tooltip } from '@mui/material';
@@ -118,7 +118,7 @@ const ConnectedWallet = (props: Props) => {
     <>
       <div className={classes.connectWallet} {...bindTrigger(popupState)}>
         <WalletIcons name={wallet.name} icon={wallet.icon} size={20} />
-        <Tooltip title="Copied" open={isCopied} placement="top" arrow>
+        <Tooltip title='Copied' open={isCopied} placement='top' arrow>
           <Typography
             className={classes.walletAddress}
             fontSize={14}

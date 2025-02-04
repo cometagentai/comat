@@ -8,48 +8,53 @@ import Typography from '@mui/material/Typography';
 
 import HistoryIcon from '@mui/icons-material/History';
 
-import type { RootState } from 'store';
+import type { RootState } from '../../../store';
 
-import Button from 'components/v2/Button';
-import config from 'config';
-import { joinClass } from 'utils/style';
-import PoweredByIcon from 'icons/PoweredBy';
-import PageHeader from 'components/PageHeader';
-import Header, { Alignment } from 'components/Header';
-import FooterNavBar from 'components/FooterNavBar';
-import useFetchSupportedRoutes from 'hooks/useFetchSupportedRoutes';
-import useComputeDestinationTokens from 'hooks/useComputeDestinationTokens';
-import useComputeSourceTokens from 'hooks/useComputeSourceTokens';
-import { setRoute as setAppRoute } from 'store/router';
+import Button from '../../../components/v2/Button';
+import config from '../../../config';
+import { joinClass } from '../../../utils/style';
+import PoweredByIcon from '../../../icons/PoweredBy';
+import PageHeader from '../../../components/PageHeader';
+import Header, { Alignment } from '../../../components/Header';
+import FooterNavBar from '../../../components/FooterNavBar';
+import useFetchSupportedRoutes from '../../../hooks/useFetchSupportedRoutes';
+import useComputeDestinationTokens from '../../../hooks/useComputeDestinationTokens';
+import useComputeSourceTokens from '../../../hooks/useComputeSourceTokens';
+import { setRoute as setAppRoute } from '../../../store/router';
 import {
   selectFromChain,
   selectToChain,
   setToken,
   setTransferRoute,
   setDestToken,
-} from 'store/transferInput';
-import { isTransferValid, useValidate } from 'utils/transferValidation';
-import { TransferWallet, useConnectToLastUsedWallet } from 'utils/wallet';
-import WalletConnector from 'views/v2/Bridge/WalletConnector';
-import AssetPicker from 'views/v2/Bridge/AssetPicker';
-import WalletController from 'views/v2/Bridge/WalletConnector/Controller';
-import AmountInput from 'views/v2/Bridge/AmountInput';
-import Routes from 'views/v2/Bridge/Routes';
-import ReviewTransaction from 'views/v2/Bridge/ReviewTransaction';
-import SwapInputs from 'views/v2/Bridge/SwapInputs';
-import TxHistoryWidget from 'views/v2/TxHistory/Widget';
-import { useSortedRoutesWithQuotes } from 'hooks/useSortedRoutesWithQuotes';
+} from '../../../store/transferInput';
+import {
+  isTransferValid,
+  useValidate,
+} from '../../../utils/transferValidation';
+import {
+  TransferWallet,
+  useConnectToLastUsedWallet,
+} from '../../../utils/wallet';
+import WalletConnector from '../../../views/v2/Bridge/WalletConnector';
+import AssetPicker from '../../../views/v2/Bridge/AssetPicker';
+import WalletController from '../../../views/v2/Bridge/WalletConnector/Controller';
+import AmountInput from '../../../views/v2/Bridge/AmountInput';
+import Routes from '../../../views/v2/Bridge/Routes';
+import ReviewTransaction from '../../../views/v2/Bridge/ReviewTransaction';
+import SwapInputs from '../../../views/v2/Bridge/SwapInputs';
+// import TxHistoryWidget from '../../../views/v2/TxHistory/Widget';
+import { useSortedRoutesWithQuotes } from '../../../hooks/useSortedRoutesWithQuotes';
 //import { useFetchTokenPrices } from 'hooks/useFetchTokenPrices';
 
 import type { Chain } from '@wormhole-foundation/sdk';
 import { amount as sdkAmount } from '@wormhole-foundation/sdk';
-import { useAmountValidation } from 'hooks/useAmountValidation';
-import { useWalletCompatibility } from 'hooks/useWalletCompatibility';
-import useGetTokenBalances from 'hooks/useGetTokenBalances';
-import { useGetTokens } from 'hooks/useGetTokens';
-import { Token } from 'config/tokens';
-
-import { useTokens } from 'contexts/TokensContext';
+import { useAmountValidation } from '../../../hooks/useAmountValidation';
+import { useWalletCompatibility } from '../../../hooks/useWalletCompatibility';
+import useGetTokenBalances from '../../../hooks/useGetTokenBalances';
+import { useGetTokens } from '../../../hooks/useGetTokens';
+import { Token } from '../../../config/tokens';
+import { useTokens } from '../../../context/TokensContext';
 
 const useStyles = makeStyles()((theme) => ({
   assetPickerContainer: {
@@ -115,7 +120,7 @@ const Bridge = () => {
 
   // Connected wallets, if any
   const { sending: sendingWallet, receiving: receivingWallet } = useSelector(
-    (state: RootState) => state.wallet,
+    (state: RootState) => state.wallet
   );
 
   const [selectedRoute, setSelectedRoute] = useState<string>();
@@ -167,7 +172,7 @@ const Bridge = () => {
       setSelectedRoute('');
     } else {
       const preferredRoute = sortedRoutesWithQuotes.find(
-        (route) => route.route === preferredRouteName,
+        (route) => route.route === preferredRouteName
       );
       const autoselectedRoute =
         route ?? preferredRoute?.route ?? sortedRoutesWithQuotes[0].route;
@@ -185,7 +190,7 @@ const Bridge = () => {
       }
 
       const routeData = sortedRoutesWithQuotes?.find(
-        (rs) => rs.route === autoselectedRoute,
+        (rs) => rs.route === autoselectedRoute
       );
 
       if (routeData) setSelectedRoute(routeData.route);
@@ -208,7 +213,7 @@ const Bridge = () => {
   const { balances, isFetching: isFetchingBalances } = useGetTokenBalances(
     sendingWallet,
     sourceChain,
-    sourceTokenArray,
+    sourceTokenArray
   );
 
   const disableValidation =
@@ -237,7 +242,7 @@ const Bridge = () => {
   // All supported chains from the given configuration and any custom override
   const supportedChains = useMemo(
     () => config.routes.allSupportedChains(),
-    [config.chainsArr],
+    [config.chainsArr]
   );
 
   const sourceTokens = useMemo(() => {
@@ -265,7 +270,7 @@ const Bridge = () => {
       (chain) =>
         chain.key !== sourceChain &&
         !chain.disabledAsDestination &&
-        supportedChains.includes(chain.key),
+        supportedChains.includes(chain.key)
     );
   }, [config.chainsArr, sourceChain, supportedChains]);
 
@@ -292,7 +297,7 @@ const Bridge = () => {
     return (
       <div className={classes.assetPickerContainer}>
         <div className={classes.assetPickerTitle}>
-          <Typography variant="body2">From</Typography>
+          <Typography variant='body2'>From</Typography>
           <WalletController type={TransferWallet.SENDING} />
         </div>
         <AssetPicker
@@ -331,7 +336,7 @@ const Bridge = () => {
     return (
       <div className={classes.assetPickerContainer}>
         <div className={classes.assetPickerTitle}>
-          <Typography variant="body2">To</Typography>
+          <Typography variant='body2'>To</Typography>
           <WalletController type={TransferWallet.RECEIVING} />
         </div>
         <AssetPicker
@@ -369,8 +374,8 @@ const Bridge = () => {
     return (
       <div className={classes.bridgeHeader}>
         <Header
-          align="left"
-          text={config.ui.title ?? 'Wormhole Connect'}
+          align='left'
+          text={config.ui.title ?? 'Comet Connect'}
           size={18}
         />
         <Tooltip
@@ -397,7 +402,7 @@ const Bridge = () => {
       return (
         <WalletConnector
           disabled={!destChain}
-          side="destination"
+          side='destination'
           type={TransferWallet.RECEIVING}
         />
       );
@@ -406,7 +411,7 @@ const Bridge = () => {
     return (
       <WalletConnector
         disabled={!sourceChain}
-        side="source"
+        side='source'
         type={TransferWallet.SENDING}
       />
     );
@@ -446,7 +451,7 @@ const Bridge = () => {
   // Review transaction button is shown only when everything is ready
   const reviewTransactionButton = (
     <Button
-      variant="primary"
+      variant='primary'
       className={classes.reviewTransaction}
       disabled={reviewTransactionDisabled}
       onClick={() => {
@@ -454,7 +459,7 @@ const Bridge = () => {
         setWillReviewTransaction(true);
       }}
     >
-      <Typography textTransform="none">
+      <Typography textTransform='none'>
         {mobile ? 'Review' : 'Review transaction'}
       </Typography>
     </Button>
@@ -486,7 +491,7 @@ const Bridge = () => {
   return (
     <div className={joinClass([classes.bridgeContent, classes.spacer])}>
       {header}
-      {config.ui.showInProgressWidget && <TxHistoryWidget />}
+      {/* {config.ui.showInProgressWidget && <TxHistoryWidget />} */}
       {bridgeHeader}
       {sourceAssetPicker}
       {destAssetPicker}

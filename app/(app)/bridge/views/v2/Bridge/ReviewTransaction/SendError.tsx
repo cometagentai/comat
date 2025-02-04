@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles } from 'tss-react/mui';
-import config from 'config';
-import AlertBannerV2 from 'components/v2/AlertBanner';
-import { copyTextToClipboard } from 'utils';
+import config from '../../../../config';
+import AlertBannerV2 from '../../../../components/v2/AlertBanner';
+import { copyTextToClipboard } from '../../../../utils';
 import { Box, Typography } from '@mui/material';
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import DoneIcon from '@mui/icons-material/Done';
@@ -36,7 +36,7 @@ export default ({ humanError, internalError }: Props) => {
       <Typography fontSize={14} sx={{ marginTop: 1 }}>
         Having trouble?{' '}
         <a
-          href="#"
+          href='#'
           onClick={() => {
             copyTextToClipboard(internalError.message);
             setJustCopied(true);
@@ -51,7 +51,7 @@ export default ({ humanError, internalError }: Props) => {
           )}
         </a>
         {' and '}
-        <a href={config.ui.getHelpUrl} target="_blank">
+        <a href={config.ui.getHelpUrl} target='_blank'>
           ask for help
         </a>
         .
@@ -64,7 +64,7 @@ export default ({ humanError, internalError }: Props) => {
         error
         content={humanError}
         show={true}
-        testId="send-error-message"
+        testId='send-error-message'
       />
       {getHelp}
     </Box>

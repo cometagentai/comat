@@ -13,7 +13,7 @@ import {
   TOKEN_PROGRAM_ID,
 } from '@solana/spl-token';
 import { getAddress } from 'ethers';
-import config from 'config';
+import config from '../config';
 
 function isValidEvmAddress(address: string): boolean {
   if (
@@ -60,7 +60,7 @@ function isValidAptosAddress(address: string): boolean {
 
 export async function validateWalletAddress(
   chain: Chain,
-  address: string,
+  address: string
 ): Promise<NativeAddress<Chain> | null> {
   const platform = chainToPlatform(chain);
 
@@ -90,7 +90,7 @@ export async function validateWalletAddress(
     return toNative(chain, address);
   } catch (e) {
     console.error(
-      `Invalid address for chain ${chain}: ${address}, error: ${e}`,
+      `Invalid address for chain ${chain}: ${address}, error: ${e}`
     );
   }
 

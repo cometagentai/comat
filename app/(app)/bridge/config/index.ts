@@ -41,6 +41,7 @@ export function buildConfig(
       'Mainnet'
   ) as Network;
 
+  console.log(network, 'network');
   if (!['Mainnet', 'Testnet', 'Devnet'].includes(network))
     throw new Error(
       `Invalid env "${network}": Use "Testnet", "Devnet", or "Mainnet"`

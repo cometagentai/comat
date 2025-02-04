@@ -179,6 +179,7 @@ export default class RouteOperator {
     const supported: Set<string> = new Set();
 
     await this.forEach(async (name, route) => {
+      console.log(name, 'name');
       try {
         // TODO remove once the SDK has a special return value that represents infinite supported tokens
         if (name.includes('Mayan')) {
@@ -186,12 +187,13 @@ export default class RouteOperator {
             supported.add(t.key);
           });
         } else {
+          console.log(sourceToken, sourceChain, destChain, 'route');
           const destTokenIds = await route.supportedDestTokens(
             sourceToken,
             sourceChain,
             destChain
           );
-
+          console.log(destTokenIds, 'destTokenIds');
           for (const token of destTokenIds) {
             supported.add(tokenKey(token));
           }

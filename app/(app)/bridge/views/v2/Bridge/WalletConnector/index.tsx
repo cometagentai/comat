@@ -6,12 +6,12 @@ import { useMediaQuery } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-import Button from 'components/v2/Button';
-import { RootState } from 'store';
-import { displayWalletAddress } from 'utils';
-import { TransferWallet } from 'utils/wallet';
+import Button from '../../../../components/v2/Button';
+import { RootState } from '../../../../store';
+import { displayWalletAddress } from '../../../../utils';
+import { TransferWallet } from '../../../../utils/wallet';
 
-import { TransferSide } from 'config/types';
+import { TransferSide } from '../../../../config/types';
 import WalletSidebar from './Sidebar';
 
 const useStyles = makeStyles()((theme: any) => ({
@@ -67,7 +67,7 @@ const WalletConnector = (props: Props) => {
       popupState?.close();
       setIsOpen(true);
     },
-    [disabled],
+    [disabled]
   );
 
   const connected = useMemo(() => {
@@ -78,7 +78,7 @@ const WalletConnector = (props: Props) => {
     return (
       <div className={classes.connected}>{`Connected to ${displayWalletAddress(
         wallet.type,
-        wallet.address,
+        wallet.address
       )}`}</div>
     );
   }, [classes.connected, wallet.address, wallet.type]);
@@ -87,7 +87,7 @@ const WalletConnector = (props: Props) => {
     const button = (
       <span style={{ width: '100%' }}>
         <Button
-          variant="primary"
+          variant='primary'
           className={classes.connectWallet}
           data-testid={`${props.side}-section-connect-wallet-button`}
           disabled={disabled}
@@ -99,7 +99,7 @@ const WalletConnector = (props: Props) => {
           }}
           onClick={() => connectWallet()}
         >
-          <Typography textTransform="none">
+          <Typography textTransform='none'>
             {mobile
               ? props.side === 'source'
                 ? 'Connect'

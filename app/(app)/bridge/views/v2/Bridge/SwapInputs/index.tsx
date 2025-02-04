@@ -4,10 +4,10 @@ import IconButton from '@mui/material/IconButton';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import { makeStyles } from 'tss-react/mui';
 
-import config from 'config';
-import { RootState } from 'store';
-import { setAmount, swapInputs } from 'store/transferInput';
-import { swapWallets } from 'store/wallet';
+import config from '../../../../config';
+import { RootState } from '../../../../store';
+import { setAmount, swapInputs } from '../../../../store/transferInput';
+import { swapWallets } from '../../../../store/wallet';
 
 const useStyles = makeStyles()(() => ({
   swapButton: {
@@ -43,7 +43,7 @@ function SwapInputs() {
     if (!canSwap || isTransactionInProgress) return;
 
     setRotateAnimation((val) =>
-      val === 'spinRight' ? 'spinLeft' : 'spinRight',
+      val === 'spinRight' ? 'spinLeft' : 'spinRight'
     );
 
     dispatch(swapInputs());

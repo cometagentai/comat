@@ -11,10 +11,10 @@ import Stack from '@mui/material/Stack';
 import { makeStyles } from 'tss-react/mui';
 import { amount, routes } from '@wormhole-foundation/sdk';
 
-import config from 'config';
-import ErrorIcon from 'icons/Error';
-import WarningIcon from 'icons/Warning';
-import TokenIcon from 'icons/TokenIcons';
+import config from '../../../../config';
+import ErrorIcon from '../../../../icons/Error';
+import WarningIcon from '../../../../icons/Warning';
+import TokenIcon from '../../../../icons/TokenIcons';
 import {
   isEmptyObject,
   calculateUSDPrice,
@@ -22,15 +22,15 @@ import {
   getUSDFormat,
   millisToHumanString,
   formatDuration,
-} from 'utils';
+} from '../../../../utils';
 
-import type { RouteData } from 'config/routes';
-import type { RootState } from 'store';
-import FastestRoute from 'icons/FastestRoute';
-import CheapestRoute from 'icons/CheapestRoute';
-import { useGetTokens } from 'hooks/useGetTokens';
-import { useTokens } from 'contexts/TokensContext';
-import { Token } from 'config/tokens';
+import type { RouteData } from '../../../../config/routes';
+import type { RootState } from '../../../../store';
+import FastestRoute from '../../../../icons/FastestRoute';
+import CheapestRoute from '../../../../icons/CheapestRoute';
+import { useGetTokens } from '../../../../hooks/useGetTokens';
+import { useTokens } from '../../../../context/TokensContext';
+import { Token } from '../../../../config/tokens';
 
 const HIGH_FEE_THRESHOLD = 20; // dollhairs
 
@@ -103,7 +103,7 @@ const SingleRoute = (props: Props) => {
   const routeConfig = config.routes.get(props.route.name);
 
   const { toChain: destChain, fromChain: sourceChain } = useSelector(
-    (state: RootState) => state.transferInput,
+    (state: RootState) => state.transferInput
   );
 
   const { getTokenPrice, isFetchingTokenPrices } = useTokens();
@@ -116,7 +116,7 @@ const SingleRoute = (props: Props) => {
   const [feePrice, isHighFee, feeToken]: [
     number | undefined,
     boolean,
-    Token | undefined,
+    Token | undefined
   ] = useMemo(() => {
     if (!quote?.relayFee) {
       return [undefined, false, undefined];
@@ -145,7 +145,7 @@ const SingleRoute = (props: Props) => {
     const feePriceFormatted = getUSDFormat(feePrice);
 
     let feeValue = `${amount.display(
-      amount.truncate(quote!.relayFee!.amount, 6),
+      amount.truncate(quote!.relayFee!.amount, 6)
     )} ${feeToken.display} (${feePriceFormatted})`;
 
     // Wesley made me do it
@@ -155,20 +155,20 @@ const SingleRoute = (props: Props) => {
     }
 
     return (
-      <Stack direction="row" justifyContent="space-between">
+      <Stack direction='row' justifyContent='space-between'>
         <Typography
           color={theme.palette.text.secondary}
-          component="div"
-          fontSize="14px"
-          lineHeight="14px"
+          component='div'
+          fontSize='14px'
+          lineHeight='14px'
         >
           Network cost
         </Typography>
         <Typography
           color={theme.palette.text.primary}
-          component="div"
-          fontSize="14px"
-          lineHeight="14px"
+          component='div'
+          fontSize='14px'
+          lineHeight='14px'
         >
           {feeValue}
         </Typography>
@@ -189,7 +189,7 @@ const SingleRoute = (props: Props) => {
     if (
       !destChain ||
       props.destinationGasDrop === undefined ||
-      amount.units(props.destinationGasDrop) === 0n
+      amount.units(props.destinationGasDrop) === BigInt(0)
     ) {
       return <></>;
     }
@@ -204,30 +204,30 @@ const SingleRoute = (props: Props) => {
     const gasTokenPrice = calculateUSDPrice(
       getTokenPrice,
       props.destinationGasDrop,
-      nativeGasToken,
+      nativeGasToken
     );
 
     const gasTokenAmount = amount.display(
-      amount.truncate(props.destinationGasDrop, 6),
+      amount.truncate(props.destinationGasDrop, 6)
     );
 
     const gasTokenPriceStr = gasTokenPrice ? ` (${gasTokenPrice})` : '';
 
     return (
-      <Stack direction="row" justifyContent="space-between">
+      <Stack direction='row' justifyContent='space-between'>
         <Typography
           color={theme.palette.text.secondary}
-          component="div"
-          fontSize="14px"
-          lineHeight="14px"
+          component='div'
+          fontSize='14px'
+          lineHeight='14px'
         >
           Additional gas
         </Typography>
         <Typography
           color={theme.palette.text.primary}
-          component="div"
-          fontSize="14px"
-          lineHeight="14px"
+          component='div'
+          fontSize='14px'
+          lineHeight='14px'
         >{`${gasTokenAmount} ${nativeGasToken.symbol}${gasTokenPriceStr}`}</Typography>
       </Stack>
     );
@@ -241,19 +241,19 @@ const SingleRoute = (props: Props) => {
 
   const timeToDestination = useMemo(
     () => (
-      <Stack direction="row" justifyContent="space-between">
+      <Stack direction='row' justifyContent='space-between'>
         <Typography
           color={theme.palette.text.secondary}
-          component="div"
-          fontSize="14px"
-          lineHeight="14px"
+          component='div'
+          fontSize='14px'
+          lineHeight='14px'
         >
           {`Time to ${destChain}`}
         </Typography>
         <Typography
-          component="div"
-          fontSize="14px"
-          lineHeight="14px"
+          component='div'
+          fontSize='14px'
+          lineHeight='14px'
           sx={{
             color:
               quote?.eta && quote.eta < 60 * 1000
@@ -271,7 +271,7 @@ const SingleRoute = (props: Props) => {
       theme.palette.success.main,
       theme.palette.text.primary,
       theme.palette.text.secondary,
-    ],
+    ]
   );
 
   const isManual = useMemo(() => {
@@ -284,7 +284,7 @@ const SingleRoute = (props: Props) => {
 
   const messageDivider = useMemo(
     () => <Divider flexItem sx={{ marginTop: '24px' }} />,
-    [],
+    []
   );
 
   const errorMessage = useMemo(() => {
@@ -297,14 +297,14 @@ const SingleRoute = (props: Props) => {
         {messageDivider}
         <Stack
           className={classes.messageContainer}
-          direction="row"
-          alignItems="center"
+          direction='row'
+          alignItems='center'
         >
           <ErrorIcon className={classes.errorIcon} />
           <Typography
             color={theme.palette.error.main}
-            fontSize="14px"
-            lineHeight="18px"
+            fontSize='14px'
+            lineHeight='18px'
           >
             {props.error}
           </Typography>
@@ -324,33 +324,33 @@ const SingleRoute = (props: Props) => {
 
     if (isManual) {
       messages.push(
-        <div key="ManualTransactionWarning">
+        <div key='ManualTransactionWarning'>
           {messageDivider}
           <Stack
             className={classes.messageContainer}
-            direction="row"
-            alignItems="center"
+            direction='row'
+            alignItems='center'
           >
             <WarningIcon className={classes.warningIcon} />
             <Stack>
               <Typography
                 color={theme.palette.warning.main}
                 fontSize={14}
-                lineHeight="18px"
+                lineHeight='18px'
               >
                 This transfer requires two transactions.
               </Typography>
               <Typography
                 color={theme.palette.text.secondary}
                 fontSize={14}
-                lineHeight="18px"
+                lineHeight='18px'
               >
                 You will need to make two wallet approvals and have gas on the
                 destination chain.
               </Typography>
             </Stack>
           </Stack>
-        </div>,
+        </div>
       );
     }
 
@@ -365,53 +365,53 @@ const SingleRoute = (props: Props) => {
             {messageDivider}
             <Stack
               className={classes.messageContainer}
-              direction="row"
-              alignItems="center"
+              direction='row'
+              alignItems='center'
             >
               <WarningIcon className={classes.warningIcon} />
               <Typography
                 color={theme.palette.warning.main}
                 fontSize={14}
-                lineHeight="18px"
+                lineHeight='18px'
               >
                 {`Your transfer to ${destChain} may be delayed due to rate limits set by ${
                   destToken!.display
                 }. If your transfer is delayed, you will need to return after ${duration} to complete the transfer. Please consider this before proceeding.`}
               </Typography>
             </Stack>
-          </div>,
+          </div>
         );
       }
     }
 
     if (isHighFee) {
       messages.push(
-        <div key="HighFee">
+        <div key='HighFee'>
           {messageDivider}
           <Stack
             className={classes.messageContainer}
-            direction="row"
-            alignItems="center"
+            direction='row'
+            alignItems='center'
           >
             <WarningIcon className={classes.warningIcon} />
             <Stack>
               <Typography
                 color={theme.palette.warning.main}
                 fontSize={14}
-                lineHeight="18px"
+                lineHeight='18px'
               >
                 Output amount is much lower than input amount.
               </Typography>
               <Typography
                 color={theme.palette.text.secondary}
                 fontSize={14}
-                lineHeight="18px"
+                lineHeight='18px'
               >
                 Double check before proceeding.
               </Typography>
             </Stack>
           </Stack>
-        </div>,
+        </div>
       );
     }
 
@@ -470,7 +470,7 @@ const SingleRoute = (props: Props) => {
 
   const routeCardHeader = useMemo(() => {
     if (props.error) {
-      return <Typography color="error">Route is unavailable</Typography>;
+      return <Typography color='error'>Route is unavailable</Typography>;
     }
 
     if (receiveAmount === undefined || !destToken) {
@@ -483,11 +483,11 @@ const SingleRoute = (props: Props) => {
 
     return (
       <Typography
-        fontSize="18px"
-        lineHeight="18px"
+        fontSize='18px'
+        lineHeight='18px'
         color={color}
-        component="div"
-        marginBottom="6px"
+        component='div'
+        marginBottom='6px'
       >
         {receiveAmountTrunc} {destToken.symbol}
       </Typography>
@@ -515,10 +515,10 @@ const SingleRoute = (props: Props) => {
 
     return (
       <Typography
-        fontSize="14px"
-        lineHeight="14px"
+        fontSize='14px'
+        lineHeight='14px'
         color={theme.palette.text.secondary}
-        component="div"
+        component='div'
       >{`${usdValue} ${providerText}`}</Typography>
     );
   }, [
@@ -604,7 +604,7 @@ const SingleRoute = (props: Props) => {
             action={routeCardBadge}
           />
           <CardContent className={classes.cardContent}>
-            <Stack gap="14px">
+            <Stack gap='14px'>
               {relayerFee}
               {destinationGas}
               {timeToDestination}

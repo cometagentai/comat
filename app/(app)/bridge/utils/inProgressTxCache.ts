@@ -1,5 +1,5 @@
-import { TransactionLocal } from 'config/types';
-import { isEmptyObject } from 'utils';
+import { TransactionLocal } from '../config/types';
+import { isEmptyObject } from '../utils';
 
 const LOCAL_STORAGE_KEY = 'wormhole-connect:transactions:inprogress';
 const LOCAL_STORAGE_MAX = 3;
@@ -13,7 +13,7 @@ const JSONReplacer = (_, value: any) =>
 // Checks the existance of the props with the given types in a parent object
 const validateChildPropTypes = (
   parent: object,
-  propTypes: { [key: string]: string },
+  propTypes: { [key: string]: string }
 ) => {
   if (isEmptyObject(parent)) {
     return false;
@@ -34,7 +34,7 @@ const validateChildPropTypes = (
 
 // Validates a single local transaction
 const validateSingleTransaction = (
-  tx: TransactionLocal,
+  tx: TransactionLocal
 ): tx is TransactionLocal => {
   // Check first level required properties
   if (
@@ -87,7 +87,7 @@ const validateSingleTransaction = (
 
 // Validates a given array of local transactions
 const validateTransactions = (
-  parsedTxs: Array<TransactionLocal>,
+  parsedTxs: Array<TransactionLocal>
 ): parsedTxs is Array<TransactionLocal> => {
   if (!Array.isArray(parsedTxs)) {
     return false;
@@ -121,7 +121,7 @@ export const getTxsFromLocalStorage = ():
             return parsedTxs;
           } else {
             console.log(
-              `Error while parsing localStorage item ${LOCAL_STORAGE_KEY}: Not an array of valid transactions`,
+              `Error while parsing localStorage item ${LOCAL_STORAGE_KEY}: Not an array of valid transactions`
             );
             // Remove invalid transactions entry
             ls.removeItem(LOCAL_STORAGE_KEY);
@@ -132,7 +132,7 @@ export const getTxsFromLocalStorage = ():
           // In that case we should debug log and remove the local storage entry completely,
           // as we can't know which tx within entry causes the problem without parsing it.
           console.log(
-            `Error while parsing localStorage item ${LOCAL_STORAGE_KEY}: ${e}`,
+            `Error while parsing localStorage item ${LOCAL_STORAGE_KEY}: ${e}`
           );
           // Remove item
           ls.removeItem(LOCAL_STORAGE_KEY);
@@ -145,7 +145,7 @@ export const getTxsFromLocalStorage = ():
 
 // Adds a TransactionLocal object to localStorage
 export const addTxToLocalStorage = (
-  data: TransactionLocal, // Item data
+  data: TransactionLocal // Item data
 ) => {
   const ls = window.localStorage;
   const items = getTxsFromLocalStorage();
@@ -174,7 +174,7 @@ export const addTxToLocalStorage = (
     // 2- DOMException from localStorage.setItem
     // In each case, we should debug log and fail silently
     console.log(
-      `Error while adding item to localStorage ${LOCAL_STORAGE_KEY}: ${e}`,
+      `Error while adding item to localStorage ${LOCAL_STORAGE_KEY}: ${e}`
     );
   }
 };
@@ -198,7 +198,7 @@ export const removeTxFromLocalStorage = (txHash: string) => {
         // 2- DOMException from localStorage.setItem
         // In each case, we should debug log and fail silently
         console.log(
-          `Error while removing item from localStorage ${LOCAL_STORAGE_KEY}: ${e}`,
+          `Error while removing item from localStorage ${LOCAL_STORAGE_KEY}: ${e}`
         );
       }
     }
@@ -209,7 +209,7 @@ export const removeTxFromLocalStorage = (txHash: string) => {
 export const updateTxInLocalStorage = (
   txHash: string,
   key: string,
-  value: any,
+  value: any
 ) => {
   const ls = window.localStorage;
   const items = getTxsFromLocalStorage();
@@ -228,7 +228,7 @@ export const updateTxInLocalStorage = (
         // 2- DOMException from localStorage.setItem
         // In each case, we should debug log and fail silently
         console.log(
-          `Error while updating item in localStorage ${LOCAL_STORAGE_KEY}: ${e}`,
+          `Error while updating item in localStorage ${LOCAL_STORAGE_KEY}: ${e}`
         );
       }
     }

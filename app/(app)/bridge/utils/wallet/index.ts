@@ -304,6 +304,7 @@ export const getWalletOptions = async (
     return [];
   } else if (config.context === Context.ETH) {
     const evm = await import('../../utils/wallet/evm');
+    console.log(evm.wallets, 'evm.wallets');
     return Object.values(mapWallets(evm.wallets, Context.ETH));
   } else if (config.context === Context.SOLANA) {
     const solana = await import('../../utils/wallet/solana');

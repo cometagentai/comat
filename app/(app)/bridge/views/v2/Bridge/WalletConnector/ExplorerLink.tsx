@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { ExplorerConfig } from 'config/ui';
+import { ExplorerConfig } from '../../../../config/ui';
 import { ListItemButton, Typography } from '@mui/material';
 
 type ExplorerLinkProps = {
@@ -13,7 +13,7 @@ const ExplorerLink = (props: ExplorerLinkProps) => {
 
   const handleOpenExplorer = useCallback(
     () => window.open(href.replace('{:address}', address), target),
-    [address, href, target],
+    [address, href, target]
   );
 
   return (

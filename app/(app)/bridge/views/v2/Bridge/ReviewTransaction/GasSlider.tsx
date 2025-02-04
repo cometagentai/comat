@@ -14,11 +14,11 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { amount } from '@wormhole-foundation/sdk';
 
-import config from 'config';
-import { calculateUSDPrice } from 'utils';
-import { RootState } from 'store';
-import { setToNativeToken } from 'store/relay';
-import { useTokens } from 'contexts/TokensContext';
+import config from '../../../../config';
+import { calculateUSDPrice } from '../../../../utils';
+import { RootState } from '../../../../store';
+import { setToNativeToken } from '../../../../store/relay';
+import { useTokens } from '../../../../context/TokensContext';
 
 const useStyles = makeStyles()(() => ({
   card: {
@@ -91,7 +91,7 @@ const GasSlider = (props: {
   const theme = useTheme();
 
   const { toChain: destChain } = useSelector(
-    (state: RootState) => state.transferInput,
+    (state: RootState) => state.transferInput
   );
 
   const { getTokenPrice, isFetchingTokenPrices } = useTokens();
@@ -114,13 +114,13 @@ const GasSlider = (props: {
     }
 
     const tokenAmount = amount.display(
-      amount.truncate(props.destinationGasDrop, 6),
+      amount.truncate(props.destinationGasDrop, 6)
     );
 
     const tokenPrice = calculateUSDPrice(
       getTokenPrice,
       props.destinationGasDrop,
-      nativeGasToken,
+      nativeGasToken
     );
 
     return (
@@ -141,12 +141,12 @@ const GasSlider = (props: {
   }
 
   return (
-    <Card className={classes.card} variant="elevation">
+    <Card className={classes.card} variant='elevation'>
       <CardContent>
         <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
+          direction='row'
+          alignItems='center'
+          justifyContent='space-between'
         >
           <Typography>{`Need more gas on ${destChain}?`}</Typography>
           <StyledSwitch
@@ -170,7 +170,7 @@ const GasSlider = (props: {
             </Typography>
             <div>
               <StyledSlider
-                aria-label="Native gas conversion amount"
+                aria-label='Native gas conversion amount'
                 defaultValue={0}
                 value={percentage}
                 baseColor={theme.palette.primary.main}
@@ -179,7 +179,7 @@ const GasSlider = (props: {
                 min={0}
                 max={100}
                 valueLabelFormat={() => `${percentage}%`}
-                valueLabelDisplay="auto"
+                valueLabelDisplay='auto'
                 onChange={(e: any) => setPercentage(e.target.value)}
               />
               <div className={classes.amounts}>

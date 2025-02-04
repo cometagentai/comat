@@ -106,7 +106,7 @@ export class MultiProvider<T extends Domain> {
       domain = this.registeredDomains.find((d) => d?.domain === nameOrDomain);
     } else if (typeof nameOrDomain === 'string') {
       domain = this.registeredDomains.find(
-        (d) => d?.name.toLowerCase() === nameOrDomain.toLowerCase(),
+        (d) => d?.name.toLowerCase() === nameOrDomain.toLowerCase()
       );
     }
 
@@ -130,7 +130,7 @@ export class MultiProvider<T extends Domain> {
       domain = this.registeredDomains.find((d) => d?.domain === nameOrDomain);
     } else if (typeof nameOrDomain === 'string') {
       domain = this.registeredDomains.find(
-        (d) => d?.name.toLowerCase() === nameOrDomain.toLowerCase(),
+        (d) => d?.name.toLowerCase() === nameOrDomain.toLowerCase()
       );
     }
 
@@ -208,7 +208,8 @@ export class MultiProvider<T extends Domain> {
    */
   registerRpcProvider(nameOrDomain: string | number, rpc: string): void {
     const domain = this.resolveDomain(nameOrDomain);
-
+    console.log(domain, 'domain');
+    console.log(rpc, 'rpc');
     if (rpc.startsWith('http://') || rpc.startsWith('https://')) {
       const provider = new ethers.JsonRpcProvider(rpc);
       this.registerProvider(domain, provider);
@@ -217,7 +218,7 @@ export class MultiProvider<T extends Domain> {
       this.registerProvider(domain, provider);
     } else {
       throw new Error(
-        'Unknown RPC string scheme. Expected an http or websocket URI',
+        'Unknown RPC string scheme. Expected an http or websocket URI'
       );
     }
   }
@@ -362,7 +363,7 @@ export class MultiProvider<T extends Domain> {
    *          undefined
    */
   getConnection(
-    nameOrDomain: string | number,
+    nameOrDomain: string | number
   ): ethers.Signer | ethers.Provider | undefined {
     return this.getSigner(nameOrDomain) ?? this.getProvider(nameOrDomain);
   }
@@ -375,7 +376,7 @@ export class MultiProvider<T extends Domain> {
    * @returns A Signer (if any), otherwise a Provider (if any), otherwise error
    */
   mustGetConnection(
-    nameOrDomain: string | number,
+    nameOrDomain: string | number
   ): ethers.Signer | ethers.Provider {
     const connection = this.getConnection(nameOrDomain);
     if (!connection) {
@@ -405,7 +406,7 @@ export class UnreachableError extends Error {
     super(
       `Unreachable. You should not see this Error. Please file an issue at https://github.com/nomad-xyz/monorepo, including the full error output. Extra info: ${
         extra ?? 'none'
-      }`,
+      }`
     );
   }
 }
@@ -415,7 +416,7 @@ export class UnreachableError extends Error {
  */
 export abstract class WithContext<
   D extends Domain,
-  T extends MultiProvider<D>,
+  T extends MultiProvider<D>
 > extends Error {
   provider: T;
 
@@ -430,14 +431,14 @@ export abstract class WithContext<
  */
 export class UnknownDomainError<
   D extends Domain,
-  T extends MultiProvider<D>,
+  T extends MultiProvider<D>
 > extends WithContext<D, T> {
   domain: string | number;
 
   constructor(provider: T, domain: string | number) {
     super(
       provider,
-      `Attempted to access an unknown domain: ${domain}.\nHint: have you called \`context.registerDomain(...)\` yet?`,
+      `Attempted to access an unknown domain: ${domain}.\nHint: have you called \`context.registerDomain(...)\` yet?`
     );
     this.name = 'UnknownDomainError';
     this.domain = domain;
@@ -450,7 +451,7 @@ export class UnknownDomainError<
  */
 export class NoProviderError<
   D extends Domain,
-  T extends MultiProvider<D>,
+  T extends MultiProvider<D>
 > extends WithContext<D, T> {
   domain: string | number;
   domainName: string;
@@ -462,7 +463,7 @@ export class NoProviderError<
 
     super(
       provider,
-      `Missing provider for domain: ${domainNumber} : ${domainName}.\nHint: Have you called \`context.registerProvider(${domain}, provider)\` yet?`,
+      `Missing provider for domain: ${domainNumber} : ${domainName}.\nHint: Have you called \`context.registerProvider(${domain}, provider)\` yet?`
     );
     this.name = 'NoProviderError';
     this.domain = domain;

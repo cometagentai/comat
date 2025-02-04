@@ -17,16 +17,20 @@ import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
-import config from 'config';
-import { RootState } from 'store';
-import { TransferWallet, WalletData, connectWallet } from 'utils/wallet';
+import config from '../../../../config';
+import { RootState } from '../../../../store';
+import {
+  TransferWallet,
+  WalletData,
+  connectWallet,
+} from '../../../../utils/wallet';
 
-import AlertBannerV2 from 'components/v2/AlertBanner';
-import { useAvailableWallets } from 'hooks/useAvailableWallets';
-import WalletIcon from 'icons/WalletIcons';
-import { validateWalletAddress } from 'utils/address';
-import { ReadOnlyWallet } from 'utils/wallet/ReadOnlyWallet';
-import { SANCTIONED_WALLETS } from 'consts/wallet';
+import AlertBannerV2 from '../../../../components/v2/AlertBanner';
+import { useAvailableWallets } from '../../../../hooks/useAvailableWallets';
+import WalletIcon from '../../../../icons/WalletIcons';
+import { validateWalletAddress } from '../../../../utils/address';
+import { ReadOnlyWallet } from '../../../../utils/wallet/ReadOnlyWallet';
+import { SANCTIONED_WALLETS } from '@/app/(app)/bridge/consts/wallet';
 
 const useStyles = makeStyles()((theme) => ({
   listButton: {
@@ -82,7 +86,7 @@ const WalletSidebar = (props: Props) => {
   const { classes } = useStyles();
 
   const { fromChain: sourceChain, toChain: destChain } = useSelector(
-    (state: RootState) => state.transferInput,
+    (state: RootState) => state.transferInput
   );
 
   const [search, setSearch] = useState('');
@@ -96,7 +100,7 @@ const WalletSidebar = (props: Props) => {
 
   const selectedChain = useMemo(
     () => (props.type === TransferWallet.SENDING ? sourceChain : destChain),
-    [props.type, sourceChain, destChain],
+    [props.type, sourceChain, destChain]
   );
 
   const { walletOptionsResult } = useAvailableWallets({
@@ -113,7 +117,7 @@ const WalletSidebar = (props: Props) => {
       props.onClose?.();
       await connectWallet(props.type, selectedChain, walletInfo, dispatch);
     },
-    [selectedChain, props, dispatch],
+    [selectedChain, props, dispatch]
   );
 
   const submitAddress = useCallback(async () => {
@@ -149,7 +153,7 @@ const WalletSidebar = (props: Props) => {
       TransferWallet.RECEIVING,
       selectedChain,
       walletInfo,
-      dispatch,
+      dispatch
     );
 
     props.onClose?.();
@@ -163,10 +167,10 @@ const WalletSidebar = (props: Props) => {
         ? walletsSorted
         : walletsSorted.filter(({ name, type }: WalletData) =>
             [name, type].some((criteria) =>
-              criteria.toLowerCase().includes(search.toLowerCase()),
-            ),
+              criteria.toLowerCase().includes(search.toLowerCase())
+            )
           );
-
+      console.log(walletsFiltered);
       return (
         <>
           {!walletsFiltered.length ? (
@@ -188,7 +192,7 @@ const WalletSidebar = (props: Props) => {
                 <ListItemIcon>
                   <WalletIcon name={wallet.name} icon={wallet.icon} />
                 </ListItemIcon>
-                <Typography component="div" fontSize={14}>
+                <Typography component='div' fontSize={14}>
                   <div className={`${!wallet.isReady && classes.notInstalled}`}>
                     {!wallet.isReady && 'Install'} {wallet.name}
                   </div>
@@ -199,7 +203,7 @@ const WalletSidebar = (props: Props) => {
         </>
       );
     },
-    [classes.listButton, classes.notInstalled, connect, search],
+    [classes.listButton, classes.notInstalled, connect, search]
   );
 
   const sidebarContent = useMemo(() => {
@@ -229,14 +233,14 @@ const WalletSidebar = (props: Props) => {
               <ListItem>
                 <TextField
                   fullWidth
-                  placeholder="Search for a wallet"
-                  size="small"
-                  variant="outlined"
+                  placeholder='Search for a wallet'
+                  size='small'
+                  variant='outlined'
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position="start">
+                      <InputAdornment position='start'>
                         <SearchIcon />
                       </InputAdornment>
                     ),
@@ -249,9 +253,9 @@ const WalletSidebar = (props: Props) => {
                   <TextField
                     className={classes.addressField}
                     fullWidth
-                    placeholder="Send to a wallet address"
-                    size="small"
-                    variant="outlined"
+                    placeholder='Send to a wallet address'
+                    size='small'
+                    variant='outlined'
                     value={address}
                     onChange={(e) => {
                       setAddress(e.target.value);
@@ -261,8 +265,8 @@ const WalletSidebar = (props: Props) => {
                     helperText={addressError}
                   />
                   <Button
-                    variant="contained"
-                    color="primary"
+                    variant='contained'
+                    color='primary'
                     onClick={submitAddress}
                     disabled={!address}
                   >
@@ -295,7 +299,7 @@ const WalletSidebar = (props: Props) => {
 
   return (
     <Drawer
-      anchor="right"
+      anchor='right'
       open={props.type && props.open}
       onClose={() => props.onClose?.()}
     >
