@@ -18,9 +18,18 @@ import { getWormholeContextV2 } from './index';
 
 import { fetchTokenMetadata } from '../utils/coingecko';
 import { getTokenMetadataFromRpc } from '../utils/tokens';
-import localStorage from 'localstorage';
 
 const TOKEN_CACHE_VERSION = 1;
+
+function getLocalStorage() {
+  if (typeof window !== 'undefined') {
+    return window.localStorage;
+  }
+  return {
+    getItem: () => null,
+    setItem: () => null,
+  };
+}
 
 export class Token {
   chain: Chain;
@@ -389,12 +398,12 @@ export class TokenCache extends TokenMapping<Token> {
       });
 
       const jsonString = JSON.stringify(asJson);
-      localStorage.setItem(this._localStorageKey, jsonString);
+      getLocalStorage().setItem(this._localStorageKey, jsonString);
     }
   }
 
   static load(localStorageKey: string): TokenCache {
-    const jsonString = localStorage.getItem(localStorageKey);
+    const jsonString = getLocalStorage().getItem(localStorageKey);
     if (jsonString) {
       try {
         const asJson = JSON.parse(jsonString);
