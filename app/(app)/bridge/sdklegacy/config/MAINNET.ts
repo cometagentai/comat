@@ -125,7 +125,7 @@ const MAINNET_CONFIG: WormholeConfig = {
   env: 'Mainnet',
   rpcs: {
     Ethereum: 'https://rpc.ankr.com/eth',
-    Solana: 'https://solana-mainnet.rpc.extrnode.com',
+    Solana: 'https://mainnet.helius-rpc.com/?api-key=4b97dff3-d95f-475d-a304-71265d209ff9',
     Polygon: 'https://rpc.ankr.com/polygon',
     Bsc: 'https://bscrpc.com',
     Avalanche: 'https://rpc.ankr.com/avalanche',

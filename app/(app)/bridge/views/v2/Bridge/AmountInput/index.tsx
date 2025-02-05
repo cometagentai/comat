@@ -133,6 +133,7 @@ type Props = {
   isFetchingTokenBalance: boolean;
   error?: string;
   warning?: string;
+  initialAmount?: string;
 };
 
 /**
@@ -169,6 +170,11 @@ const AmountInput = (props: Props) => {
     // We should run this sife-effect only when the amount changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount]);
+
+  useEffect(() => {
+    console.log(props.initialAmount)
+   setAmount(props.initialAmount || '0')
+  }, [props.initialAmount])
 
   const isInputDisabled = useMemo(
     () => !props.sourceChain || !sourceToken,

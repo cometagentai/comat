@@ -2,25 +2,20 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from 'tss-react/mui';
 import { useMediaQuery, useTheme } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-import HistoryIcon from '@mui/icons-material/History';
 
 import type { RootState } from '../../../store';
 
 import Button from '../../../components/v2/Button';
 import config from '../../../config';
 import { joinClass } from '../../../utils/style';
-import PoweredByIcon from '../../../icons/PoweredBy';
 import PageHeader from '../../../components/PageHeader';
-import Header, { Alignment } from '../../../components/Header';
-import FooterNavBar from '../../../components/FooterNavBar';
+import  { Alignment } from '../../../components/Header';
 import useFetchSupportedRoutes from '../../../hooks/useFetchSupportedRoutes';
 import useComputeDestinationTokens from '../../../hooks/useComputeDestinationTokens';
 import useComputeSourceTokens from '../../../hooks/useComputeSourceTokens';
-import { setRoute as setAppRoute } from '../../../store/router';
 import {
   selectFromChain,
   selectToChain,
@@ -109,7 +104,7 @@ const useStyles = makeStyles()((theme) => ({
  * Bridge is the main component for Bridge view
  *
  */
-const Bridge = () => {
+const Bridge = ({inputAmount, onCancel }:{inputAmount:string, onCancel:()=>void}) => {
   const { classes } = useStyles();
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -127,7 +122,7 @@ const Bridge = () => {
   const [willReviewTransaction, setWillReviewTransaction] = useState(false);
 
   const {
-    fromChain: sourceChain,
+    fromChain,
     toChain: destChain,
     route,
     preferredRouteName,
@@ -136,6 +131,7 @@ const Bridge = () => {
     validations,
   } = useSelector((state: RootState) => state.transferInput);
 
+  const sourceChain = 'Solana';
   const { sourceToken, destToken } = useGetTokens();
 
   const {
@@ -257,6 +253,7 @@ const Bridge = () => {
   const supportedSourceChains = useMemo(() => {
     return config.chainsArr.filter((chain) => {
       return (
+        chain.key == sourceChain &&
         chain.key !== destChain &&
         !chain.disabledAsSource &&
         supportedChains.includes(chain.key)
@@ -291,6 +288,10 @@ const Bridge = () => {
 
     return <PageHeader title={headerConfig.text} align={headerConfig.align} />;
   }, [config.ui]);
+
+  useEffect(() => {
+    selectFromChain(dispatch, sourceChain, sendingWallet);
+  }, [])
 
   // Asset picker for the source network and token
   const sourceAssetPicker = useMemo(() => {
@@ -367,33 +368,6 @@ const Bridge = () => {
     receivingWallet,
     isFetchingSupportedDestTokens,
   ]);
-
-  // Header for Bridge view, which includes the title and settings icon.
-  const bridgeHeader = useMemo(() => {
-    const isTxHistoryDisabled = !sendingWallet?.address;
-    return (
-      <div className={classes.bridgeHeader}>
-        <Header
-          align='left'
-          text={config.ui.title ?? 'Comet Connect'}
-          size={18}
-        />
-        <Tooltip
-          title={isTxHistoryDisabled ? 'No connected wallets found' : ''}
-        >
-          <span>
-            <IconButton
-              sx={{ padding: 0 }}
-              disabled={isTxHistoryDisabled}
-              onClick={() => dispatch(setAppRoute('history'))}
-            >
-              <HistoryIcon />
-            </IconButton>
-          </span>
-        </Tooltip>
-      </div>
-    );
-  }, [sendingWallet?.address, config.ui]);
 
   const walletConnector = useMemo(() => {
     if (sendingWallet?.address && receivingWallet?.address) {
@@ -492,10 +466,11 @@ const Bridge = () => {
     <div className={joinClass([classes.bridgeContent, classes.spacer])}>
       {header}
       {/* {config.ui.showInProgressWidget && <TxHistoryWidget />} */}
-      {bridgeHeader}
+      
       {sourceAssetPicker}
       {destAssetPicker}
       <AmountInput
+        initialAmount={inputAmount}
         sourceChain={sourceChain}
         supportedSourceTokens={config.tokens.getList(supportedSourceTokens)}
         tokenBalance={sourceToken ? balances[sourceToken.key]?.balance : null}
@@ -522,8 +497,12 @@ const Bridge = () => {
           walletConnector
         )}
       </span>
-      <PoweredByIcon color={theme.palette.text.primary} />
-      <FooterNavBar />
+      {
+                    onCancel && (
+                        <Button variant="ghost" className="w-full" onClick={onCancel}>Cancel</Button>
+                    )
+                }
+     
     </div>
   );
 };

@@ -10,7 +10,7 @@ import { useChat } from '@/app/(app)/chat/_contexts/chat';
 
 import type { SolanaTradeArgumentsType, SolanaTradeResultBodyType } from '@/ai';
 
-import Bridge from '../../utils/bridge';
+import BridgeTool from '../../utils/bridge';
 
 interface Props {
   toolCallId: string;
@@ -30,7 +30,7 @@ const BridgeCallBody: React.FC<Props> = ({ toolCallId, args }) => {
       {inputTokenLoading || outputTokenLoading ? (
         <Skeleton className='h-48 w-96' />
       ) : (
-        <Bridge
+        <BridgeTool
           initialInputToken={inputTokenData}
           initialOutputToken={outputTokenData}
           inputLabel='From'

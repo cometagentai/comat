@@ -93,7 +93,6 @@ const Message: React.FC<Props> = ({
         </p>
       </div>
       <div className='pt-2 w-full max-w-full md:flex-1 md:w-0 overflow-hidden flex flex-col gap-2'>
-        {message.content && <MessageMarkdown content={message.content} />}
         {message.toolInvocations && message.toolInvocations.length > 0 && (
           <div className='flex flex-col gap-2'>
             {message.toolInvocations.map((tool, index) => (
@@ -113,6 +112,7 @@ const Message: React.FC<Props> = ({
             ))}
           </div>
         )}
+        {message.content && <MessageMarkdown content={message.content} />}
       </div>
     </div>
   );

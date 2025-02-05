@@ -22,6 +22,7 @@ import { getSwapObj, getQuote } from '@/services/jupiter';
 
 import type { QuoteResponse } from '@jup-ag/api';
 import type { Token } from '@/db/types';
+import Bridge from '@/app/(app)/bridge/views/v2/Bridge';
 
 interface Props {
   initialInputToken: Token | null;
@@ -36,7 +37,7 @@ interface Props {
   onCancel?: () => void;
 }
 
-const Bridge: React.FC<Props> = ({
+const BridgeTool: React.FC<Props> = ({
   initialInputToken,
   initialOutputToken,
   inputLabel,
@@ -48,89 +49,17 @@ const Bridge: React.FC<Props> = ({
   onError,
   onCancel,
 }) => {
-  const [inputAmount, setInputAmount] = useState<string>(
-    initialInputAmount || ''
-  );
-  const [inputToken, setInputToken] = useState<Token | null>(initialInputToken);
-
-  const [outputAmount, setOutputAmount] = useState<string>('');
-  const [outputToken, setOutputToken] = useState<Token | null>(
-    initialOutputToken
-  );
-
-  const [isQuoteLoading, setIsQuoteLoading] = useState<boolean>(false);
-  const [quoteResponse, setQuoteResponse] = useState<QuoteResponse | null>(
-    null
-  );
-
-  const [isSwapping, setIsSwapping] = useState<boolean>(false);
-
-  const { sendTransaction, wallet } = useSendTransaction();
-
-  const { balance: inputBalance, isLoading: inputBalanceLoading } =
-    useTokenBalance(inputToken?.id || '', wallet?.address || '');
-
-  const onChangeInputOutput = () => {
-    const tempInputToken = inputToken;
-    const tempInputAmount = inputAmount;
-    setInputToken(outputToken);
-    setInputAmount(outputAmount);
-    setOutputToken(tempInputToken);
-    setOutputAmount(tempInputAmount);
-  };
-
-  const onSwap = async () => {
-    if (!wallet || !quoteResponse) return;
-    setIsSwapping(true);
-    try {
-      const { swapTransaction } = await getSwapObj(
-        wallet.address,
-        quoteResponse
-      );
-      const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
-      const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
-      const txHash = await sendTransaction(transaction);
-      onSuccess?.(txHash);
-    } catch (error) {
-      onError?.(error instanceof Error ? error.message : 'Unknown error');
-    } finally {
-      setIsSwapping(false);
-    }
-  };
-
-  useEffect(() => {
-    if (inputToken && outputToken) {
-      const fetchQuoteAndUpdate = async () => {
-        setIsQuoteLoading(true);
-        setOutputAmount('');
-        const quote = await getQuote(
-          inputToken.id,
-          outputToken.id,
-          parseFloat(inputAmount) * 10 ** inputToken.decimals
-        );
-        setQuoteResponse(quote);
-        setOutputAmount(
-          new Decimal(quote.outAmount)
-            .div(new Decimal(10).pow(outputToken.decimals))
-            .toString()
-        );
-        setIsQuoteLoading(false);
-      };
-
-      if (inputAmount && Number(inputAmount) > 0) {
-        fetchQuoteAndUpdate();
-      } else {
-        setQuoteResponse(null);
-        setOutputAmount('');
-      }
-    }
-  }, [inputToken, outputToken, inputAmount]);
-
+  
   return (
     <div className='flex flex-col gap-4 w-96 max-w-full'>
-      <div className='flex flex-col gap-2 items-center w-full'>
+      <Bridge 
+        inputAmount={initialInputAmount || '0'} 
+        onCancel={onCancel || (() => {})} 
+      />
+      {/* <div className='flex flex-col gap-2 items-center w-full'>
         <TokenInput
           label={inputLabel}
+
           amount={inputAmount}
           onChange={setInputAmount}
           token={inputToken}
@@ -189,9 +118,9 @@ const Bridge: React.FC<Props> = ({
             Cancel
           </Button>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default Bridge;
+export default BridgeTool;
