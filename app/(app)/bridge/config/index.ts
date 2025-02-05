@@ -40,8 +40,6 @@ export function buildConfig(
       process.env.REACT_APP_CONNECT_ENV?.toLowerCase() ||
       'Mainnet'
   ) as Network;
-
-  console.log(network, 'network');
   if (!['Mainnet', 'Testnet', 'Devnet'].includes(network))
     throw new Error(
       `Invalid env "${network}": Use "Testnet", "Devnet", or "Mainnet"`

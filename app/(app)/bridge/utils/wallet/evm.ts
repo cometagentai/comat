@@ -62,7 +62,6 @@ const eip6963Wallets = Object.entries(Eip6963Wallets).reduce(
   (acc, [key, name]) => ({ [key]: new Eip6963Wallet(name), ...acc }),
   {}
 );
-console.log(eip6963Wallets, 'Eip6963Wallets');
 
 export const wallets = {
   ...eip6963Wallets,

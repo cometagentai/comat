@@ -170,7 +170,6 @@ const WalletSidebar = (props: Props) => {
               criteria.toLowerCase().includes(search.toLowerCase())
             )
           );
-      console.log(walletsFiltered);
       return (
         <>
           {!walletsFiltered.length ? (

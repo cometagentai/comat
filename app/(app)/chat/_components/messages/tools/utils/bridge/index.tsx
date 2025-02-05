@@ -48,8 +48,6 @@ const Bridge: React.FC<Props> = ({
   onError,
   onCancel,
 }) => {
-  console.log(initialInputToken);
-  console.log(initialOutputToken);
   const [inputAmount, setInputAmount] = useState<string>(
     initialInputAmount || ''
   );

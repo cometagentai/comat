@@ -95,6 +95,7 @@ const useGetTokenBalances = (
             return;
           }
 
+
           const result = await platform
             .utils()
             .getBalances(

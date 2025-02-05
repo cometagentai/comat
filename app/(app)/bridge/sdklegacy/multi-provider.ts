@@ -208,8 +208,6 @@ export class MultiProvider<T extends Domain> {
    */
   registerRpcProvider(nameOrDomain: string | number, rpc: string): void {
     const domain = this.resolveDomain(nameOrDomain);
-    console.log(domain, 'domain');
-    console.log(rpc, 'rpc');
     if (rpc.startsWith('http://') || rpc.startsWith('https://')) {
       const provider = new ethers.JsonRpcProvider(rpc);
       this.registerProvider(domain, provider);
