@@ -26,7 +26,7 @@ import { Chain } from '@wormhole-foundation/sdk';
 import AssetBadge from '../../../../components/AssetBadge';
 import { Token } from '../../../../config/tokens';
 
-const useStyles = makeStyles()((theme: any) => ({
+const useStyles = makeStyles()(() => ({
   card: {
     width: '100%',
     cursor: 'pointer',

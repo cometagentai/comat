@@ -5,14 +5,13 @@ import { useMediaQuery, useTheme } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-
 import type { RootState } from '../../../store';
 
 import Button from '../../../components/v2/Button';
 import config from '../../../config';
 import { joinClass } from '../../../utils/style';
 import PageHeader from '../../../components/PageHeader';
-import  { Alignment } from '../../../components/Header';
+import { Alignment } from '../../../components/Header';
 import useFetchSupportedRoutes from '../../../hooks/useFetchSupportedRoutes';
 import useComputeDestinationTokens from '../../../hooks/useComputeDestinationTokens';
 import useComputeSourceTokens from '../../../hooks/useComputeSourceTokens';
@@ -104,7 +103,13 @@ const useStyles = makeStyles()((theme) => ({
  * Bridge is the main component for Bridge view
  *
  */
-const Bridge = ({inputAmount, onCancel }:{inputAmount:string, onCancel:()=>void}) => {
+const Bridge = ({
+  inputAmount,
+  onCancel,
+}: {
+  inputAmount: string;
+  onCancel: () => void;
+}) => {
   const { classes } = useStyles();
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -133,7 +138,7 @@ const Bridge = ({inputAmount, onCancel }:{inputAmount:string, onCancel:()=>void}
 
   const sourceChain = 'Solana';
   const { sourceToken, destToken } = useGetTokens();
-
+  console.log(fromChain);
   const {
     allSupportedRoutes,
     sortedRoutes,
@@ -291,7 +296,7 @@ const Bridge = ({inputAmount, onCancel }:{inputAmount:string, onCancel:()=>void}
 
   useEffect(() => {
     selectFromChain(dispatch, sourceChain, sendingWallet);
-  }, [])
+  }, []);
 
   // Asset picker for the source network and token
   const sourceAssetPicker = useMemo(() => {
@@ -466,7 +471,7 @@ const Bridge = ({inputAmount, onCancel }:{inputAmount:string, onCancel:()=>void}
     <div className={joinClass([classes.bridgeContent, classes.spacer])}>
       {header}
       {/* {config.ui.showInProgressWidget && <TxHistoryWidget />} */}
-      
+
       {sourceAssetPicker}
       {destAssetPicker}
       <AmountInput
@@ -497,12 +502,11 @@ const Bridge = ({inputAmount, onCancel }:{inputAmount:string, onCancel:()=>void}
           walletConnector
         )}
       </span>
-      {
-                    onCancel && (
-                        <Button variant="ghost" className="w-full" onClick={onCancel}>Cancel</Button>
-                    )
-                }
-     
+      {onCancel && (
+        <Button variant='ghost' className='w-full' onClick={onCancel}>
+          Cancel
+        </Button>
+      )}
     </div>
   );
 };

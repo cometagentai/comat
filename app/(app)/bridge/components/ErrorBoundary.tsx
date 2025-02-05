@@ -10,7 +10,7 @@ export default class ErrorBoundary extends React.Component<
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: any) {
+  static getDerivedStateFromError() {
     return { hasError: true };
   }
 
@@ -23,7 +23,7 @@ export default class ErrorBoundary extends React.Component<
       return (
         <Card>
           <Typography
-            variant="h5"
+            variant='h5'
             style={{ textAlign: 'center', marginTop: 24, marginBottom: 24 }}
           >
             An unexpected error has occurred. Please refresh the page.

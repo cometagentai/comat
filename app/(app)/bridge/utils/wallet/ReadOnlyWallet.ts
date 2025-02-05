@@ -6,14 +6,24 @@ import {
   Wallet,
 } from '@xlabs-libs/wallet-aggregator-core';
 import { Chain, chainToChainId, NativeAddress } from '@wormhole-foundation/sdk';
+import { EventEmitter } from 'events';
 
 export class ReadOnlyWallet extends Wallet {
   private _isConnected = true;
+  private eventEmitter = new EventEmitter();
 
   static readonly NAME = 'ReadyOnlyWallet';
 
   constructor(readonly _address: NativeAddress<Chain>, readonly _chain: Chain) {
     super();
+  }
+
+  private emit(event: string, ...args: any[]) {
+    this.eventEmitter.emit(event, ...args);
+  }
+
+  on(event: string, listener: (...args: any[]) => void) {
+    this.eventEmitter.on(event, listener);
   }
 
   getName(): string {
@@ -53,6 +63,7 @@ export class ReadOnlyWallet extends Wallet {
   }
 
   setMainAddress(address: Address): void {
+    console.log('setMainAddress', address);
     // No-op: can't change address for read-only wallet
   }
 
@@ -70,18 +81,22 @@ export class ReadOnlyWallet extends Wallet {
   }
 
   async signTransaction(tx: any): Promise<any> {
+    console.log('signTransaction', tx);
     throw new Error('Address only wallet cannot sign transactions');
   }
 
   async sendTransaction(tx: any): Promise<SendTransactionResult<any>> {
+    console.log('sendTransaction', tx);
     throw new Error('Address only wallet cannot send transactions');
   }
 
   async signMessage(msg: any): Promise<any> {
+    console.log('signMessage', msg);
     throw new Error('Address only wallet cannot sign messages');
   }
 
   async signAndSendTransaction(tx: any): Promise<SendTransactionResult<any>> {
+    console.log('signAndSendTransaction', tx);
     throw new Error('Address only wallet cannot sign or send transactions');
   }
 

@@ -118,7 +118,7 @@ const Routes = ({ ...props }: Props) => {
       {props.isLoading && renderRoutes.length === 0 ? (
         <Skeleton variant='rounded' height={153} width='100%' />
       ) : (
-        renderRoutes.map((name, index) => {
+        renderRoutes.map((name) => {
           const routeConfig = RoutesConfig[name];
           const isSelected = routeConfig.name === props.selectedRoute;
           const quoteResult = props.quotes[name];

@@ -18,14 +18,14 @@ export async function fetchOptions() {
 
 export const signAndSendTransaction = async (
   request: SuiUnsignedTransaction<Network, SuiChains>,
-  wallet: Wallet,
+  wallet: Wallet
 ) => {
   if (!wallet || !wallet.signAndSendTransaction) {
     throw new Error('wallet.signAndSendTransaction is undefined');
   }
 
   return await wallet.signAndSendTransaction({
-    /* @ts-ignore */
+    /* @ts-expect-error: TransactionBlock is not typed */
     transactionBlock: request.transaction as TransactionBlock,
   });
 };

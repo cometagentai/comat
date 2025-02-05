@@ -91,6 +91,8 @@ const DebouncedTextField = memo(
   }
 );
 
+DebouncedTextField.displayName = 'DebouncedTextField';
+
 const useStyles = makeStyles()((theme) => ({
   amountContainer: {
     width: '100%',
@@ -172,9 +174,9 @@ const AmountInput = (props: Props) => {
   }, [amount]);
 
   useEffect(() => {
-    console.log(props.initialAmount)
-   setAmount(props.initialAmount || '0')
-  }, [props.initialAmount])
+    console.log(props.initialAmount);
+    setAmount(props.initialAmount || '0');
+  }, [props.initialAmount]);
 
   const isInputDisabled = useMemo(
     () => !props.sourceChain || !sourceToken,

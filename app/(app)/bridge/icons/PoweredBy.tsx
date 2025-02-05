@@ -47,7 +47,7 @@ function SeparatorSymbol(props: { color: string }) {
   );
 }
 
-function WormholeLogo(props: { color: string }) {
+function WormholeLogo() {
   return (
     <Stack
       alignItems='center'
@@ -125,12 +125,12 @@ function PoweredByIcon(props: { color: string }) {
   const { classes } = useStyles();
   return config.ui.partnerLogo ? (
     <Box className={classes.container}>
-      <WormholeLogo color={props.color} />
+      <WormholeLogo />
       <SeparatorSymbol color={props.color} />
       <PartnerLogo src={config.ui.partnerLogo} />
     </Box>
   ) : (
-    <WormholeLogo color={props.color} />
+    <WormholeLogo />
   );
 }
 

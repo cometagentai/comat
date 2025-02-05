@@ -52,7 +52,7 @@ import SendError from './SendError';
 import { ERR_USER_REJECTED } from '../../../../telemetry/types';
 import { useGetTokens } from '../../../../hooks/useGetTokens';
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles()(() => ({
   container: {
     gap: '16px',
     width: '100%',

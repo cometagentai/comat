@@ -21,7 +21,7 @@ import TokenItem from './TokenItem';
 import { calculateUSDPrice, isFrankensteinToken } from '../../../../utils';
 import config from '../../../../config';
 import { useTokens } from '@/app/(app)/bridge/context/TokensContext';
-const useStyles = makeStyles()((_theme) => ({
+const useStyles = makeStyles()(() => ({
   card: {
     maxWidth: '420px',
   },
@@ -84,7 +84,8 @@ const TokenList = (props: Props) => {
             }
           }
         }
-      } catch (_e) {
+      } catch (e) {
+        console.error(e);
         // Failed to parse the search query as an address... this is expected to happen a lot
       }
     }

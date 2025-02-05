@@ -156,6 +156,7 @@ export async function signAndSendTransaction(
             typeof value === 'bigint' ? value.toString() : value // Handle bigint props
         )}`;
       } catch (e: unknown) {
+        console.error(e);
         // Most likely a circular reference error, we can't stringify this error object.
         // See for more details:
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#exceptions

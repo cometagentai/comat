@@ -135,6 +135,7 @@ function fallbackCopyTextToClipboard(text: string) {
     document.execCommand('copy');
     return true;
   } catch (err) {
+    console.error(err);
     return false;
   } finally {
     document.body.removeChild(textArea);

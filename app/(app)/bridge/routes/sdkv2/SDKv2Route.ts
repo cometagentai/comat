@@ -197,7 +197,6 @@ export class SDKv2Route {
     const wh = await getWormholeContextV2();
     const req = await routes.RouteTransferRequest.create(
       wh,
-      /* @ts-ignore */
       {
         source: sourceToken.tokenId,
         destination: destToken.tokenId,

@@ -9,19 +9,19 @@ import { makeStyles } from 'tss-react/mui';
 
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 
-import PageHeader from 'components/PageHeader';
-import Header, { Alignment } from 'components/Header';
-import config from 'config';
-import PoweredByIcon from 'icons/PoweredBy';
-import useTransactionHistory from 'hooks/useTransactionHistory';
-import { setRoute as setAppRoute } from 'store/router';
-import { trimAddress } from 'utils';
-import { joinClass } from 'utils/style';
-import TxHistoryItem from 'views/v2/TxHistory/Item';
+import PageHeader from '../../../components/PageHeader';
+import Header, { Alignment } from '../../../components/Header';
+import config from '../../../config';
+import PoweredByIcon from '../../../icons/PoweredBy';
+import useTransactionHistory from '../../../hooks/useTransactionHistory';
+import { setRoute as setAppRoute } from '../../../store/router';
+import { trimAddress } from '../../../utils';
+import { joinClass } from '../../../utils/style';
+import TxHistoryItem from '../../../views/v2/TxHistory/Item';
 
-import type { RootState } from 'store';
+import type { RootState } from '../../../store';
 
-const useStyles = makeStyles()((_theme) => ({
+const useStyles = makeStyles()(() => ({
   container: {
     margin: 'auto',
     maxWidth: '420px',
@@ -86,7 +86,7 @@ const TxHistory = () => {
   const txHistoryHeader = useMemo(() => {
     return (
       <div className={classes.txHistoryHeader}>
-        <Header align="left" size={18} text="Transaction history" />
+        <Header align='left' size={18} text='Transaction history' />
         <IconButton onClick={() => dispatch(setAppRoute('bridge'))}>
           <SwapHorizIcon />
         </IconButton>
@@ -99,9 +99,9 @@ const TxHistory = () => {
       return <></>;
     } else if (transactions.length === 0) {
       return (
-        <Typography color={theme.palette.text.secondary} textAlign="center">
+        <Typography color={theme.palette.text.secondary} textAlign='center'>
           {`No transactions found for the wallet ${trimAddress(
-            sendingWallet.address,
+            sendingWallet.address
           )}`}
         </Typography>
       );
@@ -111,7 +111,7 @@ const TxHistory = () => {
       <div className={joinClass([classes.infiniteScroller])}>
         <InfiniteScroll
           hasMore={hasMore}
-          loadMore={(p) => setPage(p)}
+          loadMore={(p: number) => setPage(p)}
           useWindow={false}
           style={{ scrollbarWidth: 'thin' }}
         >

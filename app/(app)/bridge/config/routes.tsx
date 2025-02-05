@@ -9,7 +9,7 @@ export type RouteData = {
   providedBy?: string;
   link: string;
   // TODO remove this once we've removed the old v1 views; v2 doesn't use it
-  icon: () => JSX.Element;
+  icon: () => any;
   // TODO remove this once we've removed the old v1 views; v2 doesn't use it
   pendingMessage: string;
 };

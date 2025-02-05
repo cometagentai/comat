@@ -3,9 +3,9 @@ import { useTheme } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from 'tss-react/mui';
 
-import { TransactionLocal } from 'config/types';
-import WidgetItem from 'views/v2/TxHistory/Widget/Item';
-import { getTxsFromLocalStorage } from 'utils/inProgressTxCache';
+import { TransactionLocal } from '@/app/(app)/bridge/config/types';
+import WidgetItem from '@/app/(app)/bridge/views/v2/TxHistory/Widget/Item';
+import { getTxsFromLocalStorage } from '@/app/(app)/bridge/utils/inProgressTxCache';
 
 const useStyles = makeStyles()((theme) => ({
   container: {

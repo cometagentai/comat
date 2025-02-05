@@ -1,4 +1,4 @@
-import { WrappedTokenAddresses } from 'config/types';
+import { WrappedTokenAddresses } from '@/app/(app)/bridge/config/types';
 
 export const TESTNET_WRAPPED_TOKENS: WrappedTokenAddresses = {
   Bsc: {

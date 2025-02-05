@@ -10,23 +10,23 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { makeStyles } from 'tss-react/mui';
 
-import config from 'config';
-import { RouteContext } from 'contexts/RouteContext';
-import AssetBadge from 'components/AssetBadge';
+import config from '@/app/(app)/bridge/config';
+import { RouteContext } from '@/app/(app)/bridge/context/RouteContext';
+import AssetBadge from '@/app/(app)/bridge/components/AssetBadge';
 import {
   calculateUSDPrice,
   millisToHumanString,
   trimAddress,
   trimTxHash,
-} from 'utils';
-import { getExplorerInfo } from 'utils/sdkv2';
+} from '@/app/(app)/bridge/utils';
+import { getExplorerInfo } from '@/app/(app)/bridge/utils/sdkv2';
 import { amount as sdkAmount } from '@wormhole-foundation/sdk';
 
-import type { RootState } from 'store';
-import { toFixedDecimals } from 'utils/balance';
-import { useTokens } from 'contexts/TokensContext';
+import type { RootState } from '@/app/(app)/bridge/store';
+import { toFixedDecimals } from '@/app/(app)/bridge/utils/balance';
+import { useTokens } from '@/app/(app)/bridge/context/TokensContext';
 
-const useStyles = makeStyles()((theme: any) => ({
+const useStyles = makeStyles()(() => ({
   container: {
     width: '100%',
     maxWidth: '420px',
@@ -67,9 +67,9 @@ const TransactionDetails = () => {
   // Separator with a unicode dot in the middle
   const separator = useMemo(
     () => (
-      <Typography component="span" padding="0px 8px">{`\u00B7`}</Typography>
+      <Typography component='span' padding='0px 8px'>{`\u00B7`}</Typography>
     ),
-    [],
+    []
   );
 
   // Render details for the sent amount
@@ -84,7 +84,7 @@ const TransactionDetails = () => {
     const usdAmount = calculateUSDPrice(
       getTokenPrice,
       amount,
-      sourceTokenConfig,
+      sourceTokenConfig
     );
 
     const senderAddress = sender ? trimAddress(sender) : '';
@@ -92,9 +92,9 @@ const TransactionDetails = () => {
     const formattedAmount = sdkAmount.display(sdkAmount.truncate(amount, 6));
 
     return (
-      <Stack alignItems="center" direction="row" justifyContent="flex-start">
+      <Stack alignItems='center' direction='row' justifyContent='flex-start'>
         <AssetBadge chainConfig={sourceChainConfig} token={sourceTokenConfig} />
-        <Stack direction="column" marginLeft="12px">
+        <Stack direction='column' marginLeft='12px'>
           <Typography fontSize={16}>
             {formattedAmount} {sourceToken.symbol}
           </Typography>
@@ -137,7 +137,7 @@ const TransactionDetails = () => {
     const usdAmount = calculateUSDPrice(
       getTokenPrice,
       receiveAmount,
-      destToken,
+      destToken
     );
 
     const recipientAddress = recipient ? trimAddress(recipient) : '';
@@ -147,9 +147,9 @@ const TransactionDetails = () => {
       : '-';
 
     return (
-      <Stack alignItems="center" direction="row" justifyContent="flex-start">
+      <Stack alignItems='center' direction='row' justifyContent='flex-start'>
         <AssetBadge chainConfig={destChainConfig} token={destToken} />
-        <Stack direction="column" marginLeft="12px">
+        <Stack direction='column' marginLeft='12px'>
           <Typography fontSize={16}>
             {formattedReceiveAmount} {destToken!.symbol}
           </Typography>
@@ -188,12 +188,12 @@ const TransactionDetails = () => {
   const verticalConnector = useMemo(
     () => (
       <Stack
-        height="28px"
-        borderLeft="1px solid #8B919D"
-        marginLeft="16px"
+        height='28px'
+        borderLeft='1px solid #8B919D'
+        marginLeft='16px'
       ></Stack>
     ),
-    [],
+    []
   );
 
   const bridgeFee = useMemo(() => {
@@ -209,7 +209,7 @@ const TransactionDetails = () => {
     const feePrice = calculateUSDPrice(
       getTokenPrice,
       relayerFee.fee,
-      feeTokenConfig,
+      feeTokenConfig
     );
 
     if (!feePrice) {
@@ -219,7 +219,7 @@ const TransactionDetails = () => {
     let feeValue = (
       <Typography fontSize={14}>{`${toFixedDecimals(
         relayerFee.fee.toString(),
-        4,
+        4
       )} ${feeTokenConfig.symbol} (${feePrice})`}</Typography>
     );
 
@@ -229,7 +229,7 @@ const TransactionDetails = () => {
     }
 
     return (
-      <Stack direction="row" justifyContent="space-between">
+      <Stack direction='row' justifyContent='space-between'>
         <Typography color={theme.palette.text.secondary} fontSize={14}>
           Network cost
         </Typography>
@@ -248,7 +248,7 @@ const TransactionDetails = () => {
     if (
       !receivedToken ||
       !receiveNativeAmount ||
-      sdkAmount.units(receiveNativeAmount) === 0n
+      sdkAmount.units(receiveNativeAmount) === BigInt(0)
     ) {
       return <></>;
     }
@@ -262,11 +262,11 @@ const TransactionDetails = () => {
     const gasTokenPrice = calculateUSDPrice(
       getTokenPrice,
       receiveNativeAmount,
-      config.tokens.getGasToken(destChainConfig.sdkName),
+      config.tokens.getGasToken(destChainConfig.sdkName)
     );
 
     return (
-      <Stack direction="row" justifyContent="space-between">
+      <Stack direction='row' justifyContent='space-between'>
         <Typography color={theme.palette.text.secondary} fontSize={14}>
           Additional gas
         </Typography>
@@ -300,14 +300,14 @@ const TransactionDetails = () => {
     const { name, url } = getExplorerInfo(route, sendTx);
 
     return (
-      <Stack alignItems="center" padding="24px 12px">
+      <Stack alignItems='center' padding='24px 12px'>
         <Link
-          display="flex"
-          gap="8px"
+          display='flex'
+          gap='8px'
           href={url}
-          rel="noreferrer"
-          target="_blank"
-          underline="none"
+          rel='noreferrer'
+          target='_blank'
+          underline='none'
         >
           <Typography
             color={theme.palette.text.primary}
@@ -326,7 +326,7 @@ const TransactionDetails = () => {
     etaDisplay = millisToHumanString(eta);
 
     return (
-      <Stack direction="row" justifyContent="space-between">
+      <Stack direction='row' justifyContent='space-between'>
         <Typography color={theme.palette.text.secondary} fontSize={14}>
           {`Time to ${toChain}`}
         </Typography>
@@ -341,16 +341,16 @@ const TransactionDetails = () => {
         <CardContent>
           <Typography
             color={theme.palette.text.secondary}
-            marginBottom="12px"
+            marginBottom='12px'
           >{`Transaction #${trimTxHash(sendTx)}`}</Typography>
           {sentAmount}
           {verticalConnector}
           {receivedAmount}
           <Stack
-            direction="column"
-            gap="8px"
-            justifyContent="space-between"
-            marginTop="16px"
+            direction='column'
+            gap='8px'
+            justifyContent='space-between'
+            marginTop='16px'
           >
             {bridgeFee}
             {destinationGas}

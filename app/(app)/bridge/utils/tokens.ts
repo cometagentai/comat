@@ -60,13 +60,14 @@ export async function getTokenMetadataSolana(
         if (image) {
           icon = image;
         }
-      } catch (_) {
-        // Oh well we tried
+      } catch (e) {
+        console.error(e);
       }
     }
 
     return { symbol, name, icon };
   } catch (e) {
+    console.error(e);
     return undefined;
   }
 }

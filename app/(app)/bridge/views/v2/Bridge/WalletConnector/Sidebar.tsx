@@ -160,7 +160,7 @@ const WalletSidebar = (props: Props) => {
   }, [address, selectedChain, props.onClose]);
 
   const renderWalletOptions = useCallback(
-    (wallets: WalletData[]): JSX.Element => {
+    (wallets: WalletData[]): any => {
       const walletsSorted = [...wallets].sort((w) => (w.isReady ? -1 : 1));
 
       const walletsFiltered = !search

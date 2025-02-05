@@ -18,7 +18,7 @@ import { getWormholeContextV2 } from './index';
 
 import { fetchTokenMetadata } from '../utils/coingecko';
 import { getTokenMetadataFromRpc } from '../utils/tokens';
-var localStorage = require('localStorage');
+import localStorage from 'localstorage';
 
 const TOKEN_CACHE_VERSION = 1;
 
@@ -200,7 +200,7 @@ export class TokenMapping<T> {
     firstArg: Chain | string | TokenId | TokenTuple,
     address?: string
   ): T {
-    // @ts-ignore - TS is complaining about this and I cant figure out why
+    // @ts-expect-error: TypeScript cannot infer the correct overload for get()
     const t = this.get(firstArg, address);
     if (!t) {
       throw new Error('Failed to get token');
@@ -214,10 +214,7 @@ export class TokenMapping<T> {
   getList(keys: string[] | TokenId[] | TokenTuple[]): Token[] {
     return (
       keys
-        // Typescript is throwing a fit here because of the overload in get()
-        // but the code is type compliant. If you comment this out you can see
-        // the ts error is nonsense.
-        /* @ts-ignore */
+        // @ts-expect-error: TypeScript cannot infer the correct overload for get()
         .map((k: string | TokenId) => this.get(k))
         .filter((t) => t !== undefined) as Token[]
     );
@@ -430,6 +427,7 @@ export function buildTokenCache(
   wrappedTokens: WrappedTokenAddresses,
   tokenFilter?: string[]
 ): TokenCache {
+  console.log(tokenFilter ?? 'No token filter provided');
   const cache = TokenCache.load(`wormhole-connect:token-cache:${network}`);
 
   for (const { tokenId, symbol, name, icon, decimals } of tokens) {
@@ -438,7 +436,7 @@ export function buildTokenCache(
       tokenId.address.toString(),
       decimals,
       symbol,
-      name,
+      name ?? '',
       icon
     );
     cache.add(token);
@@ -463,7 +461,7 @@ export function buildTokenCache(
 
           const wrappedToken = new Token(
             otherChain as Chain,
-            wrappedAddr,
+            wrappedAddr as string,
             decimals,
             originalToken.symbol,
             originalToken.name,

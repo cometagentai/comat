@@ -3,7 +3,7 @@ import { Collapse, Typography, useTheme } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/ErrorOutline';
 import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles()((theme: any) => ({
+const useStyles = makeStyles()(() => ({
   container: {
     width: '100%',
     display: 'flex',
@@ -52,7 +52,7 @@ function AlertBanner(props: Props) {
       >
         {
           <ErrorIcon
-            fontSize="small"
+            fontSize='small'
             htmlColor={themeColor}
             sx={{ paddingTop: '2px' }}
           />

@@ -39,7 +39,6 @@ export const redeemSlice = createSlice({
     },
     clearRedeem: (state: RedeemState) => {
       Object.keys(state).forEach((key) => {
-        // @ts-ignore
         state[key] = initialState[key];
       });
     },

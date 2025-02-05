@@ -59,7 +59,7 @@ export const POST = async (req: NextRequest) => {
 
   // Add message token limit check
   let tokenCount = 0;
-  const truncatedMessages = [];
+  const truncatedMessages: any = [];
 
   // Process messages from newest to oldest
   for (let i = messages.length - 1; i >= 0; i--) {

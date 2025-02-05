@@ -145,8 +145,7 @@ const parseTokenBridgeReceipt = async (
     throw new Error("Can't find txid in receipt");
   }
 
-  /* @ts-ignore */
-  // TODO typescript is complaining about the second attestation property not existing when it does
+  // @ts-expect-error: TODO typescript is complaining about the second attestation property not existing when it does
   const { payload } = receipt.attestation.attestation;
 
   if (!payload.token) {

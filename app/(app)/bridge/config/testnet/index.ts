@@ -1,4 +1,4 @@
-import { NetworkData } from 'config/types';
+import { NetworkData } from '@/app/(app)/bridge/config/types';
 import { TESTNET_CHAINS } from './chains';
 import {
   TESTNET_GRAPHQL_MAPPING,

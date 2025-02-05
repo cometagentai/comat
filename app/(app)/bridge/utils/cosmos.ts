@@ -3,6 +3,7 @@
 import { Chain } from '@wormhole-foundation/sdk';
 
 export function isGatewayChain(chain: Chain): boolean {
+  console.log(chain);
   return false;
 
   /* TODO SDKV2

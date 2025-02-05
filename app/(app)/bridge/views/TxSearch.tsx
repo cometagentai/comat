@@ -3,30 +3,30 @@ import { makeStyles } from 'tss-react/mui';
 import { useDispatch } from 'react-redux';
 import { Select, MenuItem, CircularProgress } from '@mui/material';
 
-import config, { getWormholeContextV2 } from 'config';
-import { isValidTxId } from 'utils';
+import config, { getWormholeContextV2 } from '@/app/(app)/bridge/config';
+import { isValidTxId } from '@/app/(app)/bridge/utils';
 import {
   setRoute as setRedeemRoute,
   setIsResumeTx,
   setTxDetails,
-} from 'store/redeem';
-import { setRoute as setAppRoute } from 'store/router';
-import PageHeader from 'components/PageHeader';
-import Search from 'components/Search';
-import Button from 'components/Button';
-import Spacer from 'components/Spacer';
-import AlertBanner from 'components/AlertBanner';
-import { setToChain } from 'store/transferInput';
-import FooterNavBar from 'components/FooterNavBar';
-import { useExternalSearch } from 'hooks/useExternalSearch';
-import { RouteContext } from 'contexts/RouteContext';
+} from '@/app/(app)/bridge/store/redeem';
+import { setRoute as setAppRoute } from '@/app/(app)/bridge/store/router';
+import PageHeader from '@/app/(app)/bridge/components/PageHeader';
+import Search from '@/app/(app)/bridge/components/Search';
+import Button from '@/app/(app)/bridge/components/Button';
+import Spacer from '@/app/(app)/bridge/components/Spacer';
+import AlertBanner from '@/app/(app)/bridge/components/AlertBanner';
+import { setToChain } from '@/app/(app)/bridge/store/transferInput';
+import FooterNavBar from '@/app/(app)/bridge/components/FooterNavBar';
+import { useExternalSearch } from '@/app/(app)/bridge/hooks/useExternalSearch';
 
-import { parseReceipt } from 'utils/sdkv2';
+import { parseReceipt } from '@/app/(app)/bridge/utils/sdkv2';
 import {
   TransferState,
   AttestedTransferReceipt,
   Chain,
 } from '@wormhole-foundation/sdk';
+import { RouteContext } from '@/app/(app)/bridge/context/RouteContext';
 
 const useStyles = makeStyles()((theme) => ({
   container: {
@@ -99,7 +99,7 @@ function TxSearch() {
 
     if (resumeResult === null) {
       setError(
-        'Transfer not found, check that you have the correct chain and transaction ID',
+        'Transfer not found, check that you have the correct chain and transaction ID'
       );
       setLoading(false);
       return;
@@ -122,7 +122,7 @@ function TxSearch() {
 
     const txDetails = await parseReceipt(
       route,
-      receipt as AttestedTransferReceipt<any>,
+      receipt as AttestedTransferReceipt<any>
     );
 
     if (txDetails) {
@@ -167,8 +167,8 @@ function TxSearch() {
   return (
     <div className={classes.container}>
       <PageHeader
-        title="Resume transaction"
-        description="Bridging can require a manual redemption process on the designation chain. If you did not complete the redemption during your initial transaction, you may do so here."
+        title='Resume transaction'
+        description='Bridging can require a manual redemption process on the designation chain. If you did not complete the redemption during your initial transaction, you may do so here.'
         back
       />
 
@@ -178,10 +178,9 @@ function TxSearch() {
             sx={{ width: '100%', height: '100%', minHeight: '64.5px' }}
             value={state.chain}
             displayEmpty
-            placeholder="Select network"
             onChange={(e) => setChain(e)}
           >
-            <MenuItem disabled value="" key={0}>
+            <MenuItem disabled value='' key={0}>
               Select network
             </MenuItem>
             {config.chainsArr
@@ -197,7 +196,7 @@ function TxSearch() {
         </div>
         <div className={classes.search}>
           <Search
-            placeholder="Source chain transaction hash"
+            placeholder='Source chain transaction hash'
             onChange={setTx}
             onSearch={search}
             value={state.tx}
@@ -207,7 +206,7 @@ function TxSearch() {
 
       <Spacer />
 
-      <AlertBanner show={!!error} content={error} error margin="0 0 16px 0" />
+      <AlertBanner show={!!error} content={error} error margin='0 0 16px 0' />
 
       <Button disabled={!state.chain || !state.tx} elevated onClick={search}>
         {loading ? <CircularProgress size={24} /> : 'Search'}

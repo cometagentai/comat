@@ -98,7 +98,6 @@ export const walletSlice = createSlice({
     },
     clearWallets: (state: WalletState) => {
       Object.keys(state).forEach((key) => {
-        // @ts-ignore
         state[key] = initialState[key];
       });
     },

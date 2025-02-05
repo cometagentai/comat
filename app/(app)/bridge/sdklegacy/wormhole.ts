@@ -79,6 +79,7 @@ export class WormholeContext extends MultiProvider<Domain> {
    * @throws Errors if context is not found
    */
   getContext(chain: Chain): AnyContext {
+    console.log(chain);
     // TODO SDKV2 REMOVE
     return this;
   }

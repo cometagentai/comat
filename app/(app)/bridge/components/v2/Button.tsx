@@ -36,12 +36,14 @@ const Button = forwardRef<HTMLButtonElement, Props>((props: Props, ref) => {
   const { variant, ...rest } = props;
 
   if (variant === 'primary') {
-    return <PrimaryButton ref={ref} variant="contained" {...rest} />;
+    return <PrimaryButton ref={ref} variant='contained' {...rest} />;
   } else if (variant === 'error') {
-    return <ErrorButton ref={ref} variant="contained" {...rest} />;
+    return <ErrorButton ref={ref} variant='contained' {...rest} />;
   }
 
   return <MUIButton {...rest} />;
 });
+
+Button.displayName = 'Button';
 
 export default Button;

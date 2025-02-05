@@ -6,7 +6,7 @@ import {
 import MAINNET from './mainnet';
 import TESTNET from './testnet';
 import DEVNET from './devnet';
-import type { WormholeConnectConfig } from './types';
+import type { ChainConfig, WormholeConnectConfig } from './types';
 import { InternalConfig } from './types';
 import { mergeCustomWrappedTokens, validateDefaults } from './utils';
 import { wrapEventHandler } from './events';
@@ -135,12 +135,12 @@ export function buildConfig(
     // White lists
     chains: networkData.chains,
     chainsArr: Object.values(networkData.chains)
-      .filter((chain: any) => {
+      .filter((chain: any): chain is ChainConfig => {
         return customConfig.chains
           ? customConfig.chains.includes(chain.key)
           : true;
       })
-      .sort((a: any, b: any) => {
+      .sort((a: ChainConfig, b: ChainConfig) => {
         const ai = CHAIN_ORDER.indexOf(a.key);
         const bi = CHAIN_ORDER.indexOf(b.key);
         if (ai >= 0 && bi >= 0) return ai - bi;
@@ -231,11 +231,10 @@ export function setConfig(customConfig: WormholeConnectConfig = {}) {
   // We overwrite keys in the existing object so the references to the config
   // imported elsewhere point to the new values
   for (const key in newConfig) {
-    /* @ts-ignore */
     config[key] = newConfig[key];
   }
   if (typeof window !== 'undefined') {
-    /* @ts-ignore */
+    /* @ts-expect-error: Config keys may not match exactly due to dynamic properties */
     window._connectConfig = config;
   }
 }

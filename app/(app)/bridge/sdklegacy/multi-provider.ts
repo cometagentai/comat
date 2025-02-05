@@ -149,6 +149,7 @@ export class MultiProvider<T extends Domain> {
       this.resolveDomain(nameOrDomain);
       return true;
     } catch (e) {
+      console.error(e);
       return false;
     }
   }
@@ -195,6 +196,7 @@ export class MultiProvider<T extends Domain> {
         this.signers.set(domain, signer.connect(provider));
       }
     } catch (e) {
+      console.error(e);
       this.unregisterSigner(domain);
     }
     this.providers.set(domain, provider);
@@ -264,8 +266,8 @@ export class MultiProvider<T extends Domain> {
         signer = signer.connect(provider);
         this.signers.set(domain, signer);
         return;
-      } catch (_) {
-        // do nothing
+      } catch (e) {
+        console.error(e);
       }
     }
     if (!signer.provider) {

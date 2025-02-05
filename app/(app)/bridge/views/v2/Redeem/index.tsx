@@ -22,49 +22,52 @@ import {
   isFailed,
   routes,
 } from '@wormhole-foundation/sdk';
-import { getTokenDetails, getTransferDetails } from 'telemetry';
+import {
+  getTokenDetails,
+  getTransferDetails,
+} from '@/app/(app)/bridge/telemetry';
 import { makeStyles } from 'tss-react/mui';
-import { Context } from 'sdklegacy';
+import { Context } from '@/app/(app)/bridge/sdklegacy';
 
-import AlertBannerV2 from 'components/v2/AlertBanner';
-import PageHeader from 'components/PageHeader';
-import { Alignment } from 'components/Header';
-import Button from 'components/v2/Button';
-import config from 'config';
-import { RouteContext } from 'contexts/RouteContext';
-import useTrackTransfer from 'hooks/useTrackTransfer';
-import PoweredByIcon from 'icons/PoweredBy';
-import { SDKv2Signer } from 'routes/sdkv2/signer';
-import { setRoute } from 'store/router';
-import { useUSDamountGetter } from 'hooks/useUSDamountGetter';
-import { interpretTransferError } from 'utils/errors';
+import AlertBannerV2 from '@/app/(app)/bridge/components/v2/AlertBanner';
+import PageHeader from '@/app/(app)/bridge/components/PageHeader';
+import { Alignment } from '@/app/(app)/bridge/components/Header';
+import Button from '@/app/(app)/bridge/components/v2/Button';
+import config from '@/app/(app)/bridge/config';
+import useTrackTransfer from '@/app/(app)/bridge/hooks/useTrackTransfer';
+import PoweredByIcon from '@/app/(app)/bridge/icons/PoweredBy';
+import { SDKv2Signer } from '@/app/(app)/bridge/routes/sdkv2/signer';
+import { setRoute } from '@/app/(app)/bridge/store/router';
+import { useUSDamountGetter } from '@/app/(app)/bridge/hooks/useUSDamountGetter';
+import { interpretTransferError } from '@/app/(app)/bridge/utils/errors';
 import {
   removeTxFromLocalStorage,
   updateTxInLocalStorage,
-} from 'utils/inProgressTxCache';
-import { joinClass } from 'utils/style';
+} from '@/app/(app)/bridge/utils/inProgressTxCache';
+import { joinClass } from '@/app/(app)/bridge/utils/style';
 import {
   millisToMinutesAndSeconds,
   minutesAndSecondsWithPadding,
-} from 'utils/transferValidation';
+} from '@/app/(app)/bridge/utils/transferValidation';
 import {
   TransferWallet,
   registerWalletSigner,
   switchChain,
-} from 'utils/wallet';
-import TransactionDetails from 'views/v2/Redeem/TransactionDetails';
-import WalletSidebar from 'views/v2/Bridge/WalletConnector/Sidebar';
-import { useConnectToLastUsedWallet } from 'utils/wallet';
+} from '@/app/(app)/bridge/utils/wallet';
+import TransactionDetails from '@/app/(app)/bridge/views/v2/Redeem/TransactionDetails';
+import WalletSidebar from '@/app/(app)/bridge/views/v2/Bridge/WalletConnector/Sidebar';
+import { useConnectToLastUsedWallet } from '@/app/(app)/bridge/utils/wallet';
 
-import type { RootState } from 'store';
-import TxCompleteIcon from 'icons/TxComplete';
-import TxWarningIcon from 'icons/TxWarning';
-import TxFailedIcon from 'icons/TxFailed';
+import type { RootState } from '@/app/(app)/bridge/store';
+import TxCompleteIcon from '@/app/(app)/bridge/icons/TxComplete';
+import TxWarningIcon from '@/app/(app)/bridge/icons/TxWarning';
+import TxFailedIcon from '@/app/(app)/bridge/icons/TxFailed';
 import { getAssociatedTokenAddressSync } from '@solana/spl-token';
 import { PublicKey } from '@solana/web3.js';
-import TxReadyForClaim from 'icons/TxReadyForClaim';
-import { useGetRedeemTokens } from 'hooks/useGetTokens';
-import { tokenIdFromTuple } from 'config/tokens';
+import TxReadyForClaim from '@/app/(app)/bridge/icons/TxReadyForClaim';
+import { useGetRedeemTokens } from '@/app/(app)/bridge/hooks/useGetTokens';
+import { tokenIdFromTuple } from '@/app/(app)/bridge/config/tokens';
+import { RouteContext } from '@/app/(app)/bridge/context/RouteContext';
 
 type StyleProps = {
   transitionDuration?: string | undefined;
@@ -255,7 +258,7 @@ const Redeem = () => {
     fromChain,
     toChain,
     amount,
-    getUSDAmount,
+    getUSDAmount
   );
 
   // Handle changes to receiptState as well as uncaught errors when initiating manual redeems
@@ -307,7 +310,7 @@ const Redeem = () => {
     } else if (isFailed(receipt)) {
       const [uiError, transferError] = interpretTransferError(
         receipt.error,
-        details,
+        details
       );
       setClaimError(uiError);
 
@@ -318,14 +321,14 @@ const Redeem = () => {
       });
 
       console.error(
-        `Transfer failed with error ${transferError}: ${receipt.error}`,
+        `Transfer failed with error ${transferError}: ${receipt.error}`
       );
 
       setIsClaimInProgress(false);
     } else if (unhandledManualClaimError) {
       const [uiError, transferError] = interpretTransferError(
         unhandledManualClaimError,
-        details,
+        details
       );
 
       setClaimError(uiError);
@@ -337,7 +340,7 @@ const Redeem = () => {
       });
 
       console.error(
-        `Error while manually redeeming: ${transferError.type} - ${unhandledManualClaimError}`,
+        `Error while manually redeeming: ${transferError.type} - ${unhandledManualClaimError}`
       );
 
       setIsClaimInProgress(false);
@@ -358,7 +361,7 @@ const Redeem = () => {
   ]);
 
   const receivingWallet = useSelector(
-    (state: RootState) => state.wallet.receiving,
+    (state: RootState) => state.wallet.receiving
   );
 
   // Time remaining to reach the estimated completion of the transaction
@@ -446,7 +449,7 @@ const Redeem = () => {
     }
 
     return (
-      <Stack alignItems="center" justifyContent="center">
+      <Stack alignItems='center' justifyContent='center'>
         <Typography color={theme.palette.text.secondary} fontSize={14}>
           ETA {etaElement}
         </Typography>
@@ -490,28 +493,28 @@ const Redeem = () => {
         <svg width={0} height={0}>
           <defs>
             <linearGradient
-              id="circularGradient"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="100%"
+              id='circularGradient'
+              x1='0%'
+              y1='0%'
+              x2='100%'
+              y2='100%'
             >
               <stop
-                offset="0%"
+                offset='0%'
                 stopColor={theme.palette.primary.main}
-                stopOpacity="1"
+                stopOpacity='1'
               />
               <stop
-                offset="100%"
+                offset='100%'
                 stopColor={theme.palette.background.default}
-                stopOpacity="0.1"
+                stopOpacity='0.1'
               />
             </linearGradient>
           </defs>
         </svg>
         <Box sx={{ position: 'relative' }}>
           <CircularProgress
-            variant="determinate"
+            variant='determinate'
             sx={(theme) => ({
               color: theme.palette.primary.main,
               opacity: 0.2,
@@ -656,7 +659,7 @@ const Redeem = () => {
 
       const ata = getAssociatedTokenAddressSync(
         new PublicKey(receiveTokenAddress.toString()),
-        new PublicKey(receivingWallet.address),
+        new PublicKey(receivingWallet.address)
       );
       if (!ata.equals(new PublicKey(recipient))) {
         setClaimError('Not connected to the receiving wallet');
@@ -744,7 +747,7 @@ const Redeem = () => {
         toChain,
         receivingWallet.address,
         {},
-        TransferWallet.RECEIVING,
+        TransferWallet.RECEIVING
       );
 
       const finishPromise = (() => {
@@ -790,12 +793,12 @@ const Redeem = () => {
   const actionButton = useMemo(() => {
     if (isClaimInProgress) {
       return (
-        <Button disabled variant="primary" className={classes.actionButton}>
+        <Button disabled variant='primary' className={classes.actionButton}>
           <Typography
-            display="flex"
-            alignItems="center"
+            display='flex'
+            alignItems='center'
             gap={1}
-            textTransform="none"
+            textTransform='none'
           >
             <CircularProgress
               size={16}
@@ -814,11 +817,11 @@ const Redeem = () => {
       if (!isConnectedToReceivingWallet) {
         return (
           <Button
-            variant="primary"
+            variant='primary'
             className={classes.actionButton}
             onClick={() => setIsWalletSidebarOpen(true)}
           >
-            <Typography textTransform="none">
+            <Typography textTransform='none'>
               Connect receiving wallet
             </Typography>
           </Button>
@@ -830,7 +833,7 @@ const Redeem = () => {
             variant={claimError ? 'error' : 'primary'}
             onClick={handleManualClaim}
           >
-            <Typography textTransform="none">
+            <Typography textTransform='none'>
               Claim tokens to complete transfer
             </Typography>
           </Button>
@@ -841,16 +844,16 @@ const Redeem = () => {
     return (
       <>
         <Button
-          variant="primary"
+          variant='primary'
           className={classes.actionButton}
           onClick={() => {
             dispatch(setRoute('bridge'));
           }}
         >
-          <Typography textTransform="none">Start a new transaction</Typography>
+          <Typography textTransform='none'>Start a new transaction</Typography>
         </Button>
         {!isTxCompleted && (
-          <Typography fontSize="12px" sx={{ margin: 'auto', opacity: 0.6 }}>
+          <Typography fontSize='12px' sx={{ margin: 'auto', opacity: 0.6 }}>
             Your current transaction will continue to process in the background.
           </Typography>
         )}

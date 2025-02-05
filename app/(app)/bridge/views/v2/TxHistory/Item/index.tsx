@@ -8,19 +8,19 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { makeStyles } from 'tss-react/mui';
 
-import config from 'config';
-import AssetBadge from 'components/AssetBadge';
+import config from '@/app/(app)/bridge/config';
+import AssetBadge from '@/app/(app)/bridge/components/AssetBadge';
 import {
   calculateUSDPrice,
   getUSDFormat,
   millisToRelativeTime,
   trimTxHash,
-} from 'utils';
+} from '@/app/(app)/bridge/utils';
 
-import type { Transaction } from 'config/types';
-import { useTokens } from 'contexts/TokensContext';
+import type { Transaction } from '@/app/(app)/bridge/config/types';
+import { useTokens } from '@/app/(app)/bridge/context/TokensContext';
 
-const useStyles = makeStyles()((theme: any) => ({
+const useStyles = makeStyles()(() => ({
   container: {
     width: '100%',
     maxWidth: '420px',
@@ -59,9 +59,9 @@ const TxHistoryItem = (props: Props) => {
   // Separator with a unicode dot in the middle
   const separator = useMemo(
     () => (
-      <Typography component="span" padding="0px 8px">{`\u00B7`}</Typography>
+      <Typography component='span' padding='0px 8px'>{`\u00B7`}</Typography>
     ),
-    [],
+    []
   );
   const { getTokenPrice, isFetchingTokenPrices, lastTokenPriceUpdate } =
     useTokens();
@@ -71,12 +71,9 @@ const TxHistoryItem = (props: Props) => {
     const sourceChainConfig = config.chains[fromChain]!;
 
     return (
-      <Stack alignItems="center" direction="row" justifyContent="flex-start">
-        <AssetBadge
-          chainConfig={sourceChainConfig}
-          token={fromToken}
-        />
-        <Stack direction="column" marginLeft="12px">
+      <Stack alignItems='center' direction='row' justifyContent='flex-start'>
+        <AssetBadge chainConfig={sourceChainConfig} token={fromToken} />
+        <Stack direction='column' marginLeft='12px'>
           <Typography fontSize={16}>
             {amount} {fromToken?.symbol}
           </Typography>
@@ -102,11 +99,10 @@ const TxHistoryItem = (props: Props) => {
     const destChainConfig = config.chains[toChain]!;
     const destTokenConfig = toToken;
 
-
     const receiveAmountPrice = calculateUSDPrice(
       getTokenPrice,
       parseFloat(receiveAmount),
-      destTokenConfig,
+      destTokenConfig
     );
 
     const receiveAmountDisplay = receiveAmountPrice ? (
@@ -117,12 +113,9 @@ const TxHistoryItem = (props: Props) => {
     ) : null;
 
     return (
-      <Stack alignItems="center" direction="row" justifyContent="flex-start">
-        <AssetBadge
-          chainConfig={destChainConfig}
-          token={destTokenConfig}
-        />
-        <Stack direction="column" marginLeft="12px">
+      <Stack alignItems='center' direction='row' justifyContent='flex-start'>
+        <AssetBadge chainConfig={destChainConfig} token={destTokenConfig} />
+        <Stack direction='column' marginLeft='12px'>
           <Typography fontSize={16}>
             {receiveAmount} {destTokenConfig?.symbol}
           </Typography>
@@ -134,7 +127,6 @@ const TxHistoryItem = (props: Props) => {
       </Stack>
     );
   }, [
-
     isFetchingTokenPrices,
     lastTokenPriceUpdate,
     receiveAmount,
@@ -149,12 +141,12 @@ const TxHistoryItem = (props: Props) => {
   const verticalConnector = useMemo(
     () => (
       <Stack
-        height="24px"
-        borderLeft="1px solid #8B919D"
-        marginLeft="16px"
+        height='24px'
+        borderLeft='1px solid #8B919D'
+        marginLeft='16px'
       ></Stack>
     ),
-    [],
+    []
   );
 
   const transactionDateTime = useMemo(() => {
@@ -191,9 +183,9 @@ const TxHistoryItem = (props: Props) => {
             className={classes.cardHeader}
             title={
               <Typography
-                justifyContent="space-between"
+                justifyContent='space-between'
                 color={theme.palette.text.secondary}
-                display="flex"
+                display='flex'
               >
                 <span>{`Transaction #${trimTxHash(txHash, 4, 4)}`}</span>
                 <span>{transactionDateTime}</span>

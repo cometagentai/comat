@@ -1,4 +1,4 @@
-import { NetworkData } from 'config/types';
+import { NetworkData } from '@/app/(app)/bridge/config/types';
 import { DEVNET_CHAINS } from './chains';
 import {
   DEVNET_GRAPHQL_MAPPING,

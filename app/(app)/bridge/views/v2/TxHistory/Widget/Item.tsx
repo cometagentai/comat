@@ -18,26 +18,26 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from 'tss-react/mui';
 
-import AlertBannerV2 from 'components/v2/AlertBanner';
-import config, { getWormholeContextV2 } from 'config';
-import { RouteContext } from 'contexts/RouteContext';
-import useTrackTransfer from 'hooks/useTrackTransfer';
-import ArrowRight from 'icons/ArrowRight';
-import ChainIcon from 'icons/ChainIcons';
-import TxCompleteIcon from 'icons/TxComplete';
+import AlertBannerV2 from '../../../../components/v2/AlertBanner';
+import config, { getWormholeContextV2 } from '../../../../config';
+import useTrackTransfer from '../../../../hooks/useTrackTransfer';
+import ArrowRight from '../../../../icons/ArrowRight';
+import ChainIcon from '../../../../icons/ChainIcons';
+import TxCompleteIcon from '../../../../icons/TxComplete';
 import {
   setRoute as setRedeemRoute,
   setIsResumeTx,
   setTimestamp,
   setTxDetails,
-} from 'store/redeem';
-import { setRoute as setAppRoute } from 'store/router';
-import { setToChain } from 'store/transferInput';
+} from '../../../../store/redeem';
+import { setRoute as setAppRoute } from '../../../../store/router';
+import { setToChain } from '../../../../store/transferInput';
 import { amount as sdkAmount } from '@wormhole-foundation/sdk';
-import { removeTxFromLocalStorage } from 'utils/inProgressTxCache';
-import { minutesAndSecondsWithPadding } from 'utils/transferValidation';
+import { removeTxFromLocalStorage } from '../../../../utils/inProgressTxCache';
+import { minutesAndSecondsWithPadding } from '../../../../utils/transferValidation';
 
-import type { TransactionLocal } from 'config/types';
+import type { TransactionLocal } from '../../../../config/types';
+import { RouteContext } from '@/app/(app)/bridge/context/RouteContext';
 
 const useStyles = makeStyles()((theme: any) => ({
   alertBanner: {
@@ -252,7 +252,7 @@ const WidgetItem = (props: Props) => {
       routeContext.setReceipt(receipt);
       // Navigate user to Redeem view
       routeContext.setRoute(sdkRoute);
-    } catch (e: unknown) {
+    } catch {
       setError(`Error resuming transaction: ${txDetails.sendTx}`);
     }
   }, [dispatch, receipt, route, routeContext, timestamp, txDetails]);
@@ -272,19 +272,19 @@ const WidgetItem = (props: Props) => {
         >
           <CardContent className={classes.cardContent}>
             <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
+              direction='row'
+              alignItems='center'
+              justifyContent='space-between'
             >
-              <Typography display="flex" justifyContent="space-between">
+              <Typography display='flex' justifyContent='space-between'>
                 {isCompleted ? (
                   <TxCompleteIcon className={classes.completedIcon} />
                 ) : (
                   etaCountdown
                 )}
               </Typography>
-              <Stack direction="row" alignItems="center">
-                <Typography fontSize={14} marginRight="8px">
+              <Stack direction='row' alignItems='center'>
+                <Typography fontSize={14} marginRight='8px'>
                   {`${sdkAmount.display(sdkAmount.truncate(amount, 4))} ${
                     token?.symbol || ''
                   }`}
@@ -304,7 +304,7 @@ const WidgetItem = (props: Props) => {
             {!isCompleted && (
               <LinearProgress
                 className={classes.progressBar}
-                variant="determinate"
+                variant='determinate'
                 value={progressBarValue}
               />
             )}

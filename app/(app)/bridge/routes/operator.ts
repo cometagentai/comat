@@ -91,7 +91,7 @@ export default class RouteOperator {
     //
     // That trade-off might not be worth it though
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       // This promise runs resumeIfManual on each route in parallel and resolves as soon
       // as it finds a receipt from any of the available routes. This is different from just using
       // Promise.race, because we only want to resolve under specific conditions.
@@ -110,7 +110,7 @@ export default class RouteOperator {
               failedAttempts += 1;
             }
           })
-          .catch((e) => {
+          .catch(() => {
             failedAttempts += 1;
             // Possible reasons for error here:
             //

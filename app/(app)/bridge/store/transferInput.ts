@@ -186,7 +186,6 @@ export const transferInputSlice = createSlice({
       }>
     ) => {
       Object.keys(validations).forEach((key) => {
-        // @ts-ignore
         state.validations[key] = validations[key];
       });
       state.showValidationState = showValidationState;
@@ -293,7 +292,6 @@ export const transferInputSlice = createSlice({
     clearTransfer: (state: TransferInputState) => {
       const initialState = getInitialState();
       Object.keys(state).forEach((key) => {
-        // @ts-ignore
         state[key] = initialState[key];
       });
     },

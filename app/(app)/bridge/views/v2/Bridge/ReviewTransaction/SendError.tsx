@@ -22,7 +22,7 @@ const useStyles = makeStyles()((theme: any) => ({
   },
 }));
 
-export default ({ humanError, internalError }: Props) => {
+const SendError = ({ humanError, internalError }: Props) => {
   const { classes } = useStyles();
 
   const [justCopied, setJustCopied] = useState(false);
@@ -70,3 +70,7 @@ export default ({ humanError, internalError }: Props) => {
     </Box>
   );
 };
+
+SendError.displayName = 'SendError';
+
+export default SendError;

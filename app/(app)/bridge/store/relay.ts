@@ -35,7 +35,6 @@ export const relaySlice = createSlice({
     // clear relay state
     clearRelay: (state: RelayState) => {
       Object.keys(state).forEach((key) => {
-        // @ts-ignore
         state[key] = initialState[key];
       });
     },

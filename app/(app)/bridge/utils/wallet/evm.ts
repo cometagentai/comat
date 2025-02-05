@@ -101,6 +101,7 @@ export async function signAndSendTransaction(
   chainName: string,
   options: any // TODO ?!?!!?!?
 ): Promise<string> {
+  console.log('signAndSendTransaction', options);
   // TODO remove reliance on SDkv1 here (multi-provider)
   const signer = config.whLegacy.getSigner(chainName);
   if (!signer) throw new Error('No signer found for chain' + chainName);
@@ -122,6 +123,6 @@ export async function signAndSendTransaction(
   const result = await tx.wait();
 
   // TODO move all this to ethers 6
-  /* @ts-ignore */
+  /* @ts-expect-error: result.hash is not typed */
   return result.hash;
 }

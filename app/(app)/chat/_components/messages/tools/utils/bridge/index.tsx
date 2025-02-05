@@ -1,26 +1,26 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
-import { ChevronDown } from 'lucide-react';
+// import { ChevronDown } from 'lucide-react';
 
-import { VersionedTransaction } from '@solana/web3.js';
+// import { VersionedTransaction } from '@solana/web3.js';
 
-import Decimal from 'decimal.js';
+// import Decimal from 'decimal.js';
 
-import { Button, Separator } from '@/components/ui';
+// import { Button, Separator } from '@/components/ui';
 
-import LogInButton from '@/app/(app)/_components/log-in-button';
+// import LogInButton from '@/app/(app)/_components/log-in-button';
 
-import TokenInput from './token-input';
+// import TokenInput from './token-input';
 
-import { useSendTransaction, useTokenBalance } from '@/hooks';
+// import { useSendTransaction, useTokenBalance } from '@/hooks';
 
-import { getSwapObj, getQuote } from '@/services/jupiter';
+// import { getSwapObj, getQuote } from '@/services/jupiter';
 
-import type { QuoteResponse } from '@jup-ag/api';
+// import type { QuoteResponse } from '@jup-ag/api';
 import type { Token } from '@/db/types';
 import Bridge from '@/app/(app)/bridge/views/v2/Bridge';
 
@@ -38,23 +38,22 @@ interface Props {
 }
 
 const BridgeTool: React.FC<Props> = ({
-  initialInputToken,
-  initialOutputToken,
-  inputLabel,
-  outputLabel,
+  // initialInputToken,
+  // initialOutputToken,
+  // inputLabel,
+  // outputLabel,
   initialInputAmount,
-  swapText,
-  swappingText,
-  onSuccess,
-  onError,
+  // swapText,
+  // swappingText,
+  // onSuccess,
+  // onError,
   onCancel,
 }) => {
-  
   return (
     <div className='flex flex-col gap-4 w-96 max-w-full'>
-      <Bridge 
-        inputAmount={initialInputAmount || '0'} 
-        onCancel={onCancel || (() => {})} 
+      <Bridge
+        inputAmount={initialInputAmount || '0'}
+        onCancel={onCancel || (() => {})}
       />
       {/* <div className='flex flex-col gap-2 items-center w-full'>
         <TokenInput

@@ -1,4 +1,4 @@
-import { NetworkData } from 'config/types';
+import { NetworkData } from '@/app/(app)/bridge/config/types';
 import { MAINNET_CHAINS } from './chains';
 import {
   MAINNET_GRAPHQL_MAPPING,
