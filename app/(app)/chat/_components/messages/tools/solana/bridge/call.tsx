@@ -2,15 +2,15 @@
 
 import React from 'react';
 
-import { Card } from '@/components/ui';
+import { Card, Skeleton } from '@/components/ui';
 
-// import { useTokenDataByAddress } from '@/hooks';
+import { useTokenDataByAddress } from '@/hooks';
 
-// import { useChat } from '@/app/(app)/chat/_contexts/chat';
+import { useChat } from '@/app/(app)/chat/_contexts/chat';
 
-// import type { SolanaTradeArgumentsType, SolanaTradeResultBodyType } from '@/ai';
-import type { SolanaTradeArgumentsType } from '@/ai';
-// import Bridge from '../../utils/bridge';
+import type { SolanaTradeArgumentsType, SolanaTradeResultBodyType } from '@/ai';
+
+import BridgeTool from '../../utils/bridge';
 
 interface Props {
   toolCallId: string;
@@ -18,22 +18,19 @@ interface Props {
 }
 
 const BridgeCallBody: React.FC<Props> = ({ toolCallId, args }) => {
-  console.log(toolCallId, args);
-  // const { addToolResult } = useChat();
+  const { addToolResult } = useChat();
 
-  // const { data: inputTokenData, isLoading: inputTokenLoading } =
-  //   useTokenDataByAddress(args.inputMint || '');
-  // const { data: outputTokenData, isLoading: outputTokenLoading } =
-  //   useTokenDataByAddress(args.outputMint || '');
+  const { data: inputTokenData, isLoading: inputTokenLoading } =
+    useTokenDataByAddress(args.inputMint || '');
+  const { data: outputTokenData, isLoading: outputTokenLoading } =
+    useTokenDataByAddress(args.outputMint || '');
 
   return (
     <Card className='p-2'>
-      <>Bridge will come soon. Please stay tuned!</>
-      {/* {inputTokenLoading || outputTokenLoading ? (
+      {inputTokenLoading || outputTokenLoading ? (
         <Skeleton className='h-48 w-96' />
       ) : (
-       
-        <Bridge
+        <BridgeTool
           initialInputToken={inputTokenData}
           initialOutputToken={outputTokenData}
           inputLabel='From'
@@ -63,7 +60,7 @@ const BridgeCallBody: React.FC<Props> = ({ toolCallId, args }) => {
             });
           }}
         />
-      )} */}
+      )}
     </Card>
   );
 };
