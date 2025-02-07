@@ -12,7 +12,6 @@ import { makeStyles } from 'tss-react/mui';
 import { useDebouncedCallback } from 'use-debounce';
 import { useTheme } from '@mui/material';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -86,6 +85,7 @@ const DebouncedTextField = memo(
         onChange={onInnerChange}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        
       />
     );
   }
@@ -285,6 +285,7 @@ const AmountInput = (props: Props) => {
           fontSize={14}
           fontWeight={maxButtonDisabled ? 400 : 600}
           textTransform='none'
+          color='#2c99f4'
         >
           Max
         </Typography>
@@ -301,9 +302,9 @@ const AmountInput = (props: Props) => {
   return (
     <div className={classes.amountContainer}>
       <div className={classes.amountTitle}>
-        <Typography variant='body2'>Amount</Typography>
+      <p className='text-sm font-bold text-neutral-950 dark:text-neutral-50'>Amount</p>
       </div>
-      <Card className={classes.amountCard} variant='elevation'>
+      <div className='border border-transparent rounded-md w-full transition-colors bg-neutral-100 dark:bg-neutral-700'>
         <CardContent className={classes.amountCardContent}>
           <DebouncedTextField
             fullWidth
@@ -345,7 +346,7 @@ const AmountInput = (props: Props) => {
             }}
           />
         </CardContent>
-      </Card>
+      </div>
       <AlertBannerV2
         error={!!props.error}
         content={props.error || props.warning}

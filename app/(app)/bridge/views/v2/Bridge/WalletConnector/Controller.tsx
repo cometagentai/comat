@@ -119,16 +119,12 @@ const ConnectedWallet = (props: Props) => {
       <div className={classes.connectWallet} {...bindTrigger(popupState)}>
         <WalletIcons name={wallet.name} icon={wallet.icon} size={20} />
         <Tooltip title='Copied' open={isCopied} placement='top' arrow>
-          <Typography
-            className={classes.walletAddress}
-            fontSize={14}
-            fontWeight={700}
-          >
+          <p className="text-sm font-bold text-neutral-950 dark:text-neutral-50 ml-1">
             {displayWalletAddress(wallet.type, wallet.address)}
-          </Typography>
+          </p>
         </Tooltip>
         <DownIcon
-          className={`${classes.down} ${popupState.isOpen ? classes.up : ''}`}
+          className={`${classes.down} ${popupState.isOpen ? classes.up : 'text-neutral-950 dark:text-neutral-50'}`}
         />
       </div>
       <Popover

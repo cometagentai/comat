@@ -2,7 +2,6 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { makeStyles } from 'tss-react/mui';
-import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Popover from '@mui/material/Popover';
 import {
@@ -155,9 +154,8 @@ const AssetPicker = (props: Props) => {
 
   return (
     <>
-      <Card
-        className={classes.card}
-        variant='elevation'
+      <div
+        className="border border-transparent rounded-md w-full transition-colors bg-neutral-100 dark:bg-neutral-700"
         {...bindTrigger(popupState)}
       >
         <CardContent className={classes.cardContent}>
@@ -171,7 +169,7 @@ const AssetPicker = (props: Props) => {
           </Typography>
           {popupState.isOpen ? <UpIcon /> : <DownIcon />}
         </CardContent>
-      </Card>
+      </div>
       <Popover
         {...bindPopover(popupState)}
         anchorOrigin={{
