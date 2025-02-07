@@ -27,7 +27,7 @@ const starterButtons = [
     description: 'Bridge assets across chains securely',
     icon: 'Pharagraphspacing' as const,
     prompt:
-      'Show me the available bridges for transferring tokens to/from Solana. Which ones have the lowest fees?',
+      'Bridge 1 SOL to USDT from Solana to Ethereum',
   },
   {
     title: 'Copy Trade',

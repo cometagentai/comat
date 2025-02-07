@@ -36,27 +36,30 @@ const BridgeCallBody: React.FC<Props> = ({ toolCallId, args }) => {
           inputLabel='From'
           outputLabel='To'
           initialInputAmount={args.inputAmount?.toString()}
-          swapText='Swap'
-          swappingText='Swapping...'
+          swapText='Bridge'
+          swappingText='Bridging...'
           onSuccess={(tx) => {
             addToolResult<SolanaTradeResultBodyType>(toolCallId, {
-              message: `Swap successful!`,
+              message: `Bridge Transaction successful!`,
+
               body: {
                 transaction: tx,
                 inputAmount: args.inputAmount || 0,
                 inputToken: inputTokenData?.symbol || '',
                 outputToken: outputTokenData?.symbol || '',
+
               },
             });
           }}
           onError={(error) => {
             addToolResult(toolCallId, {
-              message: `Swap failed: ${error}`,
+              message: `Bridge Transaction failed: ${error}`,
             });
+
           }}
           onCancel={() => {
             addToolResult(toolCallId, {
-              message: `Swap cancelled`,
+              message: `Bridge Transaction cancelled`,
             });
           }}
         />
