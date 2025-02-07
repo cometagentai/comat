@@ -127,7 +127,7 @@ const Bridge = ({
   const [willReviewTransaction, setWillReviewTransaction] = useState(false);
 
   const {
-    fromChain,
+    fromChain:sourceChain,
     toChain: destChain,
     route,
     preferredRouteName,
@@ -136,9 +136,9 @@ const Bridge = ({
     validations,
   } = useSelector((state: RootState) => state.transferInput);
 
-  const sourceChain = 'Solana';
+  // const sourceChain = 'Solana';
   const { sourceToken, destToken } = useGetTokens();
-  console.log(fromChain);
+  // console.log(fromChain);
   const {
     allSupportedRoutes,
     sortedRoutes,
@@ -258,7 +258,7 @@ const Bridge = ({
   const supportedSourceChains = useMemo(() => {
     return config.chainsArr.filter((chain) => {
       return (
-        chain.key == sourceChain &&
+        // chain.key == sourceChain &&
         chain.key !== destChain &&
         !chain.disabledAsSource &&
         supportedChains.includes(chain.key)
@@ -294,9 +294,9 @@ const Bridge = ({
     return <PageHeader title={headerConfig.text} align={headerConfig.align} />;
   }, [config.ui]);
 
-  useEffect(() => {
-    selectFromChain(dispatch, sourceChain, sendingWallet);
-  }, []);
+  // useEffect(() => {
+  //   selectFromChain(dispatch, sourceChain, sendingWallet);
+  // }, []);
 
   // Asset picker for the source network and token
   const sourceAssetPicker = useMemo(() => {
