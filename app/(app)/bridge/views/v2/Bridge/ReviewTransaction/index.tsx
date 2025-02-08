@@ -395,7 +395,7 @@ const ReviewTransaction = (props: Props) => {
           sx={{ padding: 0 }}
           onClick={() => props.onClose?.()}
         >
-          <ChevronLeft sx={{ fontSize: '32px' }} />
+          <ChevronLeft sx={{ fontSize: '32px', color: 'black' }} />
         </IconButton>
       </div>
       <SingleRoute
