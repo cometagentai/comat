@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 
 import type { RootState } from '../../../store';
 
-import Button from '../../../components/v2/Button';
+import { Button } from '@/components/ui';
 import config from '../../../config';
 import { joinClass } from '../../../utils/style';
 import PageHeader from '../../../components/PageHeader';
@@ -430,7 +430,7 @@ const Bridge = ({
   // Review transaction button is shown only when everything is ready
   const reviewTransactionButton = (
     <Button
-      variant='primary'
+      variant='default'
       className={classes.reviewTransaction}
       disabled={reviewTransactionDisabled}
       onClick={() => {

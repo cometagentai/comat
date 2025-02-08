@@ -184,7 +184,7 @@ const AssetPicker = (props: Props) => {
         marginThreshold={4}
         slotProps={{
           paper: {
-            className: classes.popoverSlot,
+            className: '!bg-white !dark:bg-[#0a0a0a]',
           },
         }}
       >

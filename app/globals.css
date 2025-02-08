@@ -62,3 +62,25 @@ body {
 .dark .light-logo {
   display: none;
 }
+.def-modal .MuiDrawer-paper{
+  background: #fff !important;
+}
+.dark .def-modal .MuiDrawer-paper{
+  background: #262626 !important;
+}
+.def-search .MuiOutlinedInput-root {
+  border: 1px solid #e5e7eb !important;
+  outline: none;
+}
+.def-search .MuiOutlinedInput-root svg{
+  fill: #555555;
+}
+.def-search .MuiOutlinedInput-root input::placeholder, .def-search .MuiOutlinedInput-root input {
+  color: #555555;
+}
+.dark .def-search .MuiOutlinedInput-root svg{
+  fill: #e5e7eb;
+}
+.dark .def-search .MuiOutlinedInput-root input::placeholder, .dark .def-search .MuiOutlinedInput-root input {
+  color: #e5e7eb;
+}

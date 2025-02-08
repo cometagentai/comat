@@ -10,16 +10,19 @@ const useStyles = makeStyles()((theme) => ({
     '& fieldset': {
       borderRadius: '100vh',
     },
+    '& input': {
+      color: theme.palette.text.secondary,
+      fontWeight: '700'
+    },
     '& input::placeholder': {
-      color: theme.palette.text.primary,
-      opacity: 0.2,
+      color: theme.palette.text.secondary,
+      opacity: 0.7,
     },
   },
   icon: {
     height: 20,
     width: 20,
-    color: theme.palette.text.primary,
-    opacity: 0.2,
+    color: theme.palette.text.secondary,
   },
 }));
 
@@ -35,7 +38,7 @@ export default function SearchInput(props: SearchInputProps) {
 
   return (
     <TextField
-      className={classes.input}
+      className='def-search'
       autoFocus
       fullWidth
       inputProps={{
@@ -43,6 +46,7 @@ export default function SearchInput(props: SearchInputProps) {
           fontSize: 16,
           height: 22,
           lineHeight: 22,
+          
         },
       }}
       placeholder={props.placeholder}
@@ -50,6 +54,7 @@ export default function SearchInput(props: SearchInputProps) {
       sx={{
         // Root class for the input field
         '& .MuiOutlinedInput-root': {
+          
           // Class for the input placeholder text
           '& .MuiOutlinedInput-input::placeholder': {
             fontWeight: 300,

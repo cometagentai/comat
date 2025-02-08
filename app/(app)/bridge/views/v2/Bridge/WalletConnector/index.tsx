@@ -18,7 +18,7 @@ const useStyles = makeStyles()((theme: any) => ({
   connectWallet: {
     padding: '8px 16px',
     borderRadius: '8px',
-    height: '48px',
+    height: 'auto',
     margin: 'auto',
     maxWidth: '420px',
     width: '100%',

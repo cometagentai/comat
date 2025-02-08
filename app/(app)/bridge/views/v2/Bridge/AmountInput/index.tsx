@@ -80,6 +80,7 @@ const DebouncedTextField = memo(
     return (
       <TextField
         {...props}
+        className='def-search'
         value={innerValue}
         focused={isFocused}
         onChange={onInnerChange}
@@ -309,16 +310,20 @@ const AmountInput = (props: Props) => {
           <DebouncedTextField
             fullWidth
             disabled={isInputDisabled}
+            className='aaaaaa'
             inputProps={{
               style: {
                 color: props.error
                   ? theme.palette.error.main
-                  : theme.palette.text.primary,
+                  : theme.palette.text.secondary,
                 fontSize: 24,
                 height: '28px',
                 marginBottom: tokenPriceAdornment ? '16px' : 0, // make sure there is enough space for token price
                 padding: 0,
               },
+              
+             
+              
               onWheel: (e) => {
                 // IMPORTANT: We need to prevent the scroll behavior on number inputs.
                 // Otherwise it'll increase/decrease the value when user scrolls on the input control.
@@ -326,6 +331,18 @@ const AmountInput = (props: Props) => {
                 e.currentTarget.blur();
               },
               step: '0.1',
+            }}
+            sx={{
+              '& .Mui-disabled::placeholder': {
+                color: 'rgba(255, 255, 255, 0.5)',
+                WebkitTextFillColor: "#79859e",
+                opacity: '0.5'
+              },
+              'input::placeholder': {
+                color: 'rgba(255, 255, 255, 0.5)',
+                WebkitTextFillColor: "#79859e",
+                opacity: '0.5'
+              },
             }}
             placeholder='0'
             variant='standard'

@@ -235,6 +235,7 @@ const WalletSidebar = (props: Props) => {
                   placeholder='Search for a wallet'
                   size='small'
                   variant='outlined'
+                  className='def-search'
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   InputProps={{
@@ -255,6 +256,7 @@ const WalletSidebar = (props: Props) => {
                     placeholder='Send to a wallet address'
                     size='small'
                     variant='outlined'
+                    
                     value={address}
                     onChange={(e) => {
                       setAddress(e.target.value);
@@ -301,8 +303,9 @@ const WalletSidebar = (props: Props) => {
       anchor='right'
       open={props.type && props.open}
       onClose={() => props.onClose?.()}
+      className='def-modal'
     >
-      <div className={classes.drawer}>{sidebarContent}</div>
+      <div className="bg-white text-neutral-950 dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 w-[320px]">{sidebarContent}</div>
     </Drawer>
   );
 };

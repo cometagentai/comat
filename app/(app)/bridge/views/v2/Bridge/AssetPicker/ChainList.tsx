@@ -7,7 +7,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
 
 import ChainIcon from '../../../../icons/ChainIcons';
 import PlusIcon from '../../../../icons/Plus';
@@ -22,6 +21,7 @@ import { useMediaQuery, useTheme } from '@mui/material';
 const useStyles = makeStyles()((theme) => ({
   card: {
     width: '420px',
+    borderRadius: '0',
     [theme.breakpoints.down('sm')]: {
       maxWidth: '420px',
       width: '360px',
@@ -122,14 +122,11 @@ const ChainList = (props: Props) => {
               onClick={() => onChainSelect(chain.key)}
             >
               <ChainIcon icon={chain.icon} />
-              <Typography
-                fontSize='12px'
-                lineHeight='12px'
-                marginTop='8px'
-                whiteSpace='nowrap'
+              <p
+                className='text-neutral-950 dark:text-neutral-50'
               >
                 {chain.symbol}
-              </Typography>
+              </p>
             </ListItemButton>
           </Tooltip>
         ))}
@@ -140,14 +137,9 @@ const ChainList = (props: Props) => {
           }}
         >
           <PlusIcon sx={{ height: '36px', width: '36px' }} />
-          <Typography
-            fontSize='12px'
-            lineHeight='12px'
-            marginTop='8px'
-            whiteSpace='nowrap'
-          >
+          <p className='text-neutral-950 dark:text-neutral-50'>
             other
-          </Typography>
+          </p>
         </ListItemButton>
       </List>
     );
@@ -182,9 +174,9 @@ const ChainList = (props: Props) => {
             <ListItemIcon sx={{ minWidth: '50px' }}>
               <ChainIcon icon={chain.icon} height={36} />
             </ListItemIcon>
-            <Typography fontSize='16px' fontWeight={500}>
+            <p className='text-neutral-950 dark:text-neutral-50'>
               {chain.displayName}
-            </Typography>
+            </p>
           </ListItemButton>
         )}
       />
@@ -200,10 +192,10 @@ const ChainList = (props: Props) => {
 
   return (
     <Card className={classes.card} variant='elevation'>
-      <CardContent className={classes.cardContent}>
-        <Typography className={classes.title} fontSize='16px' fontWeight={500}>
+      <CardContent className="bg-white dark:bg-[#0a0a0a]">
+        <p className="text-sm font-bold text-neutral-950 dark:text-neutral-50 pb-2">
           Select a network
-        </Typography>
+        </p>
         {showSearch ? searchList : shortList}
       </CardContent>
     </Card>

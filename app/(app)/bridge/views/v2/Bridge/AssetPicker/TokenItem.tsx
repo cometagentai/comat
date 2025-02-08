@@ -77,7 +77,7 @@ function TokenItem(props: TokenItemProps) {
           <TokenIcon icon={props.token.icon} />
         </ListItemIcon>
         <div>
-          <Typography>{token.display}</Typography>
+          <p className='text-neutral-950 dark:text-neutral-50 text-sm font-bold'>{token.display}</p>
 
           <Box display='flex'>
             {token.tokenBridgeOriginalTokenId ? (

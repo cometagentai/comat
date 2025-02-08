@@ -137,10 +137,11 @@ const ConnectedWallet = (props: Props) => {
           vertical: 'top',
           horizontal: 'right',
         }}
+        
       >
-        <List>
+        <List className="bg-white dark:bg-[#0a0a0a]">
           <ListItemButton onClick={copyAddress}>
-            <Typography fontSize={14}>Copy address</Typography>
+            <Typography fontSize={14} className='dark:text-white text-[#1E1E1E]'>Copy address</Typography>
           </ListItemButton>
           {config.ui.explorer ? (
             <ExplorerLink
@@ -151,10 +152,10 @@ const ConnectedWallet = (props: Props) => {
             />
           ) : null}
           <ListItemButton onClick={connectWallet}>
-            <Typography fontSize={14}>Change wallet</Typography>
+            <Typography fontSize={14} className='dark:text-white text-[#1E1E1E]'>Change wallet</Typography>
           </ListItemButton>
           <ListItemButton onClick={disconnectWallet}>
-            <Typography fontSize={14}>Disconnect</Typography>
+            <Typography fontSize={14} className='dark:text-white text-[#1E1E1E]'>Disconnect</Typography>
           </ListItemButton>
         </List>
       </Popover>
