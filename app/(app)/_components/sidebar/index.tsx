@@ -55,7 +55,7 @@ const Sidebar: React.FC<Props> = ({ children }) => {
                 className='max-w-[135px] justify-center rounded-[35px] h-[48px] border-[#11457033] border-[1px]'
               >
                 <Link
-                  href={'https://x.com/cometsol_ai'}
+                  href={'https://x.com/cometagent_ai'}
                   target={'_blank'}
                   className='font-bold font-carlito'
                 >

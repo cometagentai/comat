@@ -17,7 +17,7 @@ export const platformGroup: SidebarGroup = {
     {
       icon: 'Twitter',
       label: 'Follow Us',
-      href: 'https://x.com/cometsol_ai',
+      href: 'https://x.com/cometagent_ai',
       external: true,
     },
     {

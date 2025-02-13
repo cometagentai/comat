@@ -14,7 +14,11 @@ const Graph = () => {
           >
             Docs
           </a>
-          <a href='https://x.com/cometsol_ai' target='_blank' className='ml-3'>
+          <a
+            href='https://x.com/cometagent_ai'
+            target='_blank'
+            className='ml-3'
+          >
             <FaXTwitter className='h-[23px] w-[23px]' />
           </a>
           <a
