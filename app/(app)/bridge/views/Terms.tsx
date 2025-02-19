@@ -26,7 +26,7 @@ function Terms() {
     <div className={classes.terms}>
       <PageHeader title='Terms' back />
       <div className={classes.body}>
-        <div>Disclaimer:</div>
+        <div>Disclaimer: Needs to Update</div>
       </div>
       <FooterNavBar />
     </div>
