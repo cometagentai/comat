@@ -127,7 +127,6 @@ const Bridge = ({
   const [willReviewTransaction, setWillReviewTransaction] = useState(false);
 
   const {
-    fromChain,
     toChain: destChain,
     route,
     preferredRouteName,
