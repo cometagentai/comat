@@ -16,20 +16,10 @@ import {
 import { TokenIcon, TokenConfig, WrappedTokenAddresses } from './types';
 import { getWormholeContextV2 } from './index';
 
-import { fetchTokenMetadata } from '../utils/coingecko';
-import { getTokenMetadataFromRpc } from '../utils/tokens';
+import { fetchTokenMetadata } from '@/app/(app)/bridge/utils/coingecko';
+import { getTokenMetadataFromRpc } from '@/app/(app)/bridge/utils/tokens';
 
 const TOKEN_CACHE_VERSION = 1;
-
-function getLocalStorage() {
-  if (typeof window !== 'undefined') {
-    return window.localStorage;
-  }
-  return {
-    getItem: () => null,
-    setItem: () => null,
-  };
-}
 
 export class Token {
   chain: Chain;
@@ -166,9 +156,12 @@ export class TokenMapping<T> {
   // Mapping of Chain -> token address -> T
   _mapping: Map<Chain, Map<string, T>>;
 
+  size: number;
+
   constructor() {
     this.lastUpdate = new Date();
     this._mapping = new Map();
+    this.size = 0;
   }
 
   add(token: TokenId, value: T) {
@@ -178,6 +171,7 @@ export class TokenMapping<T> {
 
     this._mapping.get(token.chain)!.set(token.address.toString(), value);
     this.lastUpdate = new Date();
+    this.size += 1;
   }
 
   // You can get a token either using its string key, TokenId, or with (chain, address)
@@ -209,7 +203,7 @@ export class TokenMapping<T> {
     firstArg: Chain | string | TokenId | TokenTuple,
     address?: string
   ): T {
-    // @ts-expect-error: TypeScript cannot infer the correct overload for get()
+    // @ts-ignore - TS is complaining about this and I cant figure out why
     const t = this.get(firstArg, address);
     if (!t) {
       throw new Error('Failed to get token');
@@ -223,7 +217,10 @@ export class TokenMapping<T> {
   getList(keys: string[] | TokenId[] | TokenTuple[]): Token[] {
     return (
       keys
-        // @ts-expect-error: TypeScript cannot infer the correct overload for get()
+        // Typescript is throwing a fit here because of the overload in get()
+        // but the code is type compliant. If you comment this out you can see
+        // the ts error is nonsense.
+        /* @ts-ignore */
         .map((k: string | TokenId) => this.get(k))
         .filter((t) => t !== undefined) as Token[]
     );
@@ -240,6 +237,14 @@ export class TokenMapping<T> {
     );
   }
 
+  getAllTokenIds(): TokenId[] {
+    return Array.from(this._mapping.keys()).flatMap((chain) =>
+      Array.from(this._mapping.get(chain)!.keys()).map((address) =>
+        Wormhole.tokenId(chain, address)
+      )
+    );
+  }
+
   get chains(): Chain[] {
     return Array.from(this._mapping.keys());
   }
@@ -249,6 +254,13 @@ export class TokenMapping<T> {
     other.forEach(this.add);
   }
 
+  // Removes all records from the TokenMapping
+  clear() {
+    this.lastUpdate = new Date();
+    this._mapping = new Map();
+    this.size = 0;
+  }
+
   forEach(callback: (tokenId: TokenId, val: T) => void) {
     this._mapping.forEach((nextLevel, chain) => {
       nextLevel.forEach((val, addr) => {
@@ -256,6 +268,10 @@ export class TokenMapping<T> {
         callback(tokenId, val);
       });
     });
+  }
+
+  get empty(): boolean {
+    return this.size === 0;
   }
 }
 
@@ -386,10 +402,7 @@ export class TokenCache extends TokenMapping<Token> {
 
   persist() {
     if (this._localStorageKey) {
-      const asJson: {
-        version: number;
-        tokens: { [key: string]: TokenJson };
-      } = {
+      const asJson = {
         version: TOKEN_CACHE_VERSION,
         tokens: {},
       };
@@ -398,12 +411,12 @@ export class TokenCache extends TokenMapping<Token> {
       });
 
       const jsonString = JSON.stringify(asJson);
-      getLocalStorage().setItem(this._localStorageKey, jsonString);
+      localStorage.setItem(this._localStorageKey, jsonString);
     }
   }
 
   static load(localStorageKey: string): TokenCache {
-    const jsonString = getLocalStorage().getItem(localStorageKey);
+    const jsonString = localStorage.getItem(localStorageKey);
     if (jsonString) {
       try {
         const asJson = JSON.parse(jsonString);
@@ -436,7 +449,6 @@ export function buildTokenCache(
   wrappedTokens: WrappedTokenAddresses,
   tokenFilter?: string[]
 ): TokenCache {
-  console.log(tokenFilter ?? 'No token filter provided');
   const cache = TokenCache.load(`wormhole-connect:token-cache:${network}`);
 
   for (const { tokenId, symbol, name, icon, decimals } of tokens) {
@@ -445,7 +457,7 @@ export function buildTokenCache(
       tokenId.address.toString(),
       decimals,
       symbol,
-      name ?? '',
+      name,
       icon
     );
     cache.add(token);
@@ -455,13 +467,12 @@ export function buildTokenCache(
   // token bridge foreign assets. When we are able to fetch full token balances for every chain
   // this will become unnecessary.
   for (const chain in wrappedTokens) {
-    const chainTokens = wrappedTokens[chain as keyof typeof wrappedTokens];
-    for (const addr in chainTokens) {
-      const wts = chainTokens[addr];
+    for (const addr in wrappedTokens[chain]) {
+      const wts = wrappedTokens[chain][addr];
       for (const otherChain in wts) {
         const originalToken = cache.get(chain as Chain, addr);
         if (originalToken) {
-          const wrappedAddr = wts[otherChain as keyof typeof wts];
+          const wrappedAddr = wts[otherChain];
 
           let decimals =
             chainToPlatform(otherChain as Chain) === 'Evm' ? 18 : 8;
@@ -470,7 +481,7 @@ export function buildTokenCache(
 
           const wrappedToken = new Token(
             otherChain as Chain,
-            wrappedAddr as string,
+            wrappedAddr,
             decimals,
             originalToken.symbol,
             originalToken.name,

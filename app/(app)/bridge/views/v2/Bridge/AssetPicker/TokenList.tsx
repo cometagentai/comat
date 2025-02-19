@@ -24,7 +24,7 @@ import { useTokens } from '@/app/(app)/bridge/context/TokensContext';
 const useStyles = makeStyles()(() => ({
   card: {
     maxWidth: '420px',
-    borderRadius: '0'
+    borderRadius: '0',
   },
   cardContent: {
     paddingTop: 0,
@@ -378,9 +378,9 @@ const TokenList = (props: Props) => {
 
   return (
     <Card className={classes.card} variant='elevation'>
-      <CardContent className="bg-white dark:bg-[#0a0a0a]">
+      <CardContent className='bg-white dark:bg-[#0a0a0a]'>
         <Box sx={{ display: 'flex', width: '100%' }}>
-          <p className="text-sm font-bold text-neutral-950 dark:text-neutral-50 pb-[8px]">
+          <p className='text-sm font-bold text-neutral-950 dark:text-neutral-50 pb-[8px]'>
             Select a token
           </p>
           {isFetchingToken ? (
