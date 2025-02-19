@@ -411,12 +411,17 @@ export class TokenCache extends TokenMapping<Token> {
       });
 
       const jsonString = JSON.stringify(asJson);
-      localStorage.setItem(this._localStorageKey, jsonString);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(this._localStorageKey, jsonString);
+      }
     }
   }
 
   static load(localStorageKey: string): TokenCache {
-    const jsonString = localStorage.getItem(localStorageKey);
+    let jsonString;
+    if (typeof window !== 'undefined') {
+      jsonString = localStorage.getItem(localStorageKey);
+    }
     if (jsonString) {
       try {
         const asJson = JSON.parse(jsonString);
