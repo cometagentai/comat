@@ -203,7 +203,7 @@ export class TokenMapping<T> {
     firstArg: Chain | string | TokenId | TokenTuple,
     address?: string
   ): T {
-    // @ts-ignore - TS is complaining about this and I cant figure out why
+    //@ts-expect-error - TS is complaining about this and I cant figure out why
     const t = this.get(firstArg, address);
     if (!t) {
       throw new Error('Failed to get token');
@@ -220,7 +220,7 @@ export class TokenMapping<T> {
         // Typescript is throwing a fit here because of the overload in get()
         // but the code is type compliant. If you comment this out you can see
         // the ts error is nonsense.
-        /* @ts-ignore */
+        /* @ts-expect-error - TS is complaining about this and I cant figure out why */
         .map((k: string | TokenId) => this.get(k))
         .filter((t) => t !== undefined) as Token[]
     );
@@ -450,7 +450,7 @@ export function buildTokenCache(
   tokenFilter?: string[]
 ): TokenCache {
   const cache = TokenCache.load(`wormhole-connect:token-cache:${network}`);
-
+  console.log(tokenFilter);
   for (const { tokenId, symbol, name, icon, decimals } of tokens) {
     const token = new Token(
       tokenId.chain,

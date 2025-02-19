@@ -56,12 +56,10 @@ export const TokensProvider: React.FC<TokensProviderProps> = ({ children }) => {
     config.tokens.lastUpdate
   );
 
-  const [tokenPrices, _setTokenPrices] = useState<TokenMapping<TokenPrice>>(
+  const [tokenPrices] = useState<TokenMapping<TokenPrice>>(new TokenMapping());
+  const [tokenPricesToFetch] = useState<TokenMapping<boolean>>(
     new TokenMapping()
   );
-  const [tokenPricesToFetch, _setTokenPricesToFetch] = useState<
-    TokenMapping<boolean>
-  >(new TokenMapping());
 
   const [isFetchingTokenPrices, setIsFetchingPrices] = useState(false);
   const [lastTokenPriceUpdate, setLastPriceUpdate] = useState(new Date());
