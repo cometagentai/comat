@@ -9,14 +9,14 @@ import { RootState } from '@/app/(app)/bridge/store';
 import { clearRedeem, setRoute } from '@/app/(app)/bridge/store/redeem';
 import { clearTransfer } from '@/app/(app)/bridge/store/transferInput';
 import { clearWallets } from '@/app/(app)/bridge/store/wallet';
-import { isEmptyObject, usePrevious } from '@/app/(app)/bridge/utils';
+import { usePrevious } from '@/app/(app)/bridge/utils';
 import Terms from '@/app/(app)/bridge/views/Terms';
 import TxSearch from '@/app/(app)/bridge/views/TxSearch';
 import TxHistory from '@/app/(app)/bridge/views/v2/TxHistory';
 import RedeemV2 from '@/app/(app)/bridge/views/v2/Redeem';
 
 import { useDispatch, useSelector } from 'react-redux';
-import config, { setConfig } from '@/app/(app)/bridge/config';
+import config from '@/app/(app)/bridge/config';
 
 interface Props {
   initialInputToken: Token | null;
