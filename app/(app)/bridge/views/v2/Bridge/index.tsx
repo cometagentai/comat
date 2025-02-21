@@ -128,7 +128,6 @@ const Bridge = ({
   const [willReviewTransaction, setWillReviewTransaction] = useState(false);
 
   const {
-    fromChain,
     toChain: destChain,
     route,
     preferredRouteName,
@@ -139,7 +138,6 @@ const Bridge = ({
 
   const sourceChain = 'Solana';
   const { sourceToken, destToken } = useGetTokens();
-  console.log(fromChain);
   const {
     allSupportedRoutes,
     sortedRoutes,

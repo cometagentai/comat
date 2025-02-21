@@ -1,12 +1,11 @@
-'use client';
 import {
   chainToPlatform,
   isNative,
   TokenId,
   toNative,
 } from '@wormhole-foundation/sdk';
-import config, { clearWormholeContextV2 } from '../config';
-import { Token, TokenMapping } from '../config/tokens';
+import config, { clearWormholeContextV2 } from '@/app/(app)/bridge/config';
+import { Token, TokenMapping } from '@/app/(app)/bridge/config/tokens';
 import React, {
   createContext,
   useContext,
@@ -14,7 +13,7 @@ import React, {
   ReactNode,
   useCallback,
 } from 'react';
-import { fetchTokenPrices } from '../utils/coingecko';
+import { fetchTokenPrices } from '@/app/(app)/bridge/utils/coingecko';
 import { useDebouncedCallback } from 'use-debounce';
 import { getAddress } from 'ethers';
 
@@ -48,6 +47,7 @@ interface TokensProviderProps {
 export interface TokenPrice {
   price: number | undefined; // USD price
   timestamp: Date;
+  isFetching?: boolean;
 }
 
 export const TokensProvider: React.FC<TokensProviderProps> = ({ children }) => {
@@ -57,6 +57,10 @@ export const TokensProvider: React.FC<TokensProviderProps> = ({ children }) => {
   );
 
   const [tokenPrices] = useState<TokenMapping<TokenPrice>>(new TokenMapping());
+  const [tokenPricesToFetch] = useState<TokenMapping<boolean>>(
+    new TokenMapping()
+  );
+
   const [isFetchingTokenPrices, setIsFetchingPrices] = useState(false);
   const [lastTokenPriceUpdate, setLastPriceUpdate] = useState(new Date());
 
@@ -103,21 +107,32 @@ export const TokensProvider: React.FC<TokensProviderProps> = ({ children }) => {
     []
   );
 
-  const tokenPricesToFetch: Set<TokenId> = new Set();
-
   const updateTokenPrices = useDebouncedCallback(async () => {
-    if (tokenPricesToFetch.size === 0) return;
+    if (tokenPricesToFetch.empty) return;
 
-    const tokens = Array.from(tokenPricesToFetch);
+    const tokens = tokenPricesToFetch.getAllTokenIds();
     console.info('Fetching token prices', tokens);
 
     try {
       setIsFetchingPrices(true);
+      const timestamp = new Date();
+
+      // Flag that this price is being fetched, so that we don't start another concurrent request for it in getTokenPrice
+      for (const token of tokens) {
+        tokenPrices.add(token, {
+          timestamp,
+          price: undefined,
+          isFetching: true,
+        });
+      }
+
+      // Clear list for future invocations of getTokenPrice
+      tokenPricesToFetch.clear();
+
       const prices = await fetchTokenPrices(tokens);
 
-      for (const token of tokenPricesToFetch.values()) {
+      for (const token of tokens) {
         const price = prices.get(token);
-        const timestamp = new Date();
         if (price) {
           tokenPrices.add(token, {
             timestamp,
@@ -133,7 +148,6 @@ export const TokensProvider: React.FC<TokensProviderProps> = ({ children }) => {
     } catch (e) {
       console.error(e);
     } finally {
-      tokenPricesToFetch.clear();
       setIsFetchingPrices(false);
       setLastPriceUpdate(new Date());
     }
@@ -147,7 +161,7 @@ export const TokensProvider: React.FC<TokensProviderProps> = ({ children }) => {
     if (cachedPrice) {
       return cachedPrice.price;
     } else {
-      tokenPricesToFetch.add(tokenId);
+      tokenPricesToFetch.add(tokenId, true);
       updateTokenPrices();
       return undefined;
     }
