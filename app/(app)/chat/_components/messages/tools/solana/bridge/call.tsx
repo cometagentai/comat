@@ -47,7 +47,6 @@ const BridgeCallBody: React.FC<Props> = ({ toolCallId, args }) => {
                 inputAmount: args.inputAmount || 0,
                 inputToken: inputTokenData?.symbol || '',
                 outputToken: outputTokenData?.symbol || '',
-
               },
             });
           }}
@@ -55,7 +54,6 @@ const BridgeCallBody: React.FC<Props> = ({ toolCallId, args }) => {
             addToolResult(toolCallId, {
               message: `Bridge Transaction failed: ${error}`,
             });
-
           }}
           onCancel={() => {
             addToolResult(toolCallId, {

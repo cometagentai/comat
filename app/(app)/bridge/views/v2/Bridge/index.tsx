@@ -49,6 +49,7 @@ import useGetTokenBalances from '../../../hooks/useGetTokenBalances';
 import { useGetTokens } from '../../../hooks/useGetTokens';
 import { Token } from '../../../config/tokens';
 import { useTokens } from '../../../context/TokensContext';
+import TxHistoryWidget from '../TxHistory/Widget';
 
 const useStyles = makeStyles()((theme) => ({
   assetPickerContainer: {
@@ -474,7 +475,7 @@ const Bridge = ({
   return (
     <div className={joinClass([classes.bridgeContent, classes.spacer])}>
       {header}
-      {/* {config.ui.showInProgressWidget && <TxHistoryWidget />} */}
+      {config.ui.showInProgressWidget && <TxHistoryWidget />}
 
       {sourceAssetPicker}
       {destAssetPicker}
