@@ -10,6 +10,7 @@ import { store } from '../(app)/bridge/store';
 import { ThemeProvider } from '@mui/material/styles';
 import React from 'react';
 import { generateTheme } from './theme';
+import { RouteProvider } from '../(app)/bridge/context/RouteContext';
 
 interface Props {
   children: React.ReactNode;
@@ -25,8 +26,10 @@ const Providers: React.FC<Props> = ({ children }) => {
         <Provider store={store}>
           <ThemeProvider theme={muiTheme}>
             <TokensProvider>
-              <Analytics />
-              {children}
+              <RouteProvider>
+                <Analytics />
+                {children}
+              </RouteProvider>
             </TokensProvider>
           </ThemeProvider>
         </Provider>
