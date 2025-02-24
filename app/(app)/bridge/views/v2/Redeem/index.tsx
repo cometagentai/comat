@@ -35,7 +35,6 @@ import { Alignment } from '@/app/(app)/bridge/components/Header';
 import Button from '@/app/(app)/bridge/components/v2/Button';
 import config from '@/app/(app)/bridge/config';
 import useTrackTransfer from '@/app/(app)/bridge/hooks/useTrackTransfer';
-import PoweredByIcon from '@/app/(app)/bridge/icons/PoweredBy';
 import { SDKv2Signer } from '@/app/(app)/bridge/routes/sdkv2/signer';
 import { setRoute } from '@/app/(app)/bridge/store/router';
 import { useUSDamountGetter } from '@/app/(app)/bridge/hooks/useUSDamountGetter';
