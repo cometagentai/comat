@@ -50,6 +50,7 @@ import { useGetTokens } from '../../../hooks/useGetTokens';
 import { Token } from '../../../config/tokens';
 import { useTokens } from '../../../context/TokensContext';
 import TxHistoryWidget from '../TxHistory/Widget';
+import FooterNavBar from '../../../components/FooterNavBar';
 
 const useStyles = makeStyles()((theme) => ({
   assetPickerContainer: {
@@ -510,6 +511,7 @@ const Bridge = ({
           Cancel
         </Button>
       )}
+      <FooterNavBar />
     </div>
   );
 };

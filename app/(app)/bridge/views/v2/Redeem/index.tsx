@@ -933,7 +933,6 @@ const Redeem = () => {
         show={!!claimError}
         className={classes.errorBox}
       />
-      <PoweredByIcon color={theme.palette.text.primary} />
       <WalletSidebar
         open={isWalletSidebarOpen}
         type={TransferWallet.RECEIVING}
