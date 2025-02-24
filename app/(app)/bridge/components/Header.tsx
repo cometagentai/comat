@@ -5,14 +5,14 @@ export type Alignment = 'center' | 'left' | 'right';
 
 type StyleProps = { align: Alignment; fontSize: number };
 const useStyles = makeStyles<StyleProps>()(
-  (theme: any, { align, fontSize }) => ({
+  (theme: any, { align }) => ({
     title: {
-      fontSize: `${fontSize}px`,
+      fontSize: `24px`,
       width: '100%',
       textAlign: align,
       fontFamily: theme.palette.font.header,
       [theme.breakpoints.down('sm')]: {
-        fontSize: '24px',
+        fontSize: '18px',
       },
     },
   }),

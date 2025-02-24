@@ -75,7 +75,7 @@ const BridgeTool: React.FC<Props> = ({
   }, [hasExternalSearch, dispatch]);
 
   return (
-    <div className='flex flex-col gap-4 w-96 max-w-full'>
+    <div className='flex flex-col gap-4 w-50 max-w-full'>
       {route === 'bridge' && (
         <Bridge
           inputAmount={initialInputAmount || '0'}
