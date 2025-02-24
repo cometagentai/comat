@@ -179,6 +179,7 @@ function TxSearch() {
             value={state.chain}
             displayEmpty
             onChange={(e) => setChain(e)}
+            className='select-parent'
           >
             <MenuItem disabled value='' key={0}>
               Select network

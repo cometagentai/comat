@@ -84,3 +84,9 @@ body {
 .dark .def-search .MuiOutlinedInput-root input::placeholder, .dark .def-search .MuiOutlinedInput-root input {
   color: #e5e7eb;
 }
+.select-parent{min-height: 60.5px !important;}
+.select-parent fieldset {border-color: #00000024;border-radius: 8px;}
+.dark .select-parent fieldset {border-color: #ffffff4f;}
+.MuiPaper-root.MuiPaper-elevation {background: #091d3a !important;}
+.select-parent .MuiSelect-select {color: #1e1e1e;}
+.dark .select-parent .MuiSelect-select {color: #fff;}

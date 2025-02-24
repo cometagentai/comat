@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { makeStyles } from 'tss-react/mui';
 import InputTransparent from './InputTransparent';
 import SearchIcon from '../icons/Search';
-import { changeOpacity } from '../utils/style';
 
 const useStyles = makeStyles()((theme: any) => ({
   searchContent: {
@@ -10,6 +9,7 @@ const useStyles = makeStyles()((theme: any) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    
   },
   container: {
     width: '100%',
@@ -22,7 +22,7 @@ const useStyles = makeStyles()((theme: any) => ({
   },
   // TODO: make border into prop on InputContainer
   searchBorder: {
-    border: `1px solid ${changeOpacity(theme.palette.divider, 50)}`,
+    border: `1px solid #b2b2b27f`,
     borderRadius: '8px',
   },
   clickable: {

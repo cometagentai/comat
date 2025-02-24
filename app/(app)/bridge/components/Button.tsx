@@ -18,8 +18,8 @@ const useStyles = makeStyles()((theme: any) => ({
   disabled: {
     cursor: 'not-allowed',
     clickEvents: 'none',
-    backgroundColor: theme.palette.button.disabled + ' !important',
-    color: theme.palette.button.disabledText + ' !important',
+    backgroundColor: '#8484840f' + ' !important',
+    color: '#9f9f9f66' + ' !important',
   },
   elevated: {
     boxShadow: theme.palette.card.elevation,
