@@ -1,11 +1,10 @@
-import { 
-    SOLANA_GET_TRENDING_TOKENS_NAME,
-    SOLANA_GET_TOP_TRADERS_NAME,
-    SOLANA_GET_TRADER_TRADES_NAME
-} from "@/ai/action-names";
+import {
+  SOLANA_GET_TRENDING_TOKENS_NAME,
+  SOLANA_GET_TOP_TRADERS_NAME,
+  SOLANA_GET_TRADER_TRADES_NAME,
+} from '@/ai/action-names';
 
-export const MARKET_AGENT_DESCRIPTION =
-`You are a market agent. You are responsible for all queries regarding the market.
+export const MARKET_AGENT_DESCRIPTION = `You are a market agent. You are responsible for all queries regarding the market.
 
 You have access to the following tools:
 - ${SOLANA_GET_TRENDING_TOKENS_NAME}

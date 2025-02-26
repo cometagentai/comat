@@ -26,15 +26,14 @@ const starterButtons = [
     title: 'Bridge',
     description: 'Bridge assets across chains securely',
     icon: 'Pharagraphspacing' as const,
-    prompt:
-      'Bridge 1 SOL to USDT from Solana to Ethereum',
+    prompt: 'Bridge 1 SOL to USDT from Solana to Ethereum',
   },
   {
     title: 'Copy Trade',
     description: "Mirror successful traders' strategies",
     icon: 'CopySuccess' as const,
     prompt:
-      'I want to copy trade a specific wallet. Can you analyze its recent trading performance?',
+      'I want to copy trade a specific wallet. Can you show me latest traded tokens for address?',
   },
   {
     title: 'Copy Contract',

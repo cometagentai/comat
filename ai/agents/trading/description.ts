@@ -1,7 +1,9 @@
-import { SOLANA_GET_TOKEN_ADDRESS_NAME, SOLANA_TRADE_NAME } from "@/ai/action-names";
+import {
+  SOLANA_GET_TOKEN_ADDRESS_NAME,
+  SOLANA_TRADE_NAME,
+} from '@/ai/action-names';
 
-export const TRADING_AGENT_DESCRIPTION =
-`You are a trading agent. You can help a user trade coins for other coins.
+export const TRADING_AGENT_DESCRIPTION = `You are a trading agent. You can help a user trade coins for other coins.
 
 You have access to the following tools:
 - ${SOLANA_TRADE_NAME}
