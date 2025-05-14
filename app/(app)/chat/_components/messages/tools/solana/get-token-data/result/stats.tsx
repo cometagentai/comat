@@ -21,7 +21,7 @@ const Stats: React.FC<Props> = ({ token }) => {
                     <h3 className="text-sm font-semibold">
                         Market Cap
                     </h3>
-                    <p>${token.mc.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                    <p>${token?.mc?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
                 </div>
                 <div className="flex flex-col">
                     <h3 className="text-sm font-semibold">
